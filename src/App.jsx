@@ -101,7 +101,7 @@ function EducationItem({ item }) {
           <div className="entry-subtitle">{item.program}</div>
           {item.advisorName ? (
             <div className="advisor-line">
-              Undergraduate advised by{' '}
+              Advised by{' '}
               <a href={item.advisorUrl} target="_blank" rel="noreferrer">
                 {item.advisorName}
               </a>
