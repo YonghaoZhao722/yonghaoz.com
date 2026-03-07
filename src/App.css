@@ -156,7 +156,10 @@ h2 {
 }
 
 #about h2,
-#research h2 {
+#research h2,
+#education h2,
+#experience h2,
+#contact h2 {
   font-family: var(--font-retro-serif);
   font-size: 21px;
   font-weight: 600;
