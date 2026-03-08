@@ -256,8 +256,10 @@ p {
 }
 
 .advisor-line {
+  font-family: var(--font-curriculum);
   font-size: 14px;
   color: var(--text-secondary);
+  letter-spacing: -0.01em;
 }
 
 .timeline-logo {
