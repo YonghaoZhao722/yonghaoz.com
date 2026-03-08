@@ -16,6 +16,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Styrene B';
+  src: url('https://assets.anthropic.com/m/615ef9f8465bfb6f/original/StyreneBLC-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Styrene B';
+  src: url('https://assets.anthropic.com/m/78f19c4a1fe4b2b6/original/StyreneBLC-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg-color: #f7f7f4;
   --text-primary: #111111;
@@ -27,6 +43,7 @@
   --font-retro-serif: 'EB Garamond', 'Apple Garamond', Garamond, 'Times New Roman', serif;
   --font-claude-title: 'Anthropic Serif', 'Iowan Old Style', Garamond, 'Times New Roman', serif;
   --font-claude-ui: 'Anthropic Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-curriculum: 'Styrene B', 'Anthropic Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   --content-width: 700px;
 }
@@ -110,11 +127,12 @@ h1 {
 }
 
 .role {
-  font-family: var(--font-claude-ui);
+  font-family: var(--font-curriculum);
   font-size: 14px;
   color: #161616;
   font-weight: 400;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
 }
 
 nav ul {
@@ -125,9 +143,12 @@ nav ul {
 }
 
 nav a {
+  font-family: var(--font-curriculum);
   color: var(--text-secondary);
   text-decoration: none;
   font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   transition: color 0.2s ease;
 }
 
@@ -221,8 +242,10 @@ p {
 }
 
 .entry-subtitle {
+  font-family: var(--font-curriculum);
   font-size: 14px;
   color: var(--text-secondary);
+  letter-spacing: -0.01em;
 }
 
 .entry-bottom {
