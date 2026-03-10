@@ -49,7 +49,7 @@ const researchItems = [
 const contactItems = [
   {
     label: 'Email',
-    href: 'mailto:neverlandzyh@gmail.com',
+    href: 'mailto:yonghao.zhao@cuanschutz.edu',
     icon: 'email',
   },
   {
