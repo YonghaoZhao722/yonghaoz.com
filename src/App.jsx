@@ -102,11 +102,6 @@ const socialItems = [
     icon: 'github',
   },
   {
-    label: 'X',
-    href: 'https://x.com/Yonghao040521',
-    icon: 'x',
-  },
-  {
     label: 'ORCID',
     href: 'https://orcid.org/0009-0007-3180-596X',
     icon: 'orcid',
