@@ -211,8 +211,8 @@ p {
 
 .timeline-item {
   display: grid;
-  grid-template-columns: 164px 1fr;
-  gap: 24px;
+  grid-template-columns: 140px 1fr;
+  gap: 20px;
 }
 
 .timeline-year {
@@ -229,7 +229,7 @@ p {
   flex-direction: column;
   gap: 4px;
   min-height: 76px;
-  padding-right: 114px;
+  padding-right: 100px;
 }
 
 .entry-title {
