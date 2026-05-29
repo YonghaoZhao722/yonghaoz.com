@@ -392,7 +392,25 @@ function App() {
               >
                 Prof. Zhipeng Luo
               </a>
-              .
+              . Previously, I was working with{' '}
+              <a
+                href="https://www.weihan-li.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-link"
+              >
+                Prof. Weihan Li{' '}
+              </a>
+              in microscopy images segmentation. I was also working with{' '}
+              <a
+                href="https://hy-li.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-link"
+              >
+                Prof. Haoyang Li{' '}
+              </a>
+              in spatial-omics multi-slices alignment.
             </p>
           </section>
 
