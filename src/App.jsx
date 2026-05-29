@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-const homeNavItems = [
-  { href: '#about', label: 'About', active: true },
-  { href: '#news', label: 'News' },
-  { href: '#/cv', label: 'CV' },
+const topNavItems = [
+  { href: './', label: 'Home', page: 'home' },
+  { href: '#/experience', label: 'Experience', page: 'experience' },
 ]
 
-const cvNavItems = [
-  { href: './', label: 'About' },
-  { href: './#news', label: 'News' },
+const homeSideNavItems = [
+  { href: '#about', label: 'About', active: true },
+  { href: '#news', label: 'News' },
+]
+
+const experienceSideNavItems = [
   { href: '#education', label: 'Education', active: true },
   { href: '#experience', label: 'Experience' },
 ]
@@ -116,12 +118,31 @@ const socialItems = [
 ]
 
 function getPageFromHash() {
-  return window.location.hash === '#/cv' ? 'cv' : 'home'
+  if (window.location.hash === '#/experience') return 'experience'
+  if (window.location.hash === '#education') return 'experience'
+  if (window.location.hash === '#experience') return 'experience'
+  return 'home'
 }
 
-function Navigation({ items }) {
+function TopNavigation({ currentPage }) {
   return (
-    <nav>
+    <nav className="top-nav" aria-label="Primary navigation">
+      <ul>
+        {topNavItems.map((item) => (
+          <li key={item.label}>
+            <a href={item.href} className={currentPage === item.page ? 'active' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+function SideNavigation({ items }) {
+  return (
+    <nav className="side-nav" aria-label="Section navigation">
       <ul>
         {items.map((item) => (
           <li key={item.label}>
@@ -368,7 +389,7 @@ function ContactItem({ item }) {
 
 function App() {
   const [page, setPage] = useState(getPageFromHash)
-  const isCvPage = page === 'cv'
+  const isExperiencePage = page === 'experience'
 
   useEffect(() => {
     const handleHashChange = () => setPage(getPageFromHash())
@@ -381,96 +402,100 @@ function App() {
     <>
       <div className="noise-overlay" />
 
-      <div className="layout-grid">
-        <header>
-          <div className="profile-block">
-            <img src="/avatar.png" alt="Yonghao Zhao avatar" className="profile-avatar" />
-            <h1>Yonghao Zhao</h1>
-            <div className="role">
-              University of Colorado
-              <br />
-              Anschutz Medical Campus
+      <div className="site-shell">
+        <TopNavigation currentPage={page} />
+
+        <div className="layout-grid">
+          <header>
+            <div className="profile-block">
+              <img src="/avatar.png" alt="Yonghao Zhao avatar" className="profile-avatar" />
+              <h1>Yonghao Zhao</h1>
+              <div className="role">
+                University of Colorado
+                <br />
+                Anschutz Medical Campus
+              </div>
+              <ContactLinks />
             </div>
-            <ContactLinks />
-          </div>
 
-          <Navigation items={isCvPage ? cvNavItems : homeNavItems} />
-        </header>
+            <SideNavigation items={isExperiencePage ? experienceSideNavItems : homeSideNavItems} />
+          </header>
 
-        <main>
-          {isCvPage ? (
-            <>
-              <section id="education">
-                <h2>Education</h2>
-                <div className="timeline-list">
-                  {educationItems.map((item) => (
-                    <EducationItem key={item.institution} item={item} />
-                  ))}
-                </div>
-              </section>
+          <main>
+            {isExperiencePage ? (
+              <>
+                <section id="education">
+                  <h2>Education</h2>
+                  <div className="timeline-list">
+                    {educationItems.map((item) => (
+                      <EducationItem key={item.institution} item={item} />
+                    ))}
+                  </div>
+                </section>
 
-              <section id="experience">
-                <h2>Experience</h2>
-                <div className="timeline-list">
-                  {experienceItems.map((item) => (
-                    <ExperienceItem key={item.institution} item={item} />
-                  ))}
-                </div>
-              </section>
-            </>
-          ) : (
-            <>
-              <section id="about">
-                <h2>About</h2>
-                <p>
-                  I am a Ph.D. student in Computational Bioscience at
-                  CU Anschutz. I received my B.Eng.
-                  from Southwest Jiaotong University and B.Sc. from University of
-                  Leeds where I worked with{' '}
-                  <a
-                    href="https://faculty.swjtu.edu.cn/luozhipeng/en/index.htm"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-link"
-                  >
-                    Prof. Zhipeng Luo
-                  </a>
-                  . Previously, I worked with{' '}
-                  <a
-                    href="https://www.weihan-li.com/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-link"
-                  >
-                    Prof. Weihan Li{' '}
-                  </a>
-                  on microscopy image segmentation and was also involved in
-                  spatial-omics multi-slice alignment with{' '}
-                  <a
-                    href="https://hy-li.com/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-link"
-                  >
-                    Prof. Haoyang Li{' '}
-                  </a>
-                  .
-                </p>
-              </section>
+                <section id="experience">
+                  <h2>Experience</h2>
+                  <div className="timeline-list">
+                    {experienceItems.map((item) => (
+                      <ExperienceItem key={item.institution} item={item} />
+                    ))}
+                  </div>
+                </section>
+              </>
+            ) : (
+              <>
+                <section id="about">
+                  <h2>About</h2>
+                  <p>
+                    I am a Ph.D. student in Computational Bioscience at
+                    CU Anschutz. I received my B.Eng.
+                    from Southwest Jiaotong University and B.Sc. from University of
+                    Leeds where I worked with{' '}
+                    <a
+                      href="https://faculty.swjtu.edu.cn/luozhipeng/en/index.htm"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-link"
+                    >
+                      Prof. Zhipeng Luo
+                    </a>
+                    . Previously, I worked with{' '}
+                    <a
+                      href="https://www.weihan-li.com/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-link"
+                    >
+                      Prof. Weihan Li{' '}
+                    </a>
+                    on microscopy image segmentation and was also involved in
+                    spatial-omics multi-slice alignment with{' '}
+                    <a
+                      href="https://hy-li.com/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-link"
+                    >
+                      Prof. Haoyang Li{' '}
+                    </a>
+                    .
+                  </p>
+                </section>
 
-              <section id="news">
-                <h2>News</h2>
-                <div className="news-list">
-                  {newsItems.map((item) => (
-                    <NewsItem key={`${item.month}-${item.year}-${item.type}`} item={item} />
-                  ))}
-                </div>
-              </section>
-            </>
-          )}
+                <section id="news">
+                  <h2>News</h2>
+                  <div className="news-list">
+                    {newsItems.map((item) => (
+                      <NewsItem key={`${item.month}-${item.year}-${item.type}`} item={item} />
+                    ))}
+                  </div>
+                </section>
+              </>
+            )}
 
-          <footer className="site-footer">© 2026 Yonghao Zhao.</footer>
-        </main>
+            <footer className="site-footer">© 2026 Yonghao Zhao.</footer>
+          </main>
+        </div>
       </div>
     </>
   )
