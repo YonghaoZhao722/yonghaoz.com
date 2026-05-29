@@ -93,7 +93,7 @@ body {
 
 .top-nav {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-bottom: 42px;
 }
 
@@ -508,7 +508,7 @@ p {
   }
 
   .top-nav {
-    justify-content: flex-start;
+    justify-content: center;
     margin-bottom: 36px;
   }
 
