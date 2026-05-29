@@ -126,6 +126,14 @@ body {
   gap: 56px;
 }
 
+.layout-grid--full {
+  display: block;
+}
+
+.layout-grid--full main {
+  margin: 0 auto;
+}
+
 header {
   position: sticky;
   top: 80px;

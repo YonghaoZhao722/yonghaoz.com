@@ -11,11 +11,6 @@ const homeSideNavItems = [
   { href: '#news', label: 'News' },
 ]
 
-const experienceSideNavItems = [
-  { href: '#education', label: 'Education', active: true },
-  { href: '#experience', label: 'Experience' },
-]
-
 const educationItems = [
   {
     period: '2026 – Present',
@@ -405,21 +400,23 @@ function App() {
       <div className="site-shell">
         <TopNavigation currentPage={page} />
 
-        <div className="layout-grid">
-          <header>
-            <div className="profile-block">
-              <img src="/avatar.png" alt="Yonghao Zhao avatar" className="profile-avatar" />
-              <h1>Yonghao Zhao</h1>
-              <div className="role">
-                University of Colorado
-                <br />
-                Anschutz Medical Campus
+        <div className={isExperiencePage ? 'layout-grid layout-grid--full' : 'layout-grid'}>
+          {!isExperiencePage ? (
+            <header>
+              <div className="profile-block">
+                <img src="/avatar.png" alt="Yonghao Zhao avatar" className="profile-avatar" />
+                <h1>Yonghao Zhao</h1>
+                <div className="role">
+                  University of Colorado
+                  <br />
+                  Anschutz Medical Campus
+                </div>
+                <ContactLinks />
               </div>
-              <ContactLinks />
-            </div>
 
-            <SideNavigation items={isExperiencePage ? experienceSideNavItems : homeSideNavItems} />
-          </header>
+              <SideNavigation items={homeSideNavItems} />
+            </header>
+          ) : null}
 
           <main>
             {isExperiencePage ? (
