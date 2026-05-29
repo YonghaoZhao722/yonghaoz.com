@@ -392,7 +392,7 @@ function App() {
               >
                 Prof. Zhipeng Luo
               </a>
-              . Previously, I was working with{' '}
+              . Previously, I worked with{' '}
               <a
                 href="https://www.weihan-li.com/"
                 target="_blank"
@@ -401,7 +401,8 @@ function App() {
               >
                 Prof. Weihan Li{' '}
               </a>
-              in microscopy images segmentation. I was also working with{' '}
+              on microscopy image segmentation and was also involved in
+              spatial-omics multi-slice alignment with{' '}
               <a
                 href="https://hy-li.com/"
                 target="_blank"
@@ -410,7 +411,7 @@ function App() {
               >
                 Prof. Haoyang Li{' '}
               </a>
-              in spatial-omics multi-slices alignment.
+              .
             </p>
           </section>
 
