@@ -6,11 +6,6 @@ const topNavItems = [
   { href: '#/experience', label: 'Experience', page: 'experience' },
 ]
 
-const homeSideNavItems = [
-  { href: '#about', label: 'About', active: true },
-  { href: '#news', label: 'News' },
-]
-
 const educationItems = [
   {
     period: '2026 – Present',
@@ -32,7 +27,7 @@ const educationItems = [
     program: 'B.Eng. in Computer Science',
     logo: '/SWJTU_logo.png',
     logoAlt: 'Southwest Jiaotong University logo',
-    advisorName: 'Prof. Zhipeng Luo',
+    advisorName: 'Zhipeng Luo',
     advisorUrl: 'https://faculty.swjtu.edu.cn/luozhipeng/en/index.htm',
   },
 ]
@@ -43,7 +38,7 @@ const experienceItems = [
     institution: 'Westlake University',
     title: 'Research Assistant',
     detailPrefix: 'Advised by',
-    detailName: 'Prof. Haoyang Li',
+    detailName: 'Haoyang Li',
     detailUrl: 'https://hy-li.com/',
     logo: '/westlake.png',
     logoAlt: 'Westlake University logo',
@@ -79,6 +74,102 @@ const newsItems = [
     month: 'March',
     year: '2026',
     type: 'cu',
+  },
+]
+
+const publicationItems = [
+  {
+    title:
+      'DeSCENT: Deconvolutional Single-Cell RNA-seq Enhances Transcriptome-based Cancer Survival Analysis',
+    titleUrl: 'https://www.biorxiv.org/content/10.64898/2026.03.15.711877v1.abstract',
+    authors: [
+      'Yonghao Zhao',
+      'Zeyu You',
+      'Yu Shen',
+      'Jielei Chu',
+      'Xun Gong',
+      'Tianrui Li',
+      'Ziqiang Wang',
+      'Chuan Xu',
+      'Zhipeng Luo',
+      'Yazhou He',
+    ],
+    venue: 'Under Review',
+    year: '2026',
+    image: '/descent.png',
+    imageAlt: 'DeSCENT framework overview',
+    links: [
+      {
+        type: 'biorxiv',
+        label: 'bioRxiv',
+        href: 'https://www.biorxiv.org/content/10.64898/2026.03.15.711877v1.abstract',
+        logo: '/biorxiv-logo.svg',
+      },
+      {
+        type: 'code',
+        label: 'Code',
+        href: 'https://github.com/YonghaoZhao722/DeSCENT',
+      },
+    ],
+  },
+  {
+    title: 'YeastSAM: A Deep Learning Model for Accurate Segmentation of Budding Yeast Cells',
+    titleUrl: 'https://www.molbiolcell.org/doi/10.1091/mbc.E25-09-0454',
+    authors: ['Yonghao Zhao', 'Zhouyuan Zhu', 'Sen Yang', 'Weihan Li'],
+    venue: 'Molecular Biology of the Cell (MBoC)',
+    year: '2026',
+    image: '/yeast-mascot-banner.svg',
+    imageAlt: 'YeastSAM budding-yeast segmentation',
+    links: [
+      {
+        type: 'paper',
+        label: 'Paper',
+        href: 'https://www.molbiolcell.org/doi/10.1091/mbc.E25-09-0454',
+      },
+      {
+        type: 'code',
+        label: 'Code',
+        href: 'https://github.com/YonghaoZhao722/YeastSAM',
+      },
+      {
+        type: 'doc',
+        label: 'Docs',
+        href: 'https://yeastsamdoc.readthedocs.io/en/latest/',
+      },
+    ],
+  },
+  {
+    title:
+      'Tackling small sample survival analysis via transfer learning: A study of colorectal cancer prognosis',
+    titleUrl: 'https://www.sciencedirect.com/science/article/pii/S0933365726000783',
+    authors: [
+      'Yonghao Zhao',
+      'Changtao Li',
+      'Chi Shu',
+      'Qingbin Wu',
+      'Hong Li',
+      'Chuan Xu',
+      'Tianrui Li',
+      'Ziqiang Wang',
+      'Zhipeng Luo',
+      'Yazhou He',
+    ],
+    venue: 'Artificial Intelligence in Medicine',
+    year: '2026',
+    image: '/tsf.png',
+    imageAlt: 'Transfer-learning survival forest overview',
+    links: [
+      {
+        type: 'paper',
+        label: 'Paper',
+        href: 'https://www.sciencedirect.com/science/article/pii/S0933365726000783',
+      },
+      {
+        type: 'code',
+        label: 'Code',
+        href: 'https://github.com/YonghaoZhao722/TSF',
+      },
+    ],
   },
 ]
 
@@ -126,22 +217,6 @@ function TopNavigation({ currentPage }) {
         {topNavItems.map((item) => (
           <li key={item.label}>
             <a href={item.href} className={currentPage === item.page ? 'active' : undefined}>
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  )
-}
-
-function SideNavigation({ items }) {
-  return (
-    <nav className="side-nav" aria-label="Section navigation">
-      <ul>
-        {items.map((item) => (
-          <li key={item.label}>
-            <a href={item.href} className={item.active ? 'active' : undefined}>
               {item.label}
             </a>
           </li>
@@ -356,6 +431,99 @@ function OrcidIcon() {
   )
 }
 
+function PaperIcon() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+      <path d="M4.5 7.5A.5.5 0 0 1 5 7h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0 2A.5.5 0 0 1 5 9h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0 2A.5.5 0 0 1 5 11h4a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z" />
+    </svg>
+  )
+}
+
+function DocIcon() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+    </svg>
+  )
+}
+
+function PubButtonIcon({ type }) {
+  if (type === 'code') return <GitHubIcon />
+  if (type === 'doc') return <DocIcon />
+  return <PaperIcon />
+}
+
+function AuthorList({ authors }) {
+  return (
+    <>
+      {authors.map((name, index) => (
+        <span key={name}>
+          {name === 'Yonghao Zhao' ? <strong>{name}</strong> : name}
+          {index < authors.length - 1 ? ', ' : ''}
+        </span>
+      ))}
+    </>
+  )
+}
+
+function PublicationItem({ item }) {
+  return (
+    <article className={`pub-item${item.image ? ' pub-item--with-figure' : ''}`}>
+      {item.image ? (
+        <a
+          href={item.titleUrl ?? item.links[0]?.href}
+          target="_blank"
+          rel="noreferrer"
+          className="pub-figure"
+        >
+          <img src={item.image} alt={item.imageAlt ?? item.title} />
+        </a>
+      ) : null}
+      <div className="pub-content">
+        <h3 className="pub-title">
+          {item.titleUrl ? (
+            <a href={item.titleUrl} target="_blank" rel="noreferrer">
+              {item.title}
+            </a>
+          ) : (
+            item.title
+          )}
+        </h3>
+        <div className="pub-authors">
+          <AuthorList authors={item.authors} />
+        </div>
+        <div className="pub-venue">
+          {item.venue}
+          {item.year ? `, ${item.year}` : ''}
+        </div>
+        {item.links.length > 0 ? (
+          <div className="pub-links">
+            {item.links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className={`pub-button pub-button--${link.type}`}
+              >
+                {link.logo ? (
+                  <img src={link.logo} alt="" aria-hidden="true" className="pub-button__logo" />
+                ) : (
+                  <span className="pub-button__icon" aria-hidden="true">
+                    <PubButtonIcon type={link.type} />
+                  </span>
+                )}
+                {link.label}
+              </a>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </article>
+  )
+}
+
 function ContactIcon({ icon }) {
   if (icon === 'x') return <XIcon />
   if (icon === 'email') return <EmailIcon />
@@ -400,71 +568,100 @@ function App() {
       <div className="site-shell">
         <TopNavigation currentPage={page} />
 
-        <div className={isExperiencePage ? 'layout-grid layout-grid--full' : 'layout-grid'}>
-          {!isExperiencePage ? (
-            <header>
-              <div className="profile-block">
+        {isExperiencePage ? (
+          <div className="layout-grid layout-grid--full">
+            <main>
+              <section id="education">
+                <h2>Education</h2>
+                <div className="timeline-list">
+                  {educationItems.map((item) => (
+                    <EducationItem key={item.institution} item={item} />
+                  ))}
+                </div>
+              </section>
+
+              <section id="experience">
+                <h2>Experience</h2>
+                <div className="timeline-list">
+                  {experienceItems.map((item) => (
+                    <ExperienceItem key={item.institution} item={item} />
+                  ))}
+                </div>
+              </section>
+
+              <footer className="site-footer">© 2026 Yonghao Zhao.</footer>
+            </main>
+          </div>
+        ) : (
+          <div className="home">
+            <div className="home-top">
+              <aside className="profile-block">
                 <img src="/avatar.png" alt="Yonghao Zhao avatar" className="profile-avatar" />
                 <h1>Yonghao Zhao</h1>
-                <div className="role">
-                  University of Colorado
-                  <br />
-                  Anschutz Medical Campus
-                </div>
                 <ContactLinks />
-              </div>
+              </aside>
 
-              <SideNavigation items={homeSideNavItems} />
-            </header>
-          ) : null}
-
-          <main>
-            {isExperiencePage ? (
-              <>
-                <section id="education">
-                  <h2>Education</h2>
-                  <div className="timeline-list">
-                    {educationItems.map((item) => (
-                      <EducationItem key={item.institution} item={item} />
-                    ))}
-                  </div>
-                </section>
-
-                <section id="experience">
-                  <h2>Experience</h2>
-                  <div className="timeline-list">
-                    {experienceItems.map((item) => (
-                      <ExperienceItem key={item.institution} item={item} />
-                    ))}
-                  </div>
-                </section>
-              </>
-            ) : (
-              <>
+              <div className="home-intro">
                 <section id="about">
                   <h2>About</h2>
                   <p>
-                    I am a Ph.D. student in Computational Bioscience at
-                    CU Anschutz. I received my B.Eng.
-                    from Southwest Jiaotong University and B.Sc. from University of
-                    Leeds where I worked with{' '}
+                    I am a Ph.D. student in Computational Bioscience at{' '}
+                    <a
+                      href="https://www.cuanschutz.edu/about"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-link"
+                    >
+                      CU Anschutz
+                    </a>
+                    .
+                  </p>
+                  <p>
+                    I received my B.Eng. from{' '}
+                    <a
+                      href="https://en.swjtu.edu.cn/index.jsp"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-link"
+                    >
+                      Southwest Jiaotong University
+                    </a>{' '}
+                    and B.Sc. from the{' '}
+                    <a
+                      href="https://www.leeds.ac.uk/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-link"
+                    >
+                      University of Leeds
+                    </a>
+                    , where I worked with{' '}
                     <a
                       href="https://faculty.swjtu.edu.cn/luozhipeng/en/index.htm"
                       target="_blank"
                       rel="noreferrer"
                       className="inline-link"
                     >
-                      Prof. Zhipeng Luo
+                      Zhipeng Luo
                     </a>
-                    . Previously, I worked with{' '}
+                    . Previously, I was a research assistant at{' '}
+                    <a
+                      href="https://www.brown.edu/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-link"
+                    >
+                      Brown University
+                    </a>{' '}
+                    where I worked with{' '}
                     <a
                       href="https://www.weihan-li.com/"
                       target="_blank"
                       rel="noreferrer"
                       className="inline-link"
                     >
-                      Prof. Weihan Li{' '}
-                    </a>
+                      Weihan Li
+                    </a>{' '}
                     on microscopy image segmentation and was also involved in
                     spatial-omics multi-slice alignment with{' '}
                     <a
@@ -473,26 +670,47 @@ function App() {
                       rel="noreferrer"
                       className="inline-link"
                     >
-                      Prof. Haoyang Li{' '}
+                      Haoyang Li
                     </a>
                     .
                   </p>
+                  <p className="about-subhead">Research Interest:</p>
+                  <ul className="about-interests">
+                    <li>
+                      Overcoming current and future limitations in biotechnology
+                      through computational and AI-driven approaches.
+                    </li>
+                    <li>
+                      Making biology computable by building systems that can
+                      represent, predict, and reason over complex biological
+                      scenarios.
+                    </li>
+                  </ul>
                 </section>
+              </div>
+            </div>
 
-                <section id="news">
-                  <h2>News</h2>
-                  <div className="news-list">
-                    {newsItems.map((item) => (
-                      <NewsItem key={`${item.month}-${item.year}-${item.type}`} item={item} />
-                    ))}
-                  </div>
-                </section>
-              </>
-            )}
+            <section id="news" className="home-section">
+              <h2>News</h2>
+              <div className="news-list">
+                {newsItems.map((item) => (
+                  <NewsItem key={`${item.month}-${item.year}-${item.type}`} item={item} />
+                ))}
+              </div>
+            </section>
+
+            <section id="research" className="home-section research-section">
+              <h2>Research</h2>
+              <div className="pub-list">
+                {publicationItems.map((item) => (
+                  <PublicationItem key={item.title} item={item} />
+                ))}
+              </div>
+            </section>
 
             <footer className="site-footer">© 2026 Yonghao Zhao.</footer>
-          </main>
-        </div>
+          </div>
+        )}
       </div>
     </>
   )
