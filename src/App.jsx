@@ -662,7 +662,7 @@ function App() {
                     >
                       Weihan Li
                     </a>{' '}
-                    on microscopy image segmentation and was also involved in
+                    on microscopy image segmentation. I was also involved in
                     spatial-omics multi-slice alignment with{' '}
                     <a
                       href="https://hy-li.com/"
