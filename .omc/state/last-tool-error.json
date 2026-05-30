@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"gh api repos/YonghaoZhao722/yonghaoz.com/pages 2>&1\",\"description\":\"Check GitHub Pages settings\"}",
-  "error": "Exit code 1\nGet \"https://api.github.com/repos/YonghaoZhao722/yonghaoz.com/pages\": EOF",
-  "timestamp": "2026-05-16T06:00:13.030Z",
-  "retry_count": 1
-}
