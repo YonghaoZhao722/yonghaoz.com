@@ -577,20 +577,22 @@ function App() {
         {isExperiencePage ? (
           <div className="layout-grid layout-grid--full">
             <main>
+              <section id="experience">
+                <h2>Research Experience</h2>
+                <div className="timeline-list">
+                  {experienceItems.map((item) => (
+                    <ExperienceItem key={item.institution} item={item} />
+                  ))}
+                </div>
+              </section>
+
+              <hr className="section-divider" />
+
               <section id="education">
                 <h2>Education</h2>
                 <div className="timeline-list">
                   {educationItems.map((item) => (
                     <EducationItem key={item.institution} item={item} />
-                  ))}
-                </div>
-              </section>
-
-              <section id="experience">
-                <h2>Experience</h2>
-                <div className="timeline-list">
-                  {experienceItems.map((item) => (
-                    <ExperienceItem key={item.institution} item={item} />
                   ))}
                 </div>
               </section>
@@ -685,7 +687,7 @@ function App() {
                       How can we overcome current and future limitations in biotechnology
                       through computational approaches? How to make biological processes
                        computable by building systems that can represent, predict,
-                        and reason over complex biological scenarios.
+                        and reason over complex biological scenarios?
                   </ul>
                 </section>
               </div>
