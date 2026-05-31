@@ -118,6 +118,7 @@ const publicationItems = [
     authors: ['Yonghao Zhao', 'Zhouyuan Zhu', 'Sen Yang', 'Weihan Li'],
     venue: 'Molecular Biology of the Cell (MBoC)',
     year: '2026',
+    featured: 'ASCB News featured',
     image: '/yeast-mascot-banner.svg',
     imageAlt: 'YeastSAM budding-yeast segmentation',
     links: [
@@ -496,6 +497,11 @@ function PublicationItem({ item }) {
         <div className="pub-venue">
           {item.venue}
           {item.year ? `, ${item.year}` : ''}
+          {item.featured && (
+            <span style={{ color: '#e06060', marginLeft: '0.4em', fontSize: '0.92em' }}>
+              ({item.featured})
+            </span>
+          )}
         </div>
         {item.links.length > 0 ? (
           <div className="pub-links">
@@ -676,15 +682,10 @@ function App() {
                   </p>
                   <p className="about-subhead">Research Interest:</p>
                   <ul className="about-interests">
-                    <li>
-                      Overcoming current and future limitations in biotechnology
-                      through computational and AI-driven approaches.
-                    </li>
-                    <li>
-                      Making biology computable by building systems that can
-                      represent, predict, and reason over complex biological
-                      scenarios.
-                    </li>
+                      How can we overcome current and future limitations in biotechnology
+                      through computational approaches? How to make biological processes
+                       computable by building systems that can represent, predict,
+                        and reason over complex biological scenarios.
                   </ul>
                 </section>
               </div>
