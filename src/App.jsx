@@ -116,7 +116,7 @@ const publicationItems = [
     title: 'YeastSAM: A Deep Learning Model for Accurate Segmentation of Budding Yeast Cells',
     titleUrl: 'https://www.molbiolcell.org/doi/10.1091/mbc.E25-09-0454',
     authors: ['Yonghao Zhao', 'Zhouyuan Zhu', 'Sen Yang', 'Weihan Li'],
-    venue: 'Molecular Biology of the Cell (MBoC)',
+    venue: 'Molecular Biology of the Cell',
     year: '2026',
     featured: 'ASCB News featured',
     image: '/yeast-mascot-banner.svg',
