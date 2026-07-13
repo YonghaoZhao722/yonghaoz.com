@@ -17,7 +17,7 @@ const educationItems = [
   {
     period: '2022 – 2026',
     institution: 'University of Leeds',
-    program: 'B.Sc. in Computer Science',
+    program: 'B.Sc. in Computer Science, First-Class Honours',
     logo: '/leeds_logo.png',
     logoAlt: 'University of Leeds logo',
   },
@@ -52,9 +52,30 @@ const experienceItems = [
     logo: '/brown.png',
     logoAlt: 'Brown University logo',
   },
+  {
+    period: '2025 – 2026',
+    institution: 'Southwest Jiaotong University',
+    title:
+      'Undergraduate Thesis: Enhancing Small Sample Survival Analysis of Colorectal Cancer with Transfer Learning Techniques',
+    detailPrefix: 'Received the Outstanding Undergraduate Thesis Award. Advised by',
+    detailName: 'Zhipeng Luo',
+    detailUrl: 'https://faculty.swjtu.edu.cn/luozhipeng/en/index.htm',
+    logo: '/SWJTU_logo.png',
+    logoAlt: 'Southwest Jiaotong University logo',
+  },
 ]
 
 const newsItems = [
+  {
+    month: 'June',
+    year: '2026',
+    type: 'leeds-degree',
+  },
+  {
+    month: 'June',
+    year: '2026',
+    type: 'thesis-award',
+  },
   {
     month: 'April',
     year: '2026',
@@ -370,6 +391,20 @@ function NewsItem({ item }) {
                 className="inline-news-icon"
               />{' '}
               <strong>CU Anschutz</strong> as a Ph.D. student!
+            </>
+          ) : null}
+          {item.type === 'leeds-degree' ? (
+            <>
+              Graduated from <strong>University of Leeds</strong> with a{' '}
+              <strong>B.Sc. in Computer Science with First-Class Honours</strong>.
+            </>
+          ) : null}
+          {item.type === 'thesis-award' ? (
+            <>
+              Received the <strong>Outstanding Undergraduate Thesis Award</strong> from{' '}
+              <strong>Southwest Jiaotong University</strong> for my undergraduate thesis.
+              This was the sole award for the Computer Science and Technology programme,
+              selected from approximately 80 students.
             </>
           ) : null}
         </p>
