@@ -395,16 +395,12 @@ function NewsItem({ item }) {
           ) : null}
           {item.type === 'leeds-degree' ? (
             <>
-              Graduated from <strong>University of Leeds</strong> with a{' '}
-              <strong>B.Sc. in Computer Science with First-Class Honours</strong>.
+              Graduated from <strong>Leeds</strong>, <strong>First-Class Honours</strong>.
             </>
           ) : null}
           {item.type === 'thesis-award' ? (
             <>
-              Received the <strong>Outstanding Undergraduate Thesis Award</strong> from{' '}
-              <strong>Southwest Jiaotong University</strong> for my undergraduate thesis.
-              This was the sole award for the Computer Science and Technology programme,
-              selected from approximately 80 students.
+              Received SWJTU's <strong>Outstanding Undergraduate Thesis Award</strong> — sole recipient in Computer Science and Technology (1/80).
             </>
           ) : null}
         </p>
