@@ -27,6 +27,7 @@ const educationItems = [
     program: 'B.Eng. in Computer Science',
     logo: '/SWJTU_logo.png',
     logoAlt: 'Southwest Jiaotong University logo',
+    achievement: 'Graduated with Best Bachelor Thesis',
     advisorName: 'Zhipeng Luo',
     advisorUrl: 'https://faculty.swjtu.edu.cn/luozhipeng/en/index.htm',
   },
@@ -52,29 +53,13 @@ const experienceItems = [
     logo: '/brown.png',
     logoAlt: 'Brown University logo',
   },
-  {
-    period: '2025 – 2026',
-    institution: 'Southwest Jiaotong University',
-    title:
-      'Undergraduate Thesis: Enhancing Small Sample Survival Analysis of Colorectal Cancer with Transfer Learning Techniques',
-    detailPrefix: 'Received the Outstanding Undergraduate Thesis Award. Advised by',
-    detailName: 'Zhipeng Luo',
-    detailUrl: 'https://faculty.swjtu.edu.cn/luozhipeng/en/index.htm',
-    logo: '/SWJTU_logo.png',
-    logoAlt: 'Southwest Jiaotong University logo',
-  },
 ]
 
 const newsItems = [
   {
     month: 'June',
     year: '2026',
-    type: 'leeds-degree',
-  },
-  {
-    month: 'June',
-    year: '2026',
-    type: 'thesis-award',
+    type: 'graduation',
   },
   {
     month: 'April',
@@ -276,6 +261,7 @@ function EducationItem({ item }) {
         <div className="entry-title">{item.institution}</div>
         <div className="entry-bottom">
           <div className="entry-subtitle">{item.program}</div>
+          {item.achievement ? <div className="advisor-line">{item.achievement}</div> : null}
           {item.advisorName ? (
             <div className="advisor-line">
               Advised by{' '}
@@ -393,14 +379,9 @@ function NewsItem({ item }) {
               <strong>CU Anschutz</strong> as a Ph.D. student!
             </>
           ) : null}
-          {item.type === 'leeds-degree' ? (
+          {item.type === 'graduation' ? (
             <>
-              Graduated from <strong>Leeds</strong>, <strong>First-Class Honours</strong>.
-            </>
-          ) : null}
-          {item.type === 'thesis-award' ? (
-            <>
-              Received SWJTU's <strong>Outstanding Undergraduate Thesis Award</strong> — sole recipient in Computer Science and Technology (1/80).
+              Graduated from SWJTU with <strong>Best Bachelor Thesis</strong>, and University of Leeds with <strong>First-class Honours</strong>.
             </>
           ) : null}
         </p>
