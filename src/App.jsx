@@ -100,7 +100,7 @@ const publicationItems = [
       'Zhipeng Luo',
       'Yazhou He',
     ],
-    venue: 'Under Review',
+    venue: 'Under Revision',
     year: '2026',
     image: '/descent.png',
     imageAlt: 'DeSCENT framework overview',
