@@ -28,7 +28,7 @@ const appSource = await readFile(new URL('../src/App.jsx', import.meta.url), 'ut
 test('includes the June 2026 graduation announcements and timeline updates', () => {
   assert.match(appSource, /month: 'June',\n    year: '2026',\n    type: 'leeds-degree'/)
   assert.match(appSource, /month: 'June',\n    year: '2026',\n    type: 'thesis-award'/)
-  assert.match(appSource, /B\.Sc\. in Computer Science, First-Class Honours/)
+  assert.match(appSource, /B\.Sc\. in Computer Science, [First-Class Honours](/201691031_Yonghao%20Zhao_Digital_Certificate.pdf)/)
   assert.match(appSource, /Undergraduate Thesis: Enhancing Small Sample Survival Analysis/)
   assert.match(appSource, /sole award for the Computer Science and Technology programme/)
 })
@@ -44,7 +44,7 @@ Add the test script to `package.json`:
 
 Run: `npm test`
 
-Expected: FAIL because `leeds-degree`, `thesis-award`, the First-Class Honours text, and the thesis experience text are not yet present in `src/App.jsx`.
+Expected: FAIL because `leeds-degree`, `thesis-award`, the [First-Class Honours](/201691031_Yonghao%20Zhao_Digital_Certificate.pdf) text, and the thesis experience text are not yet present in `src/App.jsx`.
 
 ### Task 2: Update graduation content in the React data and news renderer
 
@@ -74,7 +74,7 @@ Prepend these records to `newsItems` so the latest announcements appear first:
 Change the Leeds programme string:
 
 ```js
-program: 'B.Sc. in Computer Science, First-Class Honours',
+program: 'B.Sc. in Computer Science, [First-Class Honours](/201691031_Yonghao%20Zhao_Digital_Certificate.pdf)',
 ```
 
 Append this SWJTU thesis record to `experienceItems`:
@@ -101,7 +101,7 @@ Add these branches within `NewsItem` after the existing news-type conditions:
           {item.type === 'leeds-degree' ? (
             <>
               Graduated from <strong>University of Leeds</strong> with a{' '}
-              <strong>B.Sc. in Computer Science with First-Class Honours</strong>.
+              <strong>B.Sc. in Computer Science with [First-Class Honours](/201691031_Yonghao%20Zhao_Digital_Certificate.pdf)</strong>.
             </>
           ) : null}
           {item.type === 'thesis-award' ? (

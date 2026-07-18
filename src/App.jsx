@@ -6,6 +6,9 @@ const topNavItems = [
   { href: '#/experience', label: 'Experience', page: 'experience' },
 ]
 
+const leedsHonoursCertificateUrl =
+  '/201691031_Yonghao%20Zhao_Digital_Certificate.pdf'
+
 const educationItems = [
   {
     period: '2026 – Present',
@@ -17,7 +20,9 @@ const educationItems = [
   {
     period: '2022 – 2026',
     institution: 'University of Leeds',
-    program: 'B.Sc. in Computer Science, First-Class Honours',
+    programPrefix: 'B.Sc. in Computer Science, ',
+    programHonours: 'First-Class Honours',
+    honoursUrl: leedsHonoursCertificateUrl,
     logo: '/leeds_logo.png',
     logoAlt: 'University of Leeds logo',
   },
@@ -260,7 +265,18 @@ function EducationItem({ item }) {
         <img src={item.logo} alt={item.logoAlt} className="timeline-logo" />
         <div className="entry-title">{item.institution}</div>
         <div className="entry-bottom">
-          <div className="entry-subtitle">{item.program}</div>
+          <div className="entry-subtitle">
+            {item.honoursUrl ? (
+              <>
+                {item.programPrefix}
+                <a href={item.honoursUrl} className="inline-link">
+                  {item.programHonours}
+                </a>
+              </>
+            ) : (
+              item.program
+            )}
+          </div>
           {item.achievement ? <div className="advisor-line">{item.achievement}</div> : null}
           {item.advisorName ? (
             <div className="advisor-line">
@@ -381,7 +397,11 @@ function NewsItem({ item }) {
           ) : null}
           {item.type === 'graduation' ? (
             <>
-              Graduated from SWJTU with <strong>Best Bachelor Thesis</strong>, and University of Leeds with <strong>First-class Honours</strong>.
+              Graduated from SWJTU with <strong>Best Bachelor Thesis</strong>, and University of Leeds with{' '}
+              <a href={leedsHonoursCertificateUrl} className="inline-link">
+                <strong>First-class Honours</strong>
+              </a>
+              .
             </>
           ) : null}
         </p>

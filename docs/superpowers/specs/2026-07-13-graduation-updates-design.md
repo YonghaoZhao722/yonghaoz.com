@@ -8,13 +8,13 @@ education and experience timelines with the graduation results.
 ## Content
 
 - Add a news item announcing the University of Leeds B.Sc. in Computer Science
-  degree, awarded with First-Class Honours.
+  degree, awarded with [First-Class Honours](/201691031_Yonghao%20Zhao_Digital_Certificate.pdf).
 - Add a news item announcing the Southwest Jiaotong University (SWJTU)
   Outstanding Undergraduate Thesis Award. State that it was the sole award for
   the Computer Science and Technology programme, selected from about 80
   students.
 - Change the University of Leeds education entry to `B.Sc. in Computer Science,
-  First-Class Honours`.
+  [First-Class Honours](/201691031_Yonghao%20Zhao_Digital_Certificate.pdf)`.
 - Add an SWJTU Undergraduate Thesis experience entry that names the award and
   reuses the existing SWJTU logo.
 

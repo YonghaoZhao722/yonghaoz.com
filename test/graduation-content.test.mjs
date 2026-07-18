@@ -6,11 +6,16 @@ const appSource = await readFile(new URL('../src/App.jsx', import.meta.url), 'ut
 
 test('keeps the thesis award in education and combines the graduation news', () => {
   assert.match(appSource, /month: 'June',\n    year: '2026',\n    type: 'graduation'/)
-  assert.match(appSource, /B\.Sc\. in Computer Science, First-Class Honours/)
+  assert.match(appSource, /programPrefix: 'B\.Sc\. in Computer Science, '/)
+  assert.match(appSource, /programHonours: 'First-Class Honours'/)
+  assert.match(
+    appSource,
+    /\/201691031_Yonghao%20Zhao_Digital_Certificate\.pdf/,
+  )
   assert.match(appSource, /achievement: 'Graduated with Best Bachelor Thesis'/)
   assert.doesNotMatch(appSource, /Undergraduate Thesis: Enhancing Small Sample Survival Analysis/)
   assert.match(
     appSource,
-    /Graduated from SWJTU with <strong>Best Bachelor Thesis<\/strong>, and University of Leeds with <strong>First-class Honours<\/strong>\./,
+    /<strong>First-class Honours<\/strong>/,
   )
 })
