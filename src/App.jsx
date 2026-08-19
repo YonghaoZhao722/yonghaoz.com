@@ -34,7 +34,7 @@ const educationItems = [
     logoAlt: 'Southwest Jiaotong University logo',
     achievement: 'Graduated with Best Bachelor Thesis',
     advisorName: 'Zhipeng Luo',
-    advisorUrl: 'https://faculty.swjtu.edu.cn/luozhipeng/en/index.htm',
+    advisorUrl: 'https://luolab-swjtu.github.io/',
   },
 ]
 
@@ -677,7 +677,7 @@ function App() {
                     </a>
                     , where I worked with{' '}
                     <a
-                      href="https://faculty.swjtu.edu.cn/luozhipeng/en/index.htm"
+                      href="https://luolab-swjtu.github.io/"
                       target="_blank"
                       rel="noreferrer"
                       className="inline-link"
