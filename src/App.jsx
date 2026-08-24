@@ -703,7 +703,7 @@ function App() {
                       Weihan Li
                     </a>{' '}
                     on microscopy image segmentation. I was also involved in
-                    spatial-omics multi-slice alignment with{' '}
+                    cross-omics multi-slice spatial alignment with{' '}
                     <a
                       href="https://hy-li.com/"
                       target="_blank"
@@ -717,7 +717,7 @@ function App() {
                   <p className="about-subhead">Research Interest:</p>
                   <ul className="about-interests">
                       How can we overcome current and future limitations in biotechnology
-                      through computational approaches? How to make biological processes
+                      through machine learning? How to make biological processes
                        computable by building systems that can represent, predict,
                         and reason over complex biological scenarios?
                   </ul>
