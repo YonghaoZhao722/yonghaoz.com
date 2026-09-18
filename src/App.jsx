@@ -4,7 +4,6 @@ import './App.css'
 const topNavItems = [
   { href: './', label: 'Home', page: 'home' },
   { href: '#/experience', label: 'Experience', page: 'experience' },
-  { href: '/Yonghao_Zhao_CV.pdf', label: 'CV', target: '_blank' },
 ]
 
 const leedsHonoursCertificateUrl =
@@ -51,7 +50,7 @@ const experienceItems = [
     logoAlt: 'Westlake University logo',
   },
   {
-    period: 'March 2025 – Present',
+    period: 'March 2025 – Sep 2025',
     institution: 'Brown University',
     title: 'Research Collaborator',
     detailName: 'Weihan Li Lab',
@@ -231,8 +230,6 @@ function TopNavigation({ currentPage }) {
           <li key={item.label}>
             <a
               href={item.href}
-              target={item.target}
-              rel={item.target ? 'noreferrer' : undefined}
               className={currentPage === item.page ? 'active' : undefined}
             >
               {item.label}
