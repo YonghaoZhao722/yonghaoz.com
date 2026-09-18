@@ -4,7 +4,7 @@ import './App.css'
 const topNavItems = [
   { href: './', label: 'Home', page: 'home' },
   { href: '#/experience', label: 'Experience', page: 'experience' },
-  { href: '#/cv', label: 'CV', page: 'cv' },
+  { href: '/Yonghao_Zhao_CV.pdf', label: 'CV', target: '_blank' },
 ]
 
 const leedsHonoursCertificateUrl =
@@ -217,7 +217,6 @@ const socialItems = [
 ]
 
 function getPageFromHash() {
-  if (window.location.hash === '#/cv') return 'cv'
   if (window.location.hash === '#/experience') return 'experience'
   if (window.location.hash === '#education') return 'experience'
   if (window.location.hash === '#experience') return 'experience'
@@ -230,7 +229,12 @@ function TopNavigation({ currentPage }) {
       <ul>
         {topNavItems.map((item) => (
           <li key={item.label}>
-            <a href={item.href} className={currentPage === item.page ? 'active' : undefined}>
+            <a
+              href={item.href}
+              target={item.target}
+              rel={item.target ? 'noreferrer' : undefined}
+              className={currentPage === item.page ? 'active' : undefined}
+            >
               {item.label}
             </a>
           </li>
@@ -608,18 +612,7 @@ function App() {
       <div className="site-shell">
         <TopNavigation currentPage={page} />
 
-        {page === 'cv' ? (
-          <div className="layout-grid layout-grid--full">
-            <main className="cv-page">
-              <h2>CV</h2>
-              <div className="cv-links">
-                <a className="inline-link" href="/Yonghao_Zhao_CV.pdf" target="_blank" rel="noreferrer">Open PDF</a>
-                <a className="inline-link" href="/Yonghao_Zhao_CV.pdf" download>Download PDF</a>
-              </div>
-              <iframe className="cv-document" src="/Yonghao_Zhao_CV.pdf" title="Yonghao Zhao CV" />
-            </main>
-          </div>
-        ) : isExperiencePage ? (
+        {isExperiencePage ? (
           <div className="layout-grid layout-grid--full">
             <main>
               <section id="experience">
