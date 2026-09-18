@@ -41,7 +41,7 @@ const educationItems = [
 
 const experienceItems = [
   {
-    period: 'April 2026 – Present',
+    period: 'April 2026 – August 2026',
     institution: 'Westlake University',
     title: 'Research Assistant',
     detailPrefix: 'Advised by',
