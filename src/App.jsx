@@ -4,10 +4,13 @@ import './App.css'
 const topNavItems = [
   { href: './', label: 'Home', page: 'home' },
   { href: '#/experience', label: 'Experience', page: 'experience' },
+  { href: '#/misc', label: 'Misc', page: 'misc' },
 ]
 
 const leedsHonoursCertificateUrl =
   '/201691031_Yonghao%20Zhao_Digital_Certificate.pdf'
+
+const hirsScholarshipUrl = '/hirs-scholarship.pdf'
 
 const educationItems = [
   {
@@ -185,6 +188,59 @@ const publicationItems = [
   },
 ]
 
+const projectItems = [
+  {
+    title: 'Clawbio: The First Bioinformatics Harness for Agentic AI',
+    titleUrl: 'https://clawbio.ai/',
+    role: 'Core Contributor',
+    image: '/clawbio.png',
+    imageAlt: 'ClawBio',
+    description:
+      'An open, reproducible collection of domain-expert genomics pipelines packaged as agent skills, built by a global community of contributors.',
+    links: [
+      {
+        type: 'site',
+        label: 'Website',
+        href: 'https://clawbio.ai/',
+      },
+      {
+        type: 'code',
+        label: 'Code',
+        href: 'https://github.com/ClawBio/ClawBio',
+      },
+      {
+        type: 'doc',
+        label: 'Docs',
+        href: 'https://docs.clawbio.ai/',
+      },
+    ],
+  },
+]
+
+const honorItems = [
+  {
+    name: 'First-class Honours',
+    detail: 'University of Leeds, 2026',
+    url: leedsHonoursCertificateUrl,
+  },
+  {
+    name: 'Best Bachelor Thesis',
+    detail: 'Southwest Jiaotong University, 2026',
+  },
+  {
+    name: 'Hirs Scholarship',
+    detail: 'CU School of Medicine, 2026',
+    url: hirsScholarshipUrl,
+  },
+]
+
+const serviceItems = [
+  {
+    role: 'Reviewer',
+    venues: "ICLR'27",
+  },
+]
+
 const emailContact = {
   label: 'Email',
   href: 'mailto:yonghao.zhao@cuanschutz.edu',
@@ -216,6 +272,7 @@ const socialItems = [
 ]
 
 function getPageFromHash() {
+  if (window.location.hash === '#/misc') return 'misc'
   if (window.location.hash === '#/experience') return 'experience'
   if (window.location.hash === '#education') return 'experience'
   if (window.location.hash === '#experience') return 'experience'
@@ -332,9 +389,7 @@ function NewsItem({ item }) {
             <>
               Received CU School of Medicine {' '}
               <a
-                href="https://medschool.cuanschutz.edu/docs/officeofresearcheducationlibraries/default-document-library/a-and-hirs-nominations-2024.pdf?sfvrsn=2bbf6bb_0"
-                target="_blank"
-                rel="noreferrer"
+                href={hirsScholarshipUrl}
                 className="inline-link"
               >
                 <strong>Hirs Scholarship</strong>
@@ -484,9 +539,18 @@ function DocIcon() {
   )
 }
 
+function SiteIcon() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM5.08 1.9A6.98 6.98 0 0 0 1.5 5h2.06c.27-1.12.66-2.09 1.14-2.83.13-.2.26-.38.38-.54v.27zm2.42-.4c.4.36.83 1.02 1.17 1.97.12.33.23.69.32 1.08H6.51c.09-.39.2-.75.32-1.08.34-.95.77-1.61 1.17-1.97v.27-.27zm3.42.4v-.27c.12.16.25.34.38.54.48.74.87 1.71 1.14 2.83H14.5a6.98 6.98 0 0 0-3.58-3.1zM14.93 6h-2.19c.1.63.16 1.3.17 2h2.38a6.96 6.96 0 0 0-.36-2zm-.36 5h-2.19c-.27 1.12-.66 2.09-1.14 2.83-.13.2-.26.38-.38.54v-.27A6.98 6.98 0 0 0 14.5 11zM8 14.5c-.4-.36-.83-1.02-1.17-1.97-.12-.33-.23-.69-.32-1.08h2.98c-.09.39-.2.75-.32 1.08-.34.95-.77 1.61-1.17 1.97zM6.28 10a13.3 13.3 0 0 1 0-4h3.44a13.3 13.3 0 0 1 0 4H6.28zM1.07 10A6.96 6.96 0 0 1 .71 8h2.38c.01.7.07 1.37.17 2H1.07zm.43-5h2.06A12.4 12.4 0 0 0 3.39 7H1.07c.06-.7.21-1.37.43-2zm-.43 6h2.19c.27 1.12.66 2.09 1.14 2.83.13.2.26.38.38.54v-.27A6.98 6.98 0 0 1 1.5 11zm11.11-4h2.32a6.96 6.96 0 0 0-.43-2h-2.06c.1.63.16 1.3.17 2z" />
+    </svg>
+  )
+}
+
 function PubButtonIcon({ type }) {
   if (type === 'code') return <GitHubIcon />
   if (type === 'doc') return <DocIcon />
+  if (type === 'site') return <SiteIcon />
   return <PaperIcon />
 }
 
@@ -565,6 +629,64 @@ function PublicationItem({ item }) {
   )
 }
 
+function ProjectItem({ item }) {
+  return (
+    <article
+      className={`pub-item project-item${item.image ? ' pub-item--with-figure' : ''}`}
+    >
+      {item.image ? (
+        <a href={item.titleUrl} target="_blank" rel="noreferrer" className="pub-figure">
+          <img
+            src={item.image}
+            alt={item.imageAlt ?? item.title}
+            className="project-figure-img"
+          />
+        </a>
+      ) : null}
+      <div className="pub-content">
+        <h3 className="pub-title">
+          <a href={item.titleUrl} target="_blank" rel="noreferrer">
+            {item.title}
+          </a>
+        </h3>
+        <div className="pub-venue">{item.role}</div>
+        {item.description ? <p className="project-description">{item.description}</p> : null}
+        <div className="pub-links">
+          {item.links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className={`pub-button pub-button--${link.type}`}
+            >
+              <span className="pub-button__icon" aria-hidden="true">
+                <PubButtonIcon type={link.type} />
+              </span>
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </article>
+  )
+}
+
+function HonorItem({ item }) {
+  return (
+    <p className="misc-item">
+      {item.url ? (
+        <a href={item.url} target="_blank" rel="noreferrer" className="inline-link">
+          <strong>{item.name}</strong>
+        </a>
+      ) : (
+        <strong>{item.name}</strong>
+      )}
+      {item.detail ? `, ${item.detail}` : null}
+    </p>
+  )
+}
+
 function ContactIcon({ icon }) {
   if (icon === 'x') return <XIcon />
   if (icon === 'email') return <EmailIcon />
@@ -594,6 +716,7 @@ function ContactItem({ item }) {
 function App() {
   const [page, setPage] = useState(getPageFromHash)
   const isExperiencePage = page === 'experience'
+  const isMiscPage = page === 'misc'
 
   useEffect(() => {
     const handleHashChange = () => setPage(getPageFromHash())
@@ -609,7 +732,35 @@ function App() {
       <div className="site-shell">
         <TopNavigation currentPage={page} />
 
-        {isExperiencePage ? (
+        {isMiscPage ? (
+          <div className="layout-grid layout-grid--full">
+            <main>
+              <section id="honors">
+                <h2>Honors &amp; Awards</h2>
+                <div className="misc-list">
+                  {honorItems.map((item) => (
+                    <HonorItem key={item.name} item={item} />
+                  ))}
+                </div>
+              </section>
+
+              <hr className="section-divider" />
+
+              <section id="services">
+                <h2>Academic Services</h2>
+                <div className="misc-list">
+                  {serviceItems.map((item) => (
+                    <p className="misc-item" key={item.role}>
+                      <strong>{item.role}:</strong> {item.venues}
+                    </p>
+                  ))}
+                </div>
+              </section>
+
+              <footer className="site-footer">© 2026 Yonghao Zhao.</footer>
+            </main>
+          </div>
+        ) : isExperiencePage ? (
           <div className="layout-grid layout-grid--full">
             <main>
               <section id="experience">
@@ -742,6 +893,15 @@ function App() {
               <div className="pub-list">
                 {publicationItems.map((item) => (
                   <PublicationItem key={item.title} item={item} />
+                ))}
+              </div>
+            </section>
+
+            <section id="project" className="home-section">
+              <h2>Project</h2>
+              <div className="pub-list">
+                {projectItems.map((item) => (
+                  <ProjectItem key={item.title} item={item} />
                 ))}
               </div>
             </section>
