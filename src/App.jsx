@@ -108,7 +108,7 @@ const publicationItems = [
       'Zhipeng Luo',
       'Yazhou He',
     ],
-    venue: 'Under Revision',
+    venue: 'Under Revision at Bioinformatics',
     year: '2026',
     image: '/descent.png',
     imageAlt: 'DeSCENT framework overview',
@@ -682,7 +682,7 @@ function HonorItem({ item }) {
       ) : (
         <strong>{item.name}</strong>
       )}
-      {item.detail ? `, ${item.detail}` : null}
+      {item.detail ? <span className="misc-item__detail">{item.detail}</span> : null}
     </p>
   )
 }

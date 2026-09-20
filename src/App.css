@@ -246,7 +246,7 @@ h2 {
 #honors h2,
 #services h2 {
   font-family: var(--font-retro-serif);
-  font-size: 21px;
+  font-size: 23px;
   font-weight: 600;
   text-transform: none;
   letter-spacing: -0.02em;
@@ -770,6 +770,10 @@ p {
   color: var(--text-primary);
 }
 
+.misc-item__detail::before {
+  content: ', ';
+}
+
 .pub-button--doc:hover {
   background-color: #285f97;
 }
@@ -789,6 +793,14 @@ p {
 }
 
 @media (max-width: 800px) {
+  .misc-item__detail {
+    display: block;
+  }
+
+  .misc-item__detail::before {
+    content: none;
+  }
+
   .site-shell {
     padding: 52px 24px 40px;
   }
