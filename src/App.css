@@ -241,7 +241,10 @@ h2 {
 #education h2,
 #experience h2,
 #news h2,
-#research h2 {
+#research h2,
+#project h2,
+#honors h2,
+#services h2 {
   font-family: var(--font-retro-serif);
   font-size: 21px;
   font-weight: 600;
@@ -718,6 +721,53 @@ p {
 .pub-button--doc {
   background-color: #2f6fb0;
   color: #ffffff;
+}
+
+.pub-button--site {
+  background: #f5f2ea;
+  border-color: rgba(0, 0, 0, 0.14);
+  color: #4a4238;
+}
+
+.pub-button--site:hover {
+  background: #ebe6da;
+  border-color: rgba(0, 0, 0, 0.24);
+}
+
+.project-figure-img {
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.project-description {
+  font-family: var(--font-curriculum);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: #3a3a3a;
+  margin: 2px 0 0;
+  max-width: 92%;
+}
+
+.misc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.misc-item {
+  font-family: var(--font-curriculum);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: #1e1e1e;
+  margin: 0;
+  max-width: 92%;
+}
+
+.misc-item strong {
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .pub-button--doc:hover {
