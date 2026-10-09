@@ -15,7 +15,7 @@ const paragraphs = [
   "If this view is correct, it changes what is worth working on. A new architecture that is only supported by a public leaderboard is exactly the kind of work an automated system can do well, so its value will probably decrease over time. Methods are still important, but they are not enough on their own. What becomes more valuable is access to slow but reliable verification: running the assay, having the patient cohort, and completing the design-build-test cycle. Two skills also become more valuable: designing checks that are hard to exploit, and choosing which questions are worth an expensive measurement.",
   "I think the value of a PhD is moving toward two things. The first is generating high-quality data for scaling: measurements that are new, clean, and connected to a real scientific question. The second is reviewing AI-generated work: being able to look at a result and judge whether it is correct. Both are on the slow and reliable side of the loop.",
   "For my own PhD, this means spending less effort on improving benchmark scores and more time working with the labs and cohorts that produce new measurements. It also affects how I think about industry. In AI for biology, a model can be copied in two weeks, but years of measured outcomes cannot.",
-  "I could be wrong in several ways. Wet labs are becoming faster through automation, cloud labs and pooled assays. If this continues, the advantage will move from having a lab to controlling the whole loop and the data it produces. Learned simulators may replace some experiments. However, a simulator is also a verifier trained on past measurements, so I expect it to help select candidates, not to replace experimental confirmation. Some problems are hard not because checking is slow, but because no one has asked the right question yet. Finally, slow checking also limits human researchers, so the advantage goes to whoever controls the loop, not to humans in general.",
+  "I could be wrong in several ways. Wet labs are becoming faster. For example, Adaptyv runs an automated protein lab. Users send protein designs through a web platform or an API, and the lab returns measured binding data. AI agents can also request experiments directly through the API. In one test, Claude designed 1,320 binders against 16 targets, and 354 of them bound their target in the lab. When an AI system can order its own experiments, the wet lab becomes part of the loop. If this continues, the advantage will move from having a lab to controlling the whole loop and the data it produces. Learned simulators may replace some experiments. However, a simulator is also a verifier trained on past measurements, so I expect it to help select candidates, not to replace experimental confirmation. Some problems are hard not because checking is slow, but because no one has asked the right question yet. Finally, slow checking also limits human researchers, so the advantage goes to whoever controls the loop, not to humans in general.",
   "I usually describe my research as using data that is cheap to collect to answer questions that are expensive to measure. Thinking about this made me more confident in that direction. The expensive measurement is the part that AI cannot easily complete by itself, and that is where I want to work."
 ]
 
@@ -70,13 +70,14 @@ function VerificationMap() {
 }
 
 const postLinks = {
+  Adaptyv: 'https://www.adaptyvbio.com/blog/series-a',
   'released 722 math manuscripts': 'https://openai.com/index/sharing-ai-progress-in-mathematics/',
   'released a similar API': 'https://thenewstack.io/openai-decision-api-luna/',
   "broke into Hugging Face's systems": 'https://news.bloombergtax.com/states-of-play/openai-says-its-ai-caused-hugging-face-cyber-breach-1',
 }
 
 function PostParagraph({ paragraph }) {
-  const parts = paragraph.split(/(released 722 math manuscripts|released a similar API|broke into Hugging Face's systems)/)
+  const parts = paragraph.split(/(released 722 math manuscripts|released a similar API|broke into Hugging Face's systems|Adaptyv)/)
 
   return (
     <p>
