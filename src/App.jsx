@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import Blog, { postPath } from './Blog'
 
 const topNavItems = [
   { href: './', label: 'Home', page: 'home' },
   { href: '#/experience', label: 'Experience', page: 'experience' },
+  { href: '#/blog', label: 'Blog', page: 'blog' },
   { href: '#/misc', label: 'Misc', page: 'misc' },
 ]
 
@@ -234,13 +236,6 @@ const honorItems = [
   },
 ]
 
-const serviceItems = [
-  {
-    role: 'Reviewer',
-    venues: "ICLR'27",
-  },
-]
-
 const emailContact = {
   label: 'Email',
   href: 'mailto:yonghao.zhao@cuanschutz.edu',
@@ -272,6 +267,8 @@ const socialItems = [
 ]
 
 function getPageFromHash() {
+  if (window.location.hash === postPath) return 'post'
+  if (window.location.hash === '#/blog') return 'blog'
   if (window.location.hash === '#/misc') return 'misc'
   if (window.location.hash === '#/experience') return 'experience'
   if (window.location.hash === '#education') return 'experience'
@@ -719,7 +716,10 @@ function App() {
   const isMiscPage = page === 'misc'
 
   useEffect(() => {
-    const handleHashChange = () => setPage(getPageFromHash())
+    const handleHashChange = () => {
+      setPage(getPageFromHash())
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }
 
     window.addEventListener('hashchange', handleHashChange)
     return () => window.removeEventListener('hashchange', handleHashChange)
@@ -730,9 +730,11 @@ function App() {
       <div className="noise-overlay" />
 
       <div className="site-shell">
-        <TopNavigation currentPage={page} />
+        <TopNavigation currentPage={page === 'post' ? 'blog' : page} />
 
-        {isMiscPage ? (
+        {page === 'blog' || page === 'post' ? (
+          <Blog isPost={page === 'post'} />
+        ) : isMiscPage ? (
           <div className="layout-grid layout-grid--full">
             <main>
               <section id="honors">
@@ -740,19 +742,6 @@ function App() {
                 <div className="misc-list">
                   {honorItems.map((item) => (
                     <HonorItem key={item.name} item={item} />
-                  ))}
-                </div>
-              </section>
-
-              <hr className="section-divider" />
-
-              <section id="services">
-                <h2>Academic Services</h2>
-                <div className="misc-list">
-                  {serviceItems.map((item) => (
-                    <p className="misc-item" key={item.role}>
-                      <strong>{item.role}:</strong> {item.venues}
-                    </p>
                   ))}
                 </div>
               </section>
