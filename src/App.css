@@ -243,7 +243,8 @@ h2 {
 #news h2,
 #research h2,
 #project h2,
-#honors h2 {
+#honors h2,
+#service h2 {
   font-family: var(--font-retro-serif);
   font-size: 23px;
   font-weight: 600;

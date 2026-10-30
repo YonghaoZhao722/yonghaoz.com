@@ -746,6 +746,11 @@ function App() {
                 </div>
               </section>
 
+              <section id="service">
+                <h2>Academic Service</h2>
+                <p className="misc-item">Reviewer: ICLR'27</p>
+              </section>
+
               <footer className="site-footer">© 2026 Yonghao Zhao.</footer>
             </main>
           </div>
