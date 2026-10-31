@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import LiquidGlass from 'liquid-glass-react'
 import './App.css'
 import Blog, { postPath } from './Blog'
 
@@ -112,8 +113,8 @@ const publicationItems = [
     ],
     venue: 'Under Revision at Bioinformatics',
     year: '2026',
-    image: '/descent.png',
-    imageAlt: 'DeSCENT framework overview',
+    image: '/descent-source-16x9.svg',
+    imageAlt: 'DeSCENT framework: scRNA-seq deconvolution, alignment and inference',
     links: [
       {
         type: 'biorxiv',
@@ -173,8 +174,8 @@ const publicationItems = [
     ],
     venue: 'Artificial Intelligence in Medicine',
     year: '2026',
-    image: '/tsf.png',
-    imageAlt: 'Transfer-learning survival forest overview',
+    image: '/aim-source-16x9.svg',
+    imageAlt: 'Source forest training and transfer to target forest fine-tuning',
     links: [
       {
         type: 'paper',
@@ -276,34 +277,106 @@ function getPageFromHash() {
   return 'home'
 }
 
+function updateGlassReflection(event) {
+  if (event.pointerType === 'touch') return
+  const rect = event.currentTarget.getBoundingClientRect()
+  event.currentTarget.style.setProperty('--glass-x', `${((event.clientX - rect.left) / rect.width) * 100}%`)
+  event.currentTarget.style.setProperty('--glass-y', `${((event.clientY - rect.top) / rect.height) * 100}%`)
+}
+
 function TopNavigation({ currentPage }) {
   return (
-    <nav className="top-nav" aria-label="Primary navigation">
-      <ul>
-        {topNavItems.map((item) => (
-          <li key={item.label}>
-            <a
-              href={item.href}
-              className={currentPage === item.page ? 'active' : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <nav
+      className="top-nav"
+      aria-label="Primary navigation"
+      onPointerEnter={updateGlassReflection}
+      onPointerMove={updateGlassReflection}
+    >
+      <LiquidGlass
+        displacementScale={24}
+        blurAmount={0.12}
+        saturation={110}
+        aberrationIntensity={0.3}
+        elasticity={0}
+        cornerRadius={999}
+        padding="6px"
+        overLight
+        className="top-nav__glass"
+      >
+        <ul>
+          {topNavItems.map((item) => (
+            <li key={item.label}>
+              <a
+                href={item.href}
+                className={currentPage === item.page ? 'active' : undefined}
+                aria-current={currentPage === item.page ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </LiquidGlass>
     </nav>
   )
 }
 
 function ContactLinks() {
+  const [copyStatus, setCopyStatus] = useState('')
+
+  useEffect(() => {
+    if (!copyStatus) return
+    const timeout = setTimeout(() => setCopyStatus(''), 3000)
+    return () => clearTimeout(timeout)
+  }, [copyStatus])
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(emailContact.address)
+      setCopyStatus('Copied')
+    } catch {
+      setCopyStatus('Copy failed. Please use the email link instead.')
+    }
+  }
+
   return (
     <div className="contact-block" aria-label="Contact links">
-      <a href={emailContact.href} className="email-link">
-        <span className="email-link__icon" aria-hidden="true">
-          <ContactIcon icon={emailContact.icon} />
-        </span>
-        <span className="email-link__label">{emailContact.address}</span>
-      </a>
+      <div className="email-row">
+        <a
+          href={emailContact.href}
+          className="email-link"
+          aria-label={`Email ${emailContact.address}`}
+          title={emailContact.address}
+          onPointerEnter={updateGlassReflection}
+          onPointerMove={updateGlassReflection}
+        >
+          <span className="email-link__icon" aria-hidden="true">
+            <ContactIcon icon={emailContact.icon} />
+          </span>
+          <span className="email-link__label">@cuanschutz.edu</span>
+        </a>
+        <button
+          type="button"
+          className="contact-icon-link email-copy-button"
+          aria-label="Copy email address"
+          title={copyStatus || 'Copy email address'}
+          onClick={copyEmail}
+          onPointerEnter={updateGlassReflection}
+          onPointerMove={updateGlassReflection}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            {copyStatus === 'Copied' ? (
+              <path d="m5 12 4 4L19 6" />
+            ) : (
+              <>
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M15 4H6a2 2 0 0 0-2 2v9" />
+              </>
+            )}
+          </svg>
+        </button>
+      </div>
+      <span className="email-copy-status" role="status">{copyStatus}</span>
 
       <div className="profile-links" aria-label="Social media links">
         {socialItems.map((item) => (
@@ -468,7 +541,8 @@ function NewsItem({ item }) {
 function EmailIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5C20.216 5 21 5.784 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75Zm1.98-.25L12 11.564 19.02 6.5H4.98Z" />
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
     </svg>
   )
 }
@@ -483,16 +557,17 @@ function XIcon() {
 
 function LinkedInIcon() {
   return (
-    <svg viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zM4.943 13.5V6.169H2.542V13.5h2.401zm-1.2-8.333c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.358.54-1.358 1.248 0 .694.521 1.248 1.327 1.248h.015zm4.908 8.333V9.359c0-.222.016-.444.082-.603.178-.444.584-.904 1.264-.904.892 0 1.248.682 1.248 1.682V13.5h2.401V9.257c0-2.273-1.212-3.33-2.83-3.33-1.304 0-1.886.722-2.211 1.23h.03V6.169H6.232c.03.65 0 7.331 0 7.331h2.401z" />
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="5" cy="5" r="1.5" />
+      <path d="M3.5 9h3v11h-3zM11 20V9h3v1.5c1-2.5 6-2.5 6 2V20h-3v-6.5c0-2-3-2-3 0V20z" />
     </svg>
   )
 }
 
 function ScholarIcon() {
   return (
-    <svg viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M8.211.5a.5.5 0 0 0-.422 0L.246 4.043a.5.5 0 0 0 0 .914l1.706.797L8 8.547l6.048-2.793 1.706-.797a.5.5 0 0 0 0-.914L8.21.5zM1.35 6.43l.28.13.001.001 2.59 1.197-.463 2.31a.5.5 0 0 0 .244.518l3.5 2.1a.5.5 0 0 0 .514 0l3.5-2.1a.5.5 0 0 0 .244-.518l-.463-2.31 2.59-1.197.001-.001.28-.13v4.576a.5.5 0 0 0 1 0V5.98L8 9.453 1.35 5.98v.45z" />
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m2 9 10-5 10 5-10 5zM6 11v6c3 3 9 3 12 0v-6M22 9v8" />
     </svg>
   )
 }
@@ -508,13 +583,9 @@ function GitHubIcon() {
 function OrcidIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="12" fill="currentColor" />
-      <circle cx="7.2" cy="7.15" r="1.35" fill="var(--bg-color)" />
-      <rect x="6.1" y="9.1" width="2.15" height="8.9" rx="0.45" fill="var(--bg-color)" />
-      <path
-        d="M11.05 9.25h4.15c1.47 0 2.69.42 3.58 1.25.99.9 1.52 2.18 1.52 3.66 0 1.63-.58 2.97-1.69 3.9-.94.77-2.11 1.14-3.61 1.14h-3.95V9.25Zm2.2 1.93v5.96h1.69c1.91 0 3.16-1.15 3.16-2.94 0-1.93-1.18-3.02-3.26-3.02h-1.59Z"
-        fill="var(--bg-color)"
-      />
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="8" cy="8" r=".7" fill="currentColor" stroke="none" />
+      <path d="M8 11v6m4-9v9h2a4.5 4.5 0 0 0 0-9z" />
     </svg>
   )
 }
@@ -608,6 +679,8 @@ function PublicationItem({ item }) {
                 target="_blank"
                 rel="noreferrer"
                 className={`pub-button pub-button--${link.type}`}
+                onPointerEnter={updateGlassReflection}
+                onPointerMove={updateGlassReflection}
               >
                 {link.logo ? (
                   <img src={link.logo} alt="" aria-hidden="true" className="pub-button__logo" />
@@ -636,7 +709,6 @@ function ProjectItem({ item }) {
           <img
             src={item.image}
             alt={item.imageAlt ?? item.title}
-            className="project-figure-img"
           />
         </a>
       ) : null}
@@ -656,6 +728,8 @@ function ProjectItem({ item }) {
               target="_blank"
               rel="noreferrer"
               className={`pub-button pub-button--${link.type}`}
+              onPointerEnter={updateGlassReflection}
+              onPointerMove={updateGlassReflection}
             >
               <span className="pub-button__icon" aria-hidden="true">
                 <PubButtonIcon type={link.type} />
@@ -690,7 +764,11 @@ function ContactIcon({ icon }) {
   if (icon === 'linkedin') return <LinkedInIcon />
   if (icon === 'scholar') return <ScholarIcon />
   if (icon === 'orcid') return <OrcidIcon />
-  return <GitHubIcon />
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 21v-3.5c0-1 .3-1.7.8-2.2-3.8-.4-6-1.7-6-5.1 0-1.1.4-2.1 1.1-2.9-.3-1-.3-2.1.2-3.1 1.3-.1 2.5.5 3.4 1.2a12 12 0 0 1 7 0c.9-.7 2.1-1.3 3.4-1.2.5 1 .5 2.1.2 3.1.7.8 1.1 1.8 1.1 2.9 0 3.4-2.2 4.7-6 5.1.5.5.8 1.2.8 2.2V21M9 19c-3 1-4-1-5-2" />
+    </svg>
+  )
 }
 
 function ContactItem({ item }) {
@@ -700,6 +778,8 @@ function ContactItem({ item }) {
     <a
       href={item.href}
       className="contact-icon-link"
+      onPointerEnter={updateGlassReflection}
+      onPointerMove={updateGlassReflection}
       target={isEmail ? undefined : '_blank'}
       rel={isEmail ? undefined : 'noreferrer'}
       aria-label={item.label}

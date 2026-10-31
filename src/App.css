@@ -94,24 +94,47 @@ body {
 
 .top-nav {
   position: fixed;
-  top: 0;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
-  display: flex;
-  justify-content: center;
-  padding: 14px 0;
-  margin-bottom: 42px;
-  background-color: var(--bg-color);
-  width: 100%;
-  max-width: 1040px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+}
+
+.top-nav > div:not(.top-nav__glass),
+.top-nav > span {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
+  pointer-events: none;
+}
+
+.top-nav__glass {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  border-radius: 999px;
+  background: rgba(247, 247, 244, 0.28);
+  box-shadow: 0 4px 20px rgba(35, 34, 28, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+}
+
+.top-nav__glass .glass {
+  display: flex !important;
+  box-shadow: none !important;
+}
+
+.top-nav__glass .glass__warp {
+  opacity: 0.14;
 }
 
 .top-nav ul {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 2px;
 }
 
 .top-nav a {
@@ -119,14 +142,28 @@ body {
   color: var(--text-secondary);
   text-decoration: none;
   font-size: 14px;
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
   font-weight: 400;
   letter-spacing: -0.01em;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .top-nav a:hover,
 .top-nav a.active {
   color: var(--text-primary);
+}
+
+.top-nav a.active {
+  background-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 1px 5px rgba(35, 34, 28, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.top-nav a:focus-visible {
+  outline: 2px solid var(--text-secondary);
+  outline-offset: 5px;
+  border-radius: 3px;
 }
 
 .layout-grid {
@@ -150,14 +187,21 @@ body {
 
 .home-top {
   display: grid;
-  grid-template-columns: 236px 1fr;
-  gap: 56px;
-  align-items: start;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  align-items: stretch;
 }
 
 .home-intro {
+  display: flex;
   min-width: 0;
   max-width: var(--content-width);
+}
+
+.home-intro #about {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .home-intro > section:last-child {
@@ -167,8 +211,9 @@ body {
 .profile-block {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  width: 220px;
+  gap: 12px;
+  width: 200px;
+  align-self: start;
 }
 
 .profile-avatar {
@@ -185,6 +230,11 @@ h1 {
   font-size: 28px;
   font-weight: 500;
   letter-spacing: -0.01em;
+}
+
+.profile-block h1 {
+  font-size: 29.83px;
+  white-space: nowrap;
 }
 
 .role {
@@ -268,7 +318,8 @@ line-height: 1.55;
 #about .about-subhead {
   font-weight: 600;
   color: #2a2a2a;
-  margin-top: 20px;
+  margin-top: auto;
+  padding-top: 20px;
   margin-bottom: 8px;
 }
 
@@ -384,6 +435,47 @@ p {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.email-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.email-copy-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.email-link,
+.contact-icon-link {
+  position: relative;
+  border: 1px solid rgba(70, 65, 50, 0.24);
+  background: rgba(233, 232, 225, 0.48);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 2px rgba(70, 65, 50, 0.04), 0 2px 8px rgba(35, 34, 28, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.email-link:hover,
+.contact-icon-link:hover {
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 12px rgba(35, 34, 28, 0.08);
+}
+
+.email-link:focus-visible,
+.contact-icon-link:focus-visible {
+  outline: 2px solid var(--text-secondary);
+  outline-offset: 3px;
 }
 
 .email-link {
@@ -392,17 +484,20 @@ p {
   color: var(--text-primary);
   text-decoration: none;
   font-family: var(--font-curriculum);
-  font-size: 13px;
+  font-size: 12.5px;
   letter-spacing: -0.01em;
-}
-
-.email-link:hover .email-link__label {
-  text-decoration-color: #111;
+  width: 100%;
+  min-height: 36px;
+  min-width: 0;
+  border-radius: 999px;
+  padding: 0 10px;
+  gap: 6px;
 }
 
 .email-link__icon {
-  width: 32px;
-  height: 32px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -411,47 +506,60 @@ p {
 }
 
 .email-link__icon svg {
-  width: 22px;
-  height: 22px;
-  fill: currentColor;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linejoin: round;
 }
 
 .email-link__label {
-  text-decoration: underline;
-  text-decoration-color: rgba(0, 0, 0, 0.35);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  white-space: nowrap;
 }
 
 .profile-links {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .contact-icon-link {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #23292f;
   text-decoration: none;
-  opacity: 0.92;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.contact-icon-link:hover {
-  opacity: 1;
-  transform: translateY(-1px);
 }
 
 .contact-icon-link svg {
-  width: 22px;
-  height: 22px;
-  fill: currentColor;
-  stroke: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.email-copy-button {
+  padding: 0;
+  cursor: pointer;
+}
+
+.email-copy-button svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .contact-icon-link .x-icon {
@@ -569,9 +677,9 @@ p {
 
 .pub-item--with-figure {
   display: grid;
-  grid-template-columns: minmax(0, calc(50% - 32px)) minmax(280px, 1fr);
+  grid-template-columns: minmax(0, 360px) minmax(280px, 1fr);
   gap: 16px;
-  align-items: start;
+  align-items: stretch;
   max-width: none;
 }
 
@@ -582,25 +690,36 @@ p {
   min-width: 0;
 }
 
+.pub-item--with-figure .pub-links {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
 .pub-figure {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
-  overflow: hidden;
-  transition: transform 0.2s ease;
-}
-
-.pub-figure:hover {
-  transform: translateY(-1px);
+  width: 100%;
+  max-width: 360px;
+  justify-self: start;
+  aspect-ratio: 16 / 9;
+  align-self: start;
 }
 
 .pub-figure img {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.project-item .pub-figure {
+  background-color: #fff;
+}
+
+.project-item .pub-figure img {
+  object-fit: contain;
 }
 
 .pub-title {
@@ -651,6 +770,7 @@ p {
 }
 
 .pub-button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -662,12 +782,73 @@ p {
   letter-spacing: -0.01em;
   text-decoration: none;
   border: 1px solid transparent;
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38), inset 0 -1px 2px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(35, 34, 28, 0.06);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.pub-button::before,
+.email-link::before,
+.contact-icon-link::before,
+.top-nav__glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 70px 38px at var(--glass-x, 50%) var(--glass-y, 50%), rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.1) 45%, transparent 80%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.top-nav__glass::before {
+  z-index: 2;
+  background: radial-gradient(ellipse 110px 45px at var(--glass-x, 50%) var(--glass-y, 50%), rgba(255, 255, 255, 0.55), transparent 80%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pub-button:hover::before,
+  .email-link:hover::before,
+  .contact-icon-link:hover::before,
+  .top-nav:hover .top-nav__glass::before {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pub-button::before,
+  .email-link::before,
+  .contact-icon-link::before,
+  .top-nav__glass::before {
+    transition: none;
+  }
+}
+
+.pub-button::after,
+.email-link::after,
+.contact-icon-link::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.08) 45%, rgba(255, 255, 255, 0.32));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .pub-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 2px rgba(0, 0, 0, 0.08), 0 3px 10px rgba(0, 0, 0, 0.14);
+}
+
+.pub-button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
 }
 
 .pub-button__icon {
@@ -732,11 +913,6 @@ p {
 .pub-button--site:hover {
   background: #ebe6da;
   border-color: rgba(0, 0, 0, 0.24);
-}
-
-.project-figure-img {
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .project-description {
@@ -925,13 +1101,19 @@ p {
   }
 
   .site-shell {
-    padding: 52px 24px 40px;
+    padding: 96px 24px 40px;
   }
 
   .top-nav {
-    justify-content: center;
-    padding: 12px 24px;
-    margin-bottom: 36px;
+    top: 12px;
+  }
+
+  .top-nav ul {
+    gap: 2px;
+  }
+
+  .top-nav a {
+    padding-inline: clamp(10px, 3vw, 14px);
   }
 
   .layout-grid {
@@ -955,13 +1137,18 @@ p {
     max-width: 100%;
   }
 
+  #about .about-subhead {
+    margin-top: 20px;
+    padding-top: 0;
+  }
+
   .home-section {
     margin-top: 40px;
     padding-top: 36px;
   }
 
   .profile-links {
-    gap: 12px;
+    gap: 8px;
   }
 
   p {
@@ -1001,6 +1188,11 @@ p {
   .pub-item--with-figure {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+
+  .pub-item--with-figure .pub-links {
+    margin-top: 8px;
+    padding-top: 0;
   }
 
   .news-date span {
