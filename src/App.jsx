@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import LiquidGlass from 'liquid-glass-react'
 import './App.css'
 import Blog, { postPath } from './Blog'
@@ -285,6 +285,108 @@ function updateGlassReflection(event) {
 }
 
 function TopNavigation({ currentPage }) {
+  const listRef = useRef(null)
+  const pillRef = useRef(null)
+  const gestureRef = useRef(null)
+  const suppressClick = useRef(false)
+  const [mode, setMode] = useState('idle')
+
+  const placePill = useCallback((link) => {
+    if (!link || !pillRef.current || !listRef.current) return
+    const box = link.getBoundingClientRect()
+    const listBox = listRef.current.getBoundingClientRect()
+    const style = pillRef.current.style
+    style.width = `${box.width}px`
+    style.height = `${box.height}px`
+    style.setProperty('--pill-x', `${box.left - listBox.left}px`)
+    style.setProperty('--pill-y', `${box.top - listBox.top}px`)
+  }, [])
+
+  const alignSelected = useCallback(() => {
+    placePill(listRef.current?.querySelector('[aria-current="page"]'))
+  }, [placePill])
+
+  useLayoutEffect(() => {
+    let disposed = false
+    const align = () => {
+      if (!disposed && !gestureRef.current?.dragging) alignSelected()
+    }
+    align()
+    const observer = new ResizeObserver(align)
+    observer.observe(listRef.current)
+    document.fonts.ready.then(align)
+    return () => {
+      disposed = true
+      observer.disconnect()
+    }
+  }, [currentPage, alignSelected])
+
+  function navigate(item) {
+    window.location.assign(item.page === 'home' ? '#' : item.href)
+  }
+
+  function cancelGesture() {
+    if (gestureRef.current) suppressClick.current = true
+    gestureRef.current = null
+    setMode('idle')
+    requestAnimationFrame(alignSelected)
+  }
+
+  function startPress(event) {
+    if (gestureRef.current || event.button !== 0 || !event.isPrimary || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    suppressClick.current = false
+    const link = event.target.closest('a')
+    if (!link) return
+    const gesture = {
+      id: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      link,
+      left: link.offsetLeft,
+      width: link.getBoundingClientRect().width,
+      dragging: false,
+    }
+    gestureRef.current = gesture
+    setMode('press')
+  }
+
+  function movePress(event) {
+    const gesture = gestureRef.current
+    if (!gesture || gesture.id !== event.pointerId) return
+    const dx = event.clientX - gesture.startX
+    if (!gesture.dragging) {
+      if (Math.abs(event.clientY - gesture.startY) > 8 && Math.abs(dx) < 8) {
+        cancelGesture()
+        return
+      }
+      if (dx === 0) return
+      gesture.dragging = true
+      placePill(gesture.link)
+      listRef.current.setPointerCapture(gesture.id)
+      setMode('drag')
+    }
+    event.preventDefault()
+    const left = Math.max(0, Math.min(listRef.current.clientWidth - gesture.width, gesture.left + dx))
+    gesture.center = left + gesture.width / 2
+    pillRef.current.style.setProperty('--pill-x', `${left}px`)
+  }
+
+  function endPress(event) {
+    const gesture = gestureRef.current
+    if (!gesture || gesture.id !== event.pointerId) return
+    gestureRef.current = null
+    setMode('idle')
+    if (!gesture.dragging) return
+    suppressClick.current = true
+    const links = [...listRef.current.querySelectorAll('a')]
+    const center = gesture.center ?? gesture.left + gesture.width / 2
+    const target = links.reduce((closest, link) =>
+      Math.abs(link.offsetLeft + link.offsetWidth / 2 - center) <
+      Math.abs(closest.offsetLeft + closest.offsetWidth / 2 - center) ? link : closest)
+    navigate(topNavItems[links.indexOf(target)])
+    requestAnimationFrame(alignSelected)
+  }
+
   return (
     <nav
       className="top-nav"
@@ -303,13 +405,48 @@ function TopNavigation({ currentPage }) {
         overLight
         className="top-nav__glass"
       >
-        <ul>
+        <ul
+          ref={listRef}
+          className={`top-nav__items top-nav__items--${mode}`}
+          onPointerDown={startPress}
+          onPointerMove={movePress}
+          onPointerUp={endPress}
+          onPointerCancel={cancelGesture}
+          onPointerLeave={() => { if (gestureRef.current && !gestureRef.current.dragging) cancelGesture() }}
+          onLostPointerCapture={() => { if (gestureRef.current) cancelGesture() }}
+          onDragStart={(event) => event.preventDefault()}
+          onContextMenu={(event) => { if (gestureRef.current) event.preventDefault() }}
+          onClickCapture={(event) => {
+            if (event.detail && suppressClick.current && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+              suppressClick.current = false
+              event.preventDefault()
+              event.stopPropagation()
+            }
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'Escape') cancelGesture()
+            const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0
+            if (!step) return
+            event.preventDefault()
+            const links = [...listRef.current.querySelectorAll('a')]
+            const index = links.indexOf(event.target)
+            links[(index + step + links.length) % links.length].focus()
+          }}
+        >
+          <li ref={pillRef} className="top-nav__selection" aria-hidden="true" />
           {topNavItems.map((item) => (
             <li key={item.label}>
               <a
                 href={item.href}
+                draggable="false"
                 className={currentPage === item.page ? 'active' : undefined}
                 aria-current={currentPage === item.page ? 'page' : undefined}
+                onClick={(event) => {
+                  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return
+                  event.preventDefault()
+                  placePill(event.currentTarget)
+                  navigate(item)
+                }}
               >
                 {item.label}
               </a>
