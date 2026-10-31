@@ -413,7 +413,12 @@ function TopNavigation({ currentPage }) {
           onPointerUp={endPress}
           onPointerCancel={cancelGesture}
           onPointerLeave={() => { if (gestureRef.current && !gestureRef.current.dragging) cancelGesture() }}
-          onLostPointerCapture={() => { if (gestureRef.current) cancelGesture() }}
+          onLostPointerCapture={(event) => {
+            // Touch capture transfers from the link; its loss bubbles here.
+            if (event.target === event.currentTarget && gestureRef.current?.id === event.pointerId) {
+              cancelGesture()
+            }
+          }}
           onDragStart={(event) => event.preventDefault()}
           onContextMenu={(event) => { if (gestureRef.current) event.preventDefault() }}
           onClickCapture={(event) => {
