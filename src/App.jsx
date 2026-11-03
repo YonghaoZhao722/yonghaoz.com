@@ -117,10 +117,9 @@ const publicationItems = [
     imageAlt: 'DeSCENT framework: scRNA-seq deconvolution, alignment and inference',
     links: [
       {
-        type: 'biorxiv',
-        label: 'bioRxiv',
+        type: 'paper',
+        label: 'Paper',
         href: 'https://www.biorxiv.org/content/10.64898/2026.03.15.711877v1.abstract',
-        logo: '/biorxiv-logo.svg',
       },
       {
         type: 'code',
