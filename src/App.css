@@ -396,13 +396,14 @@ p {
 
 .timeline-item {
   display: grid;
-  grid-template-columns: 140px 1fr;
+  grid-template-columns: 160px 1fr;
   gap: 20px;
 }
 
 .timeline-year {
   font-family: var(--font-claude-ui);
-  font-size: 15px;
+  font-size: 14px;
+  white-space: nowrap;
   color: #1e1e1e;
   font-weight: 500;
   padding-top: 2px;
