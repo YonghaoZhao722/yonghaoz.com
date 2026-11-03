@@ -111,7 +111,7 @@ const publicationItems = [
       'Zhipeng Luo',
       'Yazhou He',
     ],
-    venue: 'Under Revision at Bioinformatics',
+    venue: 'Bioinformatics, 2026',
     year: '2026',
     image: '/descent-source-16x9.svg',
     imageAlt: 'DeSCENT framework: scRNA-seq deconvolution, alignment and inference',
