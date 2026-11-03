@@ -46,7 +46,7 @@ const educationItems = [
 
 const experienceItems = [
   {
-    period: 'April 2026 – August 2026',
+    period: 'Apr 2026 – Aug 2026',
     institution: 'Westlake University',
     title: 'Research Assistant',
     detailPrefix: 'Advised by',
@@ -56,7 +56,7 @@ const experienceItems = [
     logoAlt: 'Westlake University logo',
   },
   {
-    period: 'March 2025 – Sep 2025',
+    period: 'Mar 2025 – Sep 2025',
     institution: 'Brown University',
     title: 'Research Collaborator',
     detailName: 'Weihan Li Lab',
