@@ -17,14 +17,14 @@ const hirsScholarshipUrl = '/hirs-scholarship.pdf'
 
 const educationItems = [
   {
-    period: '2026 – Present',
+    period: 'Aug 2026 – Present',
     institution: 'University of Colorado Anschutz Medical Campus',
     program: 'Ph.D. in Computational Bioscience',
     logo: '/cuanschutz.png',
     logoAlt: 'CU Anschutz logo',
   },
   {
-    period: '2022 – 2026',
+    period: 'Sep 2022 – Jun 2026',
     institution: 'University of Leeds',
     programPrefix: 'B.Sc. in Computer Science, ',
     programHonours: 'First-Class Honours',
@@ -33,7 +33,7 @@ const educationItems = [
     logoAlt: 'University of Leeds logo',
   },
   {
-    period: '2022 – 2026',
+    period: 'Sep 2022 – Jun 2026',
     institution: 'Southwest Jiaotong University',
     program: 'B.Eng. in Computer Science',
     logo: '/SWJTU_logo.png',
