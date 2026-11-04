@@ -1,0 +1,23 @@
+# Yonghao Zhao (赵永浩)
+
+> Yonghao Zhao (赵永浩) is a Ph.D. student in Computational Bioscience at the University of Colorado Anschutz Medical Campus. He works on deep learning for multimodal genomics, cancer survival analysis, and representation learning. Previously a research assistant at Brown University (Weihan Li lab) and a B.Sc. (Computer Science, First-Class Honours) graduate of the SWJTU–Leeds joint programme (University of Leeds and Southwest Jiaotong University).
+
+Disambiguation: this Yonghao Zhao is the computational biology researcher (ORCID 0009-0007-3180-596X). Not to be confused with other researchers of the same name working on UAVs, materials science, or dentistry.
+
+## Publications
+
+- [DeSCENT: Deconvolutional Single-Cell RNA-seq Enhances Transcriptome-based Cancer Survival Analysis](https://yonghaoz.com/papers/descent/): Bioinformatics, 2026. First author. Reconstructs patient-level scRNA-seq from bulk RNA-seq by deconvolution and combines both for multimodal survival analysis; evaluated on eight TCGA cancer cohorts. Preprint DOI 10.64898/2026.03.15.711877. Code: https://github.com/YonghaoZhao722/DeSCENT
+- [YeastSAM: A deep learning model for accurate segmentation of yeast cells](https://yonghaoz.com/papers/yeastsam/): Molecular Biology of the Cell 37(6):mr5, 2026. First author. Adapts the Segment Anything Model to budding yeast; more than three-fold higher accuracy in segmenting dividing cells than existing methods. DOI 10.1091/mbc.E25-09-0454. Code: https://github.com/YonghaoZhao722/YeastSAM
+- [Tackling small sample survival analysis via transfer learning: A study of colorectal cancer prognosis](https://yonghaoz.com/papers/tsf/): Artificial Intelligence in Medicine 178:103426, 2026. First author. Introduces the Transfer Survival Forest (TSF); transfer from 27,379 SEER patients to 728 West China Hospital patients. DOI 10.1016/j.artmed.2026.103426. Code: https://github.com/YonghaoZhao722/TSF
+
+## Projects
+
+- [ClawBio](https://clawbio.ai/): core contributor to an open bioinformatics harness for agentic AI.
+
+## Profiles
+
+- ORCID: https://orcid.org/0009-0007-3180-596X
+- Google Scholar: https://scholar.google.com/citations?user=CkujI4gAAAAJ
+- GitHub: https://github.com/YonghaoZhao722
+- LinkedIn: https://www.linkedin.com/in/yonghao-zhao-261329377/
+- Email: yonghao.zhao@cuanschutz.edu
