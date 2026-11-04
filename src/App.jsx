@@ -126,11 +126,6 @@ const publicationItems = [
         label: 'Code',
         href: 'https://github.com/YonghaoZhao722/DeSCENT',
       },
-      {
-        type: 'doc',
-        label: 'Summary',
-        href: '/papers/descent/',
-      },
     ],
   },
   {
@@ -152,11 +147,6 @@ const publicationItems = [
         type: 'code',
         label: 'Code',
         href: 'https://github.com/YonghaoZhao722/YeastSAM',
-      },
-      {
-        type: 'doc',
-        label: 'Summary',
-        href: '/papers/yeastsam/',
       },
       {
         type: 'doc',
@@ -195,11 +185,6 @@ const publicationItems = [
         type: 'code',
         label: 'Code',
         href: 'https://github.com/YonghaoZhao722/TSF',
-      },
-      {
-        type: 'doc',
-        label: 'Summary',
-        href: '/papers/tsf/',
       },
     ],
   },
