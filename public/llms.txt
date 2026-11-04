@@ -17,6 +17,7 @@ Disambiguation: this Yonghao Zhao is the computational biology researcher (ORCID
 ## Profiles
 
 - ORCID: https://orcid.org/0009-0007-3180-596X
+- OpenAlex: https://openalex.org/A5121234063
 - Google Scholar: https://scholar.google.com/citations?user=CkujI4gAAAAJ
 - GitHub: https://github.com/YonghaoZhao722
 - LinkedIn: https://www.linkedin.com/in/yonghao-zhao-261329377/

@@ -13,6 +13,7 @@ export const person = {
   email: 'yonghao.zhao@cuanschutz.edu',
   sameAs: [
     'https://orcid.org/0009-0007-3180-596X',
+    'https://openalex.org/A5121234063',
     'https://scholar.google.com/citations?user=CkujI4gAAAAJ',
     'https://github.com/YonghaoZhao722',
     'https://www.linkedin.com/in/yonghao-zhao-261329377/',
