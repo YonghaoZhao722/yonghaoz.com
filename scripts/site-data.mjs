@@ -4,9 +4,8 @@ export const SITE = 'https://yonghaoz.com'
 
 export const person = {
   name: 'Yonghao Zhao',
-  alternateName: '赵永浩',
   description:
-    'Yonghao Zhao (赵永浩) is a Ph.D. student in Computational Bioscience at the University of Colorado Anschutz Medical Campus, working on deep learning for multimodal genomics, survival analysis, and representation learning. He is the first author of YeastSAM (Molecular Biology of the Cell, 2026), DeSCENT (Bioinformatics, 2026), and a transfer-learning survival analysis study (Artificial Intelligence in Medicine, 2026).',
+    'Yonghao Zhao is a Ph.D. student in Computational Bioscience at the University of Colorado Anschutz Medical Campus, working on deep learning for multimodal genomics, survival analysis, and representation learning. He is the first author of YeastSAM (Molecular Biology of the Cell, 2026), DeSCENT (Bioinformatics, 2026), and a transfer-learning survival analysis study (Artificial Intelligence in Medicine, 2026).',
   jobTitle: 'Ph.D. Student, Computational Bioscience',
   affiliation: 'University of Colorado Anschutz Medical Campus',
   alumniOf: ['Brown University', 'University of Leeds', 'Southwest Jiaotong University'],
@@ -49,7 +48,7 @@ export const papers = [
       ['What problem does DeSCENT solve?', 'Cancer cohorts with survival labels are usually profiled with bulk RNA-seq, not single-cell RNA-seq, so cell-level transcriptomes cannot be used directly for survival analysis. DeSCENT reconstructs subject-level scRNA-seq from bulk data so both can be used.'],
       ['Which data was it evaluated on?', 'Eight TCGA cancer cohorts.'],
       ['Is the code available?', 'Yes: https://github.com/YonghaoZhao722/DeSCENT'],
-      ['Who is the first author?', 'Yonghao Zhao (赵永浩).'],
+      ['Who is the first author?', 'Yonghao Zhao.'],
     ],
   },
   {
@@ -80,7 +79,7 @@ export const papers = [
       ['What is YeastSAM?', 'A deep learning segmentation framework for budding yeast, built by adapting the Segment Anything Model (SAM).'],
       ['Why is budding yeast hard to segment?', 'Asymmetric division and mother-bud morphology cause dividing cells to be misidentified as two separate cells.'],
       ['Where can I get it?', 'Code: https://github.com/YonghaoZhao722/YeastSAM — Docs: https://yeastsamdoc.readthedocs.io/'],
-      ['Who is the first author?', 'Yonghao Zhao (赵永浩).'],
+      ['Who is the first author?', 'Yonghao Zhao.'],
     ],
   },
   {
@@ -111,7 +110,7 @@ export const papers = [
       ['What is the Transfer Survival Forest (TSF)?', 'A transfer-learning version of Random Survival Forest that transfers tree structures learned on source data and fine-tunes them with target data.'],
       ['What data was used?', '27,379 SEER stage I colorectal cancer patients as source and 728 stage I patients from West China Hospital as target.'],
       ['Is the code available?', 'Yes: https://github.com/YonghaoZhao722/TSF'],
-      ['Who is the first author?', 'Yonghao Zhao (赵永浩).'],
+      ['Who is the first author?', 'Yonghao Zhao.'],
     ],
   },
 ]

@@ -1,6 +1,6 @@
-# Yonghao Zhao (赵永浩)
+# Yonghao Zhao
 
-> Yonghao Zhao (赵永浩) is a Ph.D. student in Computational Bioscience at the University of Colorado Anschutz Medical Campus. He works on deep learning for multimodal genomics, cancer survival analysis, and representation learning. Previously a research assistant at Brown University (Weihan Li lab) and a B.Sc. (Computer Science, First-Class Honours) graduate of the SWJTU–Leeds joint programme (University of Leeds and Southwest Jiaotong University).
+> Yonghao Zhao is a Ph.D. student in Computational Bioscience at the University of Colorado Anschutz Medical Campus. He works on deep learning for multimodal genomics, cancer survival analysis, and representation learning. Previously a research assistant at Brown University (Weihan Li lab) and a B.Sc. (Computer Science, First-Class Honours) graduate of the SWJTU–Leeds joint programme (University of Leeds and Southwest Jiaotong University).
 
 Disambiguation: this Yonghao Zhao is the computational biology researcher (ORCID 0009-0007-3180-596X). Not to be confused with other researchers of the same name working on UAVs, materials science, or dentistry.
 

@@ -12,7 +12,7 @@ const venueLine = (p) => `${p.venue}, ${p.year}`
 
 const personLd = {
   '@context': 'https://schema.org', '@type': 'Person', '@id': `${SITE}/#person`,
-  name: person.name, alternateName: person.alternateName, url: `${SITE}/`, image: `${SITE}/avatar.png`,
+  name: person.name, url: `${SITE}/`, image: `${SITE}/avatar.png`,
   description: person.description, jobTitle: person.jobTitle, email: `mailto:${person.email}`,
   affiliation: { '@type': 'CollegeOrUniversity', name: person.affiliation },
   alumniOf: person.alumniOf.map((name) => ({ '@type': 'CollegeOrUniversity', name })),
@@ -101,7 +101,7 @@ function paperPage(p) {
       <h2>FAQ</h2>
       <dl>${p.faq.map(([q, a]) => `<dt>${esc(q)}</dt><dd>${esc(a)}</dd>`).join('')}</dl>
     </article>
-    <footer><p class="meta">Yonghao Zhao (赵永浩) · Ph.D. student, Computational Bioscience, University of Colorado Anschutz · <a href="/">yonghaoz.com</a></p></footer>
+    <footer><p class="meta">Yonghao Zhao · Ph.D. student, Computational Bioscience, University of Colorado Anschutz · <a href="/">yonghaoz.com</a></p></footer>
   </body>
 </html>
 `
@@ -109,7 +109,7 @@ function paperPage(p) {
 
 function homeStatic() {
   return `<main class="prerender-static" style="max-width:820px;margin:0 auto;padding:24px 20px;font-family:system-ui,sans-serif;line-height:1.6">
-      <h1>Yonghao Zhao (赵永浩)</h1>
+      <h1>Yonghao Zhao</h1>
       <p>${esc(person.description)}</p>
       <h2>Publications</h2>
       <ul>${papers.map((p) => `<li><a href="/papers/${p.slug}/">${esc(p.title)}</a>. ${esc(p.authors.join(', '))}. <em>${esc(venueLine(p))}</em>. ${esc(p.tldr)}</li>`).join('')}</ul>
