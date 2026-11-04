@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import LiquidGlass from 'liquid-glass-react'
 import './App.css'
 import Blog, { postPath } from './Blog'
@@ -383,7 +384,8 @@ function TopNavigation({ currentPage }) {
       Math.abs(link.offsetLeft + link.offsetWidth / 2 - center) <
       Math.abs(closest.offsetLeft + closest.offsetWidth / 2 - center) ? link : closest)
     navigate(topNavItems[links.indexOf(target)])
-    requestAnimationFrame(alignSelected)
+    // The old page stays selected until its fade-out finishes.
+    requestAnimationFrame(() => placePill(target))
   }
 
   return (
@@ -933,17 +935,65 @@ function ContactItem({ item }) {
 
 function App() {
   const [page, setPage] = useState(getPageFromHash)
+  const contentRef = useRef(null)
   const isExperiencePage = page === 'experience'
   const isMiscPage = page === 'misc'
 
   useEffect(() => {
-    const handleHashChange = () => {
-      setPage(getPageFromHash())
+    let currentPage = getPageFromHash()
+    let animation
+
+    const handleHashChange = async () => {
+      const nextPage = getPageFromHash()
+      if (nextPage === currentPage && !animation) return
+
+      const content = contentRef.current
+      const { opacity, transform } = getComputedStyle(content)
+      animation?.cancel()
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (!reducedMotion) {
+        animation = content.animate([{ opacity, transform }, { opacity: 0, transform }], {
+          duration: 220,
+          easing: 'ease-out',
+          fill: 'forwards',
+        })
+        try {
+          await animation.finished
+        } catch {
+          return
+        }
+      }
+
+      flushSync(() => setPage(nextPage))
+      currentPage = nextPage
       window.scrollTo({ top: 0, behavior: 'instant' })
+      animation?.cancel()
+      if (reducedMotion) {
+        animation = undefined
+        return
+      }
+
+      animation = content.animate([
+        { opacity: 0, transform: 'translateY(6px)' },
+        { opacity: 1, transform: 'translateY(0)' },
+      ], {
+        duration: 220,
+        easing: 'ease-in-out',
+      })
+      try {
+        await animation.finished
+        animation = undefined
+      } catch {
+        // A newer navigation cancels this animation and takes over.
+      }
     }
 
     window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange)
+      animation?.cancel()
+    }
   }, [])
 
   return (
@@ -953,6 +1003,7 @@ function App() {
       <div className="site-shell">
         <TopNavigation currentPage={page === 'post' ? 'blog' : page} />
 
+        <div ref={contentRef}>
         {page === 'blog' || page === 'post' ? (
           <Blog isPost={page === 'post'} />
         ) : isMiscPage ? (
@@ -1124,6 +1175,7 @@ function App() {
             <footer className="site-footer">© 2026 Yonghao Zhao.</footer>
           </div>
         )}
+        </div>
       </div>
     </>
   )

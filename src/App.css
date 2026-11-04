@@ -467,11 +467,16 @@ p {
   text-decoration-color: rgba(0, 0, 0, 0.35);
   text-decoration-thickness: 1.4px;
   text-underline-offset: 2px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 0% 1.4px;
+  transition: background-size 0.2s ease;
 }
 
 .inline-link:hover,
 .advisor-line a:hover {
-  text-decoration-color: #111;
+  background-size: 100% 1.4px;
 }
 
 .contact-block {
@@ -782,6 +787,25 @@ p {
   height: 100%;
   min-height: 0;
   object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pub-figure:hover img {
+    transform: scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inline-link,
+  .advisor-line a,
+  .pub-figure img {
+    transition: none;
+  }
+
+  .pub-figure:hover img {
+    transform: none;
+  }
 }
 
 .project-item .pub-figure {
