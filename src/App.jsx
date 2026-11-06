@@ -69,6 +69,11 @@ const experienceItems = [
 
 const newsItems = [
   {
+    month: 'Nov',
+    year: '2026',
+    type: 'descent',
+  },
+  {
     month: 'June',
     year: '2026',
     type: 'graduation',
@@ -608,6 +613,12 @@ function NewsItem({ item }) {
                 <strong>Hirs Scholarship</strong>
               </a>
               . Thanks, CU!
+            </>
+          ) : null}
+          {item.type === 'descent' ? (
+            <>
+              My paper <strong>DeSCENT</strong> has been accepted by{' '}
+              <strong>Bioinformatics</strong>!
             </>
           ) : null}
           {item.type === 'paper' ? (
