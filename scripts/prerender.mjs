@@ -3,7 +3,7 @@
 // - generates dist/papers/<slug>/index.html with citation_* tags + ScholarlyArticle JSON-LD
 // - generates dist/sitemap.xml
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
-import { SITE, person, papers } from './site-data.mjs'
+import { SITE, person, papers, profile } from './site-data.mjs'
 
 const dist = new URL('../dist/', import.meta.url)
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -12,11 +12,12 @@ const venueLine = (p) => `${p.venue}, ${p.year}`
 
 const personLd = {
   '@context': 'https://schema.org', '@type': 'Person', '@id': `${SITE}/#person`,
-  name: person.name, url: `${SITE}/`, image: `${SITE}/avatar.png`,
+  name: person.name, url: `${SITE}/about/yonghao-zhao/`, image: `${SITE}/avatar.png`,
   description: person.description, jobTitle: person.jobTitle, email: `mailto:${person.email}`,
   affiliation: { '@type': 'CollegeOrUniversity', name: person.affiliation },
   alumniOf: person.alumniOf.map((name) => ({ '@type': 'CollegeOrUniversity', name })),
-  knowsAbout: person.knowsAbout, sameAs: person.sameAs,
+  knowsAbout: person.knowsAbout,
+  sameAs: [...new Set([...(person.sameAs || []), `${SITE}/`, `${SITE}/about/yonghao-zhao/`])],
 }
 
 function articleLd(p) {
@@ -98,8 +99,9 @@ function paperPage(p) {
   const updated = p.lastUpdated || p.dateModified || (p.date || '').replace(/\//g, '-')
   const updatedLine = updated ? `<p class="updated">Last updated: ${esc(updated)}</p>` : ''
 
+  const scopeHeading = p.scope?.heading || `Who is ${p.short} for — and who is it not for?`
   const scopeBlock = p.scope
-    ? `\n      <h2>Who is DeSCENT for — and who is it not for?</h2>\n      <div class="scope">\n        <h3>Problem</h3>\n        <p>${esc(p.scope.problem)}</p>\n        <h3>For</h3>\n        <p>${esc(p.scope.forWhom)}</p>\n        <h3>Not for</h3>\n        <p>${esc(p.scope.notForWhom)}</p>\n        ${updatedLine}\n      </div>`
+    ? `\n      <h2>${esc(scopeHeading)}</h2>\n      <div class="scope">\n        <h3>Problem</h3>\n        <p>${esc(p.scope.problem)}</p>\n        <h3>For</h3>\n        <p>${esc(p.scope.forWhom)}</p>\n        <h3>Not for</h3>\n        <p>${esc(p.scope.notForWhom)}</p>\n        ${updatedLine}\n      </div>`
     : (p.positioning
       ? `\n      <h2>What ${esc(p.short)} is for</h2>\n      <p class="scope">${esc(p.positioning)}</p>`
       : '')
@@ -112,12 +114,14 @@ function paperPage(p) {
     ? `\n      <h2>Use cases / questions this answers</h2>\n      <dl class="usecase">${p.useCases.map(([q, a]) => `<dt>${esc(q)}</dt><dd>${esc(a)}</dd>`).join('')}</dl>`
     : ''
 
+  const stepsHeading = p.stepsHeading || `What are the ${p.short} pipeline steps?`
   const stepsBlock = p.steps?.length
-    ? `\n      <h2>What are the DeSCENT pipeline steps?</h2>\n      <div class="answer-block">\n        <ol class="steps">${p.steps.map(([t, d]) => `<li><strong>${esc(t)}.</strong> ${esc(d)}</li>`).join('')}</ol>\n        ${updatedLine}\n      </div>`
+    ? `\n      <h2>${esc(stepsHeading)}</h2>\n      <div class="answer-block">\n        <ol class="steps">${p.steps.map(([t, d]) => `<li><strong>${esc(t)}.</strong> ${esc(d)}</li>`).join('')}</ol>\n        ${updatedLine}\n      </div>`
     : ''
 
+  const compareHeading = p.comparisonTable?.heading || `How does ${p.short} compare with related methods?`
   const table = p.comparisonTable
-    ? `\n      <h2>How does DeSCENT compare with Scissor / BayesPrism / scSurvival?</h2>\n      <div class="answer-block">\n        ${p.comparisonTable.lead ? `<p>${esc(p.comparisonTable.lead)}</p>` : ''}\n        <p class="meta">${esc(p.comparisonTable.caption)}</p>\n        <table>\n          <thead><tr>${p.comparisonTable.headers.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead>\n          <tbody>${p.comparisonTable.rows.map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>\n        </table>\n        ${updatedLine}\n      </div>`
+    ? `\n      <h2>${esc(compareHeading)}</h2>\n      <div class="answer-block">\n        ${p.comparisonTable.lead ? `<p>${esc(p.comparisonTable.lead)}</p>` : ''}\n        <p class="meta">${esc(p.comparisonTable.caption)}</p>\n        <table>\n          <thead><tr>${p.comparisonTable.headers.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead>\n          <tbody>${p.comparisonTable.rows.map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>\n        </table>\n        ${updatedLine}\n      </div>`
     : ''
 
   const related = (!p.comparisonTable && p.relatedMethods?.length)
@@ -175,6 +179,58 @@ function paperPage(p) {
 `
 }
 
+function profilePage() {
+  const canonical = `${SITE}/about/yonghao-zhao/`
+  const updated = profile.lastUpdated || '2026-11-06'
+  const updatedLine = `<p class="updated">Last updated: ${esc(updated)}</p>`
+  const faq = profile.faq || []
+  const faqBlock = faq.length ? faqLd({ faq }) : null
+  const personPageLd = {
+    ...personLd,
+    url: canonical,
+    mainEntityOfPage: canonical,
+  }
+  const geoBlocks = (profile.geoSections || []).map((s) => `\n      <h2>${esc(s.heading)}</h2>\n      <div class="answer-block">\n        <p>${esc(s.body)}</p>\n        ${updatedLine}\n      </div>`).join('')
+  const scope = profile.scope
+    ? `\n      <h2>${esc(profile.scope.heading || 'Who is this profile for — and who is it not for?')}</h2>\n      <div class="scope">\n        <h3>Problem</h3>\n        <p>${esc(profile.scope.problem)}</p>\n        <h3>For</h3>\n        <p>${esc(profile.scope.forWhom)}</p>\n        <h3>Not for</h3>\n        <p>${esc(profile.scope.notForWhom)}</p>\n        ${updatedLine}\n      </div>`
+    : ''
+  const papersList = `\n      <h2>What papers has Yonghao Zhao published?</h2>\n      <div class="answer-block">\n        <ul>${papers.map((p) => `<li><strong>${esc(p.short)}</strong> — <a href="/papers/${p.slug}/">${esc(p.title)}</a>. <em>${esc(venueLine(p))}</em>. DOI <a href="https://doi.org/${p.doi}">${esc(p.doi)}</a>. ${esc(p.tldr)}</li>`).join('')}</ul>\n        ${updatedLine}\n      </div>`
+  const links = `\n      <h2>Where can I find Yonghao Zhao online?</h2>\n      <div class="answer-block">\n        <ul>${person.sameAs.map((u) => `<li><a href="${u}">${esc(u)}</a></li>`).join('')}<li>Email: <a href="mailto:${person.email}">${esc(person.email)}</a></li><li>Site: <a href="${SITE}/">${SITE}/</a></li></ul>\n        ${updatedLine}\n      </div>`
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yonghao Zhao — Computational Bioscience Ph.D. student | CU Anschutz</title>
+    <meta name="description" content="${esc(profile.metaDescription || person.description)}">
+    <link rel="canonical" href="${canonical}">
+    <link rel="icon" type="image/png" href="/avatar.png">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Yonghao Zhao">
+    <meta property="og:description" content="${esc(person.description)}">
+    <meta property="og:url" content="${canonical}">
+    <meta property="og:image" content="${SITE}/avatar.png">
+    <meta name="twitter:card" content="summary">
+    ${jsonLd(personPageLd)}
+    ${faqBlock ? jsonLd(faqBlock) : ''}
+    <style>${css}</style>
+  </head>
+  <body>
+    <article>
+      <h1>Yonghao Zhao</h1>
+      <p class="meta">${esc(person.jobTitle)} · ${esc(person.affiliation)}</p>
+      <p>${esc(person.description)}</p>${scope}${geoBlocks}${papersList}${links}
+      <h2>FAQ</h2>
+      <dl>${faq.map(([q, a]) => `<dt>${esc(q)}</dt><dd>${esc(a)}</dd>`).join('')}</dl>
+      ${updatedLine}
+    </article>
+    <footer><p class="meta">Yonghao Zhao · Ph.D. student, Computational Bioscience, University of Colorado Anschutz · ${SITE}</p></footer>
+  </body>
+</html>
+`
+}
+
+
 function homeStatic() {
   return `<main class="prerender-static" style="max-width:820px;margin:0 auto;padding:24px 20px;font-family:system-ui,sans-serif;line-height:1.6">
       <h1>Yonghao Zhao</h1>
@@ -197,7 +253,11 @@ for (const p of papers) {
   await writeFile(new URL('index.html', dir), paperPage(p))
 }
 
+const aboutDir = new URL('about/yonghao-zhao/', dist)
+await mkdir(aboutDir, { recursive: true })
+await writeFile(new URL('index.html', aboutDir), profilePage())
+
 const today = new Date().toISOString().slice(0, 10)
-const urls = ['/', ...papers.map((p) => `/papers/${p.slug}/`)]
+const urls = ['/', ...papers.map((p) => `/papers/${p.slug}/`), '/about/yonghao-zhao/']
 await writeFile(new URL('sitemap.xml', dist), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${SITE}${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}\n</urlset>\n`)
-console.log(`prerender: index + ${papers.length} paper pages + sitemap`)
+console.log(`prerender: index + ${papers.length} paper pages + about + sitemap`)

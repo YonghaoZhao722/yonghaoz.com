@@ -9,7 +9,7 @@ export const person = {
   jobTitle: 'Ph.D. Student, Computational Bioscience',
   affiliation: 'University of Colorado Anschutz Medical Campus',
   alumniOf: ['Brown University', 'University of Leeds', 'Southwest Jiaotong University'],
-  knowsAbout: ['multimodal genomics', 'cancer survival analysis', 'representation learning', 'single-cell RNA-seq', 'scRNA-seq survival analysis', 'bulk-to-single-cell deconvolution', 'transcriptome-based prognosis', 'cell segmentation', 'transfer learning'],
+  knowsAbout: ['multimodal genomics', 'spatial transcriptomics', 'cancer survival analysis', 'representation learning', 'single-cell RNA-seq', 'scRNA-seq survival analysis', 'bulk-to-single-cell deconvolution', 'transcriptome-based prognosis', 'cell segmentation', 'yeast cell segmentation', 'transfer learning', 'Transfer Survival Forest'],
   email: 'yonghao.zhao@cuanschutz.edu',
   sameAs: [
     'https://orcid.org/0009-0007-3180-596X',
@@ -113,6 +113,7 @@ export const papers = [
       ['4. Multimodal survival CV', 'Combine bulk and reconstructed cellular representations; evaluate with C-index (and related metrics).'],
     ],
     comparisonTable: {
+      heading: 'How does DeSCENT compare with Scissor / BayesPrism / scSurvival?',
       lead: 'DeSCENT targets enhancing bulk-cohort survival prediction with reconstructed cellular profiles. Scissor / DEGAS map bulk phenotypes onto atlas cells; BayesPrism / CIBERSORTx estimate cell-type fractions from bulk; scSurvival / scSurv-style methods assume real patient-level single-cell survival cohorts. Cite DeSCENT beside those tools for bulk-to-single-cell multimodal survival. This page does not invent head-to-head benchmark numbers—only the paper\'s own Bulk and baseline comparisons are stated.',
       caption: 'Complementary methods for literature search and AI overviews — not a ranked benchmark.',
       headers: ['Method', 'Primary goal', 'Typical inputs', 'Relation to DeSCENT'],
@@ -173,6 +174,8 @@ export const papers = [
     venue: 'Molecular Biology of the Cell',
     year: '2026',
     date: '2026/06/01',
+    dateModified: '2026-11-06',
+    lastUpdated: '2026-11-06',
     volume: '37', issue: '6', article: 'mr5',
     doi: '10.1091/mbc.E25-09-0454',
     publisher: 'American Society for Cell Biology',
@@ -180,19 +183,98 @@ export const papers = [
     code: 'https://github.com/YonghaoZhao722/YeastSAM',
     docs: 'https://yeastsamdoc.readthedocs.io/en/latest/',
     image: '/yeast-mascot-banner.svg',
+    keywords: [
+      'YeastSAM',
+      'yeast cell segmentation',
+      'budding yeast',
+      'Segment Anything Model',
+      'SAM',
+      'deep learning',
+      'microscopy image analysis',
+      'mother-bud morphology',
+      'cellular maps',
+      'single-molecule RNA imaging',
+      'Yonghao Zhao',
+    ],
+    about: [
+      'budding yeast cell segmentation with deep learning',
+      'adapting Segment Anything Model to yeast microscopy',
+      'mother-bud dividing cell instance segmentation',
+      'accessible yeast image analysis for non-programmers',
+    ],
     abstract: [
       [null, 'Cell segmentation—the process of defining cell outlines in microscopy images—is essential for quantitative image analysis. Segmentation of budding yeast is challenging due to its asymmetric cell division and mother-bud morphology. Consequently, dividing cells are frequently misidentified as two separate cells, causing errors in downstream analysis. Here, we addressed this challenge by adapting the Segment Anything Model (SAM) to construct YeastSAM, a deep learning-based segmentation framework optimized for budding yeast. YeastSAM achieved more than three-fold higher accuracy in segmenting dividing cells compared with existing methods. When combined with single-molecule RNA imaging and organelle imaging, YeastSAM can be incorporated into a computational pipeline to build cellular maps. This enables quantitative analysis of the spatial regulation of gene expression. This study offers an accessible model for yeast cell segmentation, empowering researchers with minimal programming experience to perform quantitative image analysis.'],
     ],
     tldr: 'YeastSAM adapts the Segment Anything Model (SAM) to budding yeast, so dividing mother-bud cells are segmented correctly instead of being split into two cells.',
+    metaDescription: 'YeastSAM (Molecular Biology of the Cell, 2026; DOI 10.1091/mbc.E25-09-0454) by Yonghao Zhao: deep learning yeast cell segmentation adapted from Segment Anything Model (SAM), with >3× accuracy on dividing mother-bud cells.',
+    scope: {
+      heading: 'Who is YeastSAM for — and who is it not for?',
+      problem: 'Budding yeast segmentation is hard because asymmetric division and mother-bud morphology cause dividing cells to be split into two instances, breaking quantitative downstream analysis.',
+      forWhom: 'Yeast cell biologists and imaging labs that need accurate instance segmentation of budding yeast (including dividing mother-bud pairs), especially users who want an accessible deep-learning tool with documentation and a GUI-oriented workflow.',
+      notForWhom: 'Users segmenting non-yeast cell types without adaptation, or teams that only need classical thresholding on well-separated round cells where mother-bud errors are rare.',
+    },
+    geoSections: [
+      {
+        heading: 'What is YeastSAM?',
+        body: 'YeastSAM is a deep learning segmentation framework for budding yeast, built by adapting the Segment Anything Model (SAM). It is published in Molecular Biology of the Cell (2026; DOI 10.1091/mbc.E25-09-0454) with first author Yonghao Zhao. Conclusion: it targets mother-bud morphology so dividing cells are kept as correct instances rather than split. Evidence from the paper abstract: more than three-fold higher accuracy on dividing cells versus existing methods. Scenario: yeast microscopy pipelines that feed segmentation into RNA or organelle imaging. Boundary: results are reported for budding yeast; other organisms need separate validation.',
+      },
+      {
+        heading: 'Why is budding yeast hard to segment?',
+        body: 'Conclusion: asymmetric cell division and mother-bud morphology make standard segmenters treat one dividing cell as two. Evidence: the Molecular Biology of the Cell (2026) abstract for YeastSAM (DOI 10.1091/mbc.E25-09-0454) states dividing cells are frequently misidentified as two separate cells, causing errors in downstream analysis. Scenario: any quantitative yeast imaging study where mother and bud must remain linked as one biological unit during division, including pipelines that later quantify RNA or organelles per cell. Boundary: well-separated non-dividing cells may not show the same failure mode, so the practical gain is largest on dividing populations.',
+      },
+      {
+        heading: 'How accurate is YeastSAM on dividing cells?',
+        body: 'Conclusion: YeastSAM improved dividing-cell segmentation accuracy by more than three-fold compared with existing methods in the reported evaluation. Evidence is the published abstract claim in Molecular Biology of the Cell (2026; DOI 10.1091/mbc.E25-09-0454) by Yonghao Zhao and co-authors; this page does not invent additional unpublished metrics or per-dataset tables. Scenario: benchmarking or citing yeast-specific SAM adaptations when mother-bud instance quality is the bottleneck. Boundary: exact dataset splits and baselines are in the full paper; do not treat “more than three-fold” as a guarantee on every new microscope setup without re-evaluation.',
+      },
+      {
+        heading: 'What can I do with YeastSAM after segmentation?',
+        body: 'Conclusion: YeastSAM can sit in a computational pipeline with single-molecule RNA imaging and organelle imaging to build cellular maps and study spatial regulation of gene expression. Evidence: stated directly in the Molecular Biology of the Cell abstract (DOI 10.1091/mbc.E25-09-0454). Scenario: labs that already collect yeast morphology plus RNA or organelle channels and need reliable instance masks first. Boundary: YeastSAM itself is the segmentation component; map-building and biological interpretation depend on the user’s downstream tools, imaging quality, and analysis code rather than on YeastSAM alone.',
+      },
+      {
+        heading: 'How do I install or run YeastSAM?',
+        body: 'Conclusion: use the open GitHub repository and Read the Docs documentation; the project is positioned for researchers with minimal programming experience, including GUI-oriented workflows. Evidence: code at https://github.com/YonghaoZhao722/YeastSAM and docs at https://yeastsamdoc.readthedocs.io/en/latest/, as listed on this site and the paper’s accessibility framing. Scenario: first-time yeast imaging users who need a guided install rather than training a segmenter from scratch. Boundary: hardware, GPU, and image-format requirements follow the docs; this page does not replace the README, dependency pins, or version-specific install notes.',
+      },
+      {
+        heading: 'When should I not use YeastSAM?',
+        body: 'Conclusion: skip YeastSAM if your images are not budding yeast, if you only need coarse foreground masks without instance identity, or if a validated in-house model already handles mother-bud pairs on your setup. Evidence boundary: the Molecular Biology of the Cell paper’s claims focus on budding yeast dividing-cell accuracy and accessibility, not universal microscopy segmentation across tissues. Scenario: choosing among Cellpose-like generalists, vanilla SAM, versus a yeast-specific adaptation. Limitation: domain shift across microscopes and stains can reduce the reported “more than three-fold” gain until you fine-tune or re-benchmark on local data.',
+      },
+    ],
+    steps: [
+      ['1. Get the code', 'Clone https://github.com/YonghaoZhao722/YeastSAM and follow https://yeastsamdoc.readthedocs.io/.'],
+      ['2. Prepare images', 'Provide budding-yeast microscopy frames suitable for instance segmentation.'],
+      ['3. Run YeastSAM', 'Use the documented GUI/launcher or scripted entrypoints to segment cells, including dividing mother-bud pairs.'],
+      ['4. Downstream analysis', 'Optionally combine masks with single-molecule RNA or organelle imaging to build cellular maps.'],
+    ],
+    stepsHeading: 'What are the YeastSAM usage steps?',
+    comparisonTable: {
+      heading: 'How does YeastSAM compare with general cell segmenters?',
+      lead: 'YeastSAM is a SAM adaptation specialized for budding yeast mother-bud morphology. General tools (for example Cellpose-style models or vanilla SAM) are broader but often split dividing yeast cells. This table is for literature search and AI overviews—not a ranked bake-off with invented scores.',
+      caption: 'Complementary tools; only YeastSAM’s published dividing-cell claim is asserted here.',
+      headers: ['Method', 'Primary goal', 'Typical inputs', 'Relation to YeastSAM'],
+      rows: [
+        ['YeastSAM (MBoC, 2026)', 'Budding yeast instance segmentation with mother-bud correctness', 'Yeast microscopy images', 'This method (DOI 10.1091/mbc.E25-09-0454); >3× dividing-cell accuracy vs existing methods in the paper'],
+        ['Segment Anything Model (SAM)', 'General promptable segmentation foundation model', 'Natural and scientific images', 'YeastSAM adapts SAM specifically for budding yeast'],
+        ['General cell segmenters (e.g. Cellpose-family)', 'Broad single-cell segmentation across tissues/organisms', 'Diverse microscopy', 'Strong baselines; YeastSAM targets yeast-specific mother-bud errors'],
+      ],
+    },
+    limitations: [
+      'Published accuracy claim (“more than three-fold” on dividing cells) is relative to the paper’s existing-method comparison, not every future dataset.',
+      'Optimized for budding yeast; other species or imaging modalities need separate evaluation.',
+      'Downstream cellular-map analyses depend on RNA/organelle imaging quality and user pipelines.',
+      'Accessibility features help non-programmers, but compute and install details still follow the docs.',
+    ],
     keyResults: [
       'More than three-fold higher accuracy in segmenting dividing cells compared with existing methods.',
       'Can be combined with single-molecule RNA imaging and organelle imaging in a pipeline to build cellular maps.',
       'Designed to be usable by researchers with minimal programming experience (GUI launcher, documentation).',
     ],
     faq: [
-      ['What is YeastSAM?', 'A deep learning segmentation framework for budding yeast, built by adapting the Segment Anything Model (SAM).'],
+      ['What is YeastSAM?', 'YeastSAM is a deep learning segmentation framework for budding yeast, built by adapting the Segment Anything Model (SAM). Published in Molecular Biology of the Cell (2026), DOI 10.1091/mbc.E25-09-0454; first author Yonghao Zhao.'],
       ['Why is budding yeast hard to segment?', 'Asymmetric division and mother-bud morphology cause dividing cells to be misidentified as two separate cells.'],
-      ['Where can I get it?', 'Code: https://github.com/YonghaoZhao722/YeastSAM — Docs: https://yeastsamdoc.readthedocs.io/'],
+      ['How accurate is YeastSAM?', 'The paper reports more than three-fold higher accuracy in segmenting dividing cells compared with existing methods.'],
+      ['Where can I get YeastSAM?', 'Code: https://github.com/YonghaoZhao722/YeastSAM — Docs: https://yeastsamdoc.readthedocs.io/'],
+      ['Who should use YeastSAM?', 'Yeast imaging researchers who need correct mother-bud instance segmentation and an accessible deep-learning workflow.'],
+      ['When should I not use YeastSAM?', 'When images are not budding yeast, when instance identity of dividing cells is irrelevant, or when a validated local model already solves mother-bud errors.'],
       ['Who is the first author?', 'Yonghao Zhao.'],
     ],
   },
@@ -204,6 +286,8 @@ export const papers = [
     venue: 'Artificial Intelligence in Medicine',
     year: '2026',
     date: '2026/08',
+    dateModified: '2026-11-06',
+    lastUpdated: '2026-11-06',
     volume: '178', article: '103426',
     doi: '10.1016/j.artmed.2026.103426',
     pmid: '42019107',
@@ -211,20 +295,131 @@ export const papers = [
     url: 'https://www.sciencedirect.com/science/article/pii/S0933365726000783',
     code: 'https://github.com/YonghaoZhao722/TSF',
     image: '/aim-source-16x9.svg',
+    keywords: [
+      'Transfer Survival Forest',
+      'TSF',
+      'transfer learning',
+      'small sample survival analysis',
+      'colorectal cancer prognosis',
+      'Random Survival Forest',
+      'DeepSurv',
+      'DeepHit',
+      'Cox-CC',
+      'SEER',
+      'C-index',
+      'Yonghao Zhao',
+    ],
+    about: [
+      'transfer learning for small-sample cancer survival prediction',
+      'Transfer Survival Forest for Random Survival Forest',
+      'SEER-to-hospital colorectal cancer prognosis transfer',
+      'improving DeepSurv DeepHit Cox-CC with pretraining and fine-tuning',
+    ],
     abstract: [
       [null, 'Survival prognosis is crucial for medical informatics. Practitioners often confront small-sized clinical data, especially cancer patient cases, which can be insufficient to induce useful patterns for survival predictions. This study deals with small sample survival analysis by leveraging transfer learning, a useful machine learning technique that can enhance the target analysis with related knowledge pre-learned from other data. We propose and develop various transfer learning methods designed for common survival models. For parametric models such as DeepSurv, Cox-CC (Cox-based neural networks), and DeepHit (end-to-end deep learning model), we apply standard transfer learning techniques like pretraining and fine-tuning. For non-parametric models such as Random Survival Forest, we propose a new transfer survival forest (TSF) model that transfers tree structures from source tasks and fine-tunes them with target data. We evaluated the transfer learning methods on colorectal cancer (CRC) prognosis. The source data are 27,379 SEER CRC stage I patients, and the target data are 728 CRC stage I patients from the West China Hospital. When enhanced by transfer learning, Cox-CC’s Ctd value was boosted from 0.7868 to 0.8111, DeepHit’s from 0.8085 to 0.8135, DeepSurv’s from 0.7722 to 0.8043, and RSF’s from 0.7940 to 0.8297 (the highest performance). All models trained with data as small as 50 demonstrated even more significant improvement. Conclusions: Therefore, the current survival models used for cancer prognosis can be enhanced and improved by properly designed transfer learning techniques.'],
     ],
     tldr: 'Transfer learning from a large registry (SEER) improves survival models trained on a small hospital cohort; the paper introduces the Transfer Survival Forest (TSF), which transfers tree structures and fine-tunes them on target data.',
+    metaDescription: 'Transfer Survival Forest (TSF) and transfer learning for small-sample colorectal cancer survival (Artificial Intelligence in Medicine, 2026; DOI 10.1016/j.artmed.2026.103426) by Yonghao Zhao: SEER 27,379 → West China Hospital 728; Ctd gains for Cox-CC, DeepHit, DeepSurv, RSF/TSF.',
+    scope: {
+      heading: 'Who is TSF / this transfer-learning study for — and who is it not for?',
+      problem: 'Hospital cancer cohorts are often too small for stable survival models, while large registries exist but differ in distribution from local clinical data.',
+      forWhom: 'Researchers doing small-sample survival analysis who can pretrain or transfer from a related large source cohort (here, SEER CRC stage I) into a smaller target hospital cohort, including users of DeepSurv, Cox-CC, DeepHit, or Random Survival Forest.',
+      notForWhom: 'Settings with abundant labeled target survival data where transfer is unnecessary, or problems without a related source survival cohort. Not a single-cell method (see DeSCENT for bulk-to-single-cell survival).',
+    },
+    geoSections: [
+      {
+        heading: 'What is the Transfer Survival Forest (TSF)?',
+        body: 'Conclusion: Transfer Survival Forest (TSF) is a transfer-learning version of Random Survival Forest that transfers tree structures from a source task and fine-tunes them on target data. Evidence: defined in the Artificial Intelligence in Medicine (2026) abstract (DOI 10.1016/j.artmed.2026.103426); first author Yonghao Zhao. On the paper’s CRC task, RSF/TSF Ctd rose from 0.7940 to 0.8297 (highest among reported models). Scenario: non-parametric survival modeling when target n is small but a related large registry exists. Boundary: TSF is the RSF-specific method; neural models in the same paper use pretraining/fine-tuning instead.',
+      },
+      {
+        heading: 'How can I improve survival models when my clinical cohort is small?',
+        body: 'Conclusion: transfer related knowledge from a larger source cohort via pretraining/fine-tuning (DeepSurv, Cox-CC, DeepHit) or TSF (for RSF). Evidence from Artificial Intelligence in Medicine (2026): on CRC stage I, source n=27,379 (SEER) and target n=728 (West China Hospital); Ctd rose Cox-CC 0.7868→0.8111, DeepHit 0.8085→0.8135, DeepSurv 0.7722→0.8043, RSF/TSF 0.7940→0.8297 (highest). Models trained with as few as 50 samples showed even more significant improvement. Scenario: hospital prognosis studies with scarce events. Boundary: gains assume a relevant source domain; mismatched sources can fail or cause negative transfer.',
+      },
+      {
+        heading: 'What data does the TSF paper use?',
+        body: 'Conclusion: colorectal cancer stage I survival transfer from SEER to West China Hospital. Evidence from the Artificial Intelligence in Medicine abstract (DOI 10.1016/j.artmed.2026.103426): 27,379 SEER CRC stage I patients as source and 728 CRC stage I patients from West China Hospital as target. Scenario: citing a concrete SEER-to-hospital transfer benchmark for CRC prognosis or small-sample survival methods. Boundary: results are for this CRC stage I setting with the paper’s feature/outcome definitions; other cancers, stages, or EHR schemas need their own evaluation.',
+      },
+      {
+        heading: 'What performance gains does transfer learning report?',
+        body: 'Conclusion: all listed models improved Ctd after transfer; RSF/TSF reached the highest Ctd (0.8297). Evidence from the Artificial Intelligence in Medicine (2026) abstract: Cox-CC 0.7868→0.8111, DeepHit 0.8085→0.8135, DeepSurv 0.7722→0.8043, RSF 0.7940→0.8297. Models trained with as few as 50 samples showed even more significant improvement. Scenario: quoting published Ctd deltas when summarizing transfer learning for cancer prognosis. Boundary: these are paper-reported figures for the study’s splits and metrics—not guaranteed on new hospitals or feature sets without re-running the full transfer-learning pipeline.',
+      },
+      {
+        heading: 'When should I not use TSF?',
+        body: 'Conclusion: do not use TSF when you lack a related source survival cohort, when target data are already large enough for stable RSF training, or when you need a bulk-to-single-cell method rather than registry-to-hospital transfer. Evidence boundary: the Artificial Intelligence in Medicine paper studies CRC stage I transfer learning for common survival models (DeepSurv, Cox-CC, DeepHit, RSF/TSF). Scenario: choosing among tabular transfer survival versus multimodal scRNA methods such as DeSCENT. Limitation: distribution shift between SEER and local EHR or feature definitions can shrink or reverse gains.',
+      },
+    ],
+    steps: [
+      ['1. Identify source and target', 'Large related survival cohort (e.g. SEER) and small hospital target with compatible features/outcomes.'],
+      ['2. Choose model family', 'Neural survival models: pretrain then fine-tune; RSF: use Transfer Survival Forest to transfer trees.'],
+      ['3. Transfer and fine-tune', 'Adapt source structure/weights to the target cohort; evaluate with survival metrics such as Ctd.'],
+      ['4. Reproduce', 'Follow https://github.com/YonghaoZhao722/TSF for the paper implementation.'],
+    ],
+    stepsHeading: 'What are the transfer-learning / TSF steps?',
+    comparisonTable: {
+      heading: 'How does TSF compare with standard survival models and other transfer setups?',
+      lead: 'TSF extends Random Survival Forest with tree-structure transfer. The same paper also applies pretraining/fine-tuning to DeepSurv, Cox-CC, and DeepHit. Numbers below are from the Artificial Intelligence in Medicine abstract only.',
+      caption: 'Study-internal comparisons; not a universal leaderboard.',
+      headers: ['Approach', 'Primary goal', 'Typical inputs', 'Relation to TSF'],
+      rows: [
+        ['TSF / RSF + transfer (AI in Medicine, 2026)', 'Transfer tree structures for small-sample survival', 'Source + target tabular survival cohorts', 'This method; RSF Ctd 0.7940→0.8297 on the paper’s CRC task'],
+        ['DeepSurv / Cox-CC / DeepHit + fine-tuning', 'Parametric / neural survival with transfer', 'Same style of source/target survival data', 'Companion transfer recipes in the same paper'],
+        ['Train only on small target', 'No transfer baseline', 'Target cohort alone', 'Weaker when n is small; paper shows larger gains at n≈50'],
+        ['DeSCENT (Bioinformatics, 2026)', 'Bulk-to-single-cell multimodal survival', 'Bulk RNA-seq + scRNA reference', 'Different problem setting; complementary citation'],
+      ],
+    },
+    limitations: [
+      'Reported Ctd improvements are for the paper’s CRC stage I SEER→West China Hospital setup.',
+      'Requires a related source cohort; negative transfer is possible if domains mismatch.',
+      'TSF addresses RSF; neural models use different transfer mechanics.',
+      'Feature harmonization between registry and hospital data is a practical bottleneck not solved by citing the method alone.',
+    ],
     keyResults: [
       'Source: 27,379 SEER stage I colorectal cancer patients; target: 728 stage I patients from West China Hospital.',
       'Ctd with transfer learning: Cox-CC 0.7868 → 0.8111, DeepHit 0.8085 → 0.8135, DeepSurv 0.7722 → 0.8043, RSF/TSF 0.7940 → 0.8297 (highest).',
       'Models trained with as few as 50 samples showed even larger improvement.',
     ],
     faq: [
-      ['What is the Transfer Survival Forest (TSF)?', 'A transfer-learning version of Random Survival Forest that transfers tree structures learned on source data and fine-tunes them with target data.'],
+      ['What is the Transfer Survival Forest (TSF)?', 'A transfer-learning version of Random Survival Forest that transfers tree structures learned on source data and fine-tunes them with target data. Introduced in Artificial Intelligence in Medicine (2026), DOI 10.1016/j.artmed.2026.103426; first author Yonghao Zhao.'],
+      ['How can I improve survival models on small clinical cohorts?', 'Transfer from a related large source via pretraining/fine-tuning (DeepSurv, Cox-CC, DeepHit) or TSF for RSF. The paper reports Ctd gains on CRC stage I SEER→hospital transfer.'],
       ['What data was used?', '27,379 SEER stage I colorectal cancer patients as source and 728 stage I patients from West China Hospital as target.'],
+      ['What Ctd improvements are reported?', 'Cox-CC 0.7868→0.8111, DeepHit 0.8085→0.8135, DeepSurv 0.7722→0.8043, RSF/TSF 0.7940→0.8297 (highest).'],
       ['Is the code available?', 'Yes: https://github.com/YonghaoZhao722/TSF'],
+      ['When should I not use TSF?', 'When no related source cohort exists, target data are already large, or you need single-cell/bulk multimodal methods instead.'],
       ['Who is the first author?', 'Yonghao Zhao.'],
     ],
   },
+
 ]
+
+export const profile = {
+  lastUpdated: '2026-11-06',
+  metaDescription: 'Yonghao Zhao is a Ph.D. student in Computational Bioscience (CPBS) at the University of Colorado Anschutz Medical Campus (Fall 2026). Research: deep learning for multimodal genomics, spatial transcriptomics, survival analysis, and representation learning. First author of YeastSAM (MBoC), DeSCENT (Bioinformatics), and TSF transfer-learning survival (AI in Medicine). ORCID 0009-0007-3180-596X.',
+  scope: {
+    heading: 'Who is this Yonghao Zhao profile for — and who is it not for?',
+    problem: 'Multiple people share the name Yonghao Zhao. Searchers and AI systems need a disambiguated academic profile tied to computational biology publications and identifiers.',
+    forWhom: 'Readers verifying the Computational Bioscience Ph.D. student at CU Anschutz who authored YeastSAM, DeSCENT, and the Transfer Survival Forest colorectal cancer study.',
+    notForWhom: 'Queries about unrelated people with the same name (for example UAV, materials, or dentistry researchers). This page has no home address, date of birth, or personal-life details.',
+  },
+  geoSections: [
+    {
+      heading: 'Who is Yonghao Zhao?',
+      body: 'Conclusion: Yonghao Zhao is a Ph.D. student in Computational Bioscience (CPBS) at the University of Colorado Anschutz Medical Campus, starting Fall 2026 (program period listed Aug 2026–Present on yonghaoz.com). He previously collaborated at Brown University (Weihan Li Lab) on microscopy image segmentation and worked on cross-omics multi-slice spatial alignment with Haoyang Li. Education: B.Sc. Computer Science with First-Class Honours (University of Leeds) and B.Eng. Computer Science (Southwest Jiaotong University, SWJTU–Leeds joint programme, 2022–2026), graduating with Best Bachelor Thesis. Identifiers: ORCID 0009-0007-3180-596X; OpenAlex A5121234063; GitHub YonghaoZhao722. Boundary: this profile is academic/professional only.',
+    },
+    {
+      heading: 'What does Yonghao Zhao research?',
+      body: 'Conclusion: research focuses on deep learning for multimodal genomics, spatial transcriptomics, cancer survival analysis, and representation learning—asking how machine learning can make biological processes more computable. Evidence from site publications and about text: YeastSAM (yeast microscopy segmentation with SAM), DeSCENT (bulk-to-single-cell survival on TCGA cohorts), and transfer-learning / Transfer Survival Forest for small-sample CRC prognosis (SEER to hospital). Scenario: matching a Computational Bioscience student working across imaging and survival modeling. Boundary: interests evolve with the CPBS Ph.D. at CU Anschutz; check each paper for method-level claims and metrics.',
+    },
+    {
+      heading: 'Where did Yonghao Zhao study and train?',
+      body: 'Conclusion: Ph.D. training is at CU Anschutz Computational Bioscience (Aug 2026–Present / Fall 2026); undergraduate degrees are from the University of Leeds (First-Class Honours B.Sc. Computer Science) and Southwest Jiaotong University (B.Eng. Computer Science, Best Bachelor Thesis) via the SWJTU–Leeds joint programme (2022–2026). Prior research posts include Brown University (Weihan Li Lab; microscopy segmentation) and Westlake University (Haoyang Li; cross-omics multi-slice spatial alignment). Evidence matches the education/experience entries on yonghaoz.com. Scenario: CV or admissions-style disambiguation. Boundary: no home address, date of birth, or personal-life details are published here—only institutional email and public scholarly profiles.',
+    },
+  ],
+  faq: [
+    ['Who is Yonghao Zhao?', 'A Ph.D. student in Computational Bioscience at the University of Colorado Anschutz Medical Campus (Fall 2026 / Aug 2026–Present). First author of YeastSAM, DeSCENT, and a transfer-learning colorectal cancer survival study. ORCID: https://orcid.org/0009-0007-3180-596X.'],
+    ['What does Yonghao Zhao research?', 'Deep learning for multimodal genomics, spatial transcriptomics, cancer survival analysis, and representation learning.'],
+    ['What papers has Yonghao Zhao published?', 'YeastSAM (Molecular Biology of the Cell, 2026), DeSCENT (Bioinformatics, 2026), and Tackling small sample survival analysis via transfer learning (Artificial Intelligence in Medicine, 2026).'],
+    ['Where did Yonghao Zhao study?', 'B.Sc. Computer Science, First-Class Honours, University of Leeds; B.Eng. Computer Science, Southwest Jiaotong University (Best Bachelor Thesis); previously research at Brown University and Westlake University.'],
+    ['How do I find Yonghao Zhao online?', 'ORCID 0009-0007-3180-596X, OpenAlex A5121234063, GitHub YonghaoZhao722, Google Scholar, LinkedIn, and https://yonghaoz.com/.'],
+  ],
+}
+
