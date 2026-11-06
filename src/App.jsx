@@ -69,7 +69,7 @@ const experienceItems = [
 
 const newsItems = [
   {
-    month: 'Nov',
+    month: 'November',
     year: '2026',
     type: 'descent',
   },
@@ -617,7 +617,16 @@ function NewsItem({ item }) {
           ) : null}
           {item.type === 'descent' ? (
             <>
-              My paper <strong>DeSCENT</strong> has been accepted by{' '}
+              My paper{' '}
+              <a
+                href="https://www.biorxiv.org/content/10.64898/2026.03.15.711877v1.abstract"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-link"
+              >
+                <strong>DeSCENT</strong>
+              </a>{' '}
+              has been accepted by{' '}
               <strong>Bioinformatics</strong>!
             </>
           ) : null}
@@ -1010,6 +1019,7 @@ function App() {
   return (
     <>
       <div className="noise-overlay" />
+      <div className="top-nav-halo" aria-hidden="true" />
 
       <div className="site-shell">
         <TopNavigation currentPage={page === 'post' ? 'blog' : page} />

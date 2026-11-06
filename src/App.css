@@ -92,6 +92,22 @@ body {
   padding: 100px 40px 80px;
 }
 
+.top-nav-halo {
+  position: fixed;
+  top: 41px;
+  left: 50%;
+  z-index: 99;
+  width: min(900px, calc(100% - 8px));
+  height: 168px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: rgba(247, 247, 244, 0.04);
+  backdrop-filter: blur(30px) saturate(170%) brightness(1.04);
+  -webkit-backdrop-filter: blur(30px) saturate(170%) brightness(1.04);
+  mask-image: radial-gradient(ellipse farthest-side, #000 0%, rgba(0, 0, 0, 0.92) 24%, rgba(0, 0, 0, 0.58) 52%, rgba(0, 0, 0, 0.22) 76%, transparent 96%);
+  -webkit-mask-image: radial-gradient(ellipse farthest-side, #000 0%, rgba(0, 0, 0, 0.92) 24%, rgba(0, 0, 0, 0.58) 52%, rgba(0, 0, 0, 0.22) 76%, transparent 96%);
+}
+
 .top-nav {
   position: fixed;
   top: 16px;
