@@ -223,6 +223,22 @@ const projectItems = [
       },
     ],
   },
+  {
+    title: 'Toolome: The Directory of AI Tools for Biology',
+    titleUrl: 'https://toolome.bio/',
+    role: 'Maintainer',
+    image: '/toolome.png',
+    imageAlt: 'Toolome',
+    description:
+      'A curated, verified directory of AI tools for biology — single-cell, spatial omics, protein design, genomics, drug discovery, and more.',
+    links: [
+      {
+        type: 'site',
+        label: 'Website',
+        href: 'https://toolome.bio/',
+      },
+    ],
+  },
 ]
 
 const honorItems = [

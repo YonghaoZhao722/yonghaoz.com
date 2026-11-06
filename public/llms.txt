@@ -13,6 +13,7 @@ Disambiguation: this Yonghao Zhao is the computational biology researcher (ORCID
 ## Projects
 
 - [ClawBio](https://clawbio.ai/): core contributor to an open bioinformatics harness for agentic AI.
+- [Toolome](https://toolome.bio/): maintainer of a curated, verified directory of AI tools for biology.
 
 ## Researcher profile (machine-oriented)
 
