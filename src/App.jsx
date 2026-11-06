@@ -99,7 +99,7 @@ const publicationItems = [
   {
     title:
       'DeSCENT: Deconvolutional Single-Cell RNA-seq Enhances Transcriptome-based Cancer Survival Analysis',
-    titleUrl: 'https://www.biorxiv.org/content/10.64898/2026.03.15.711877v1.abstract',
+    titleUrl: 'https://doi.org/10.1093/bioinformatics/btag810',
     authors: [
       'Yonghao Zhao',
       'Zeyu You',
@@ -120,7 +120,7 @@ const publicationItems = [
       {
         type: 'paper',
         label: 'Paper',
-        href: 'https://www.biorxiv.org/content/10.64898/2026.03.15.711877v1.abstract',
+        href: 'https://doi.org/10.1093/bioinformatics/btag810',
       },
       {
         type: 'code',

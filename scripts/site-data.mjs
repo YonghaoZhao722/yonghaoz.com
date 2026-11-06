@@ -29,11 +29,9 @@ export const papers = [
     venue: 'Bioinformatics',
     year: '2026',
     date: '2026/03/18',
-    // Available version: bioRxiv preprint
-    doi: '10.64898/2026.03.15.711877',
-    publisher: 'bioRxiv',
-    isPreprint: true,
-    url: 'https://www.biorxiv.org/content/10.64898/2026.03.15.711877v1.abstract',
+    doi: '10.1093/bioinformatics/btag810',
+    publisher: 'Oxford University Press',
+    url: 'https://doi.org/10.1093/bioinformatics/btag810',
     code: 'https://github.com/YonghaoZhao722/DeSCENT',
     image: '/descent-source-16x9.svg',
     abstract: [
