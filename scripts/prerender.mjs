@@ -20,17 +20,36 @@ const personLd = {
 }
 
 function articleLd(p) {
-  return {
+  const sameAs = [...new Set([`https://doi.org/${p.doi}`, p.url, p.code, p.archive].filter(Boolean))]
+  const ld = {
     '@context': 'https://schema.org', '@type': 'ScholarlyArticle',
     headline: p.title, name: p.title, url: `${SITE}/papers/${p.slug}/`,
     datePublished: p.date.replace(/\//g, '-'),
     author: p.authors.map((name) => (name === person.name ? { '@id': `${SITE}/#person`, '@type': 'Person', name } : { '@type': 'Person', name })),
     identifier: { '@type': 'PropertyValue', propertyID: 'DOI', value: p.doi },
-    sameAs: [`https://doi.org/${p.doi}`, p.url],
+    sameAs,
     isPartOf: p.isPreprint ? undefined : { '@type': 'Periodical', name: p.venue },
     publisher: { '@type': 'Organization', name: p.publisher },
     abstract: p.abstract.map(([, t]) => t).join(' '),
+    description: p.tldr,
     image: `${SITE}${p.image}`,
+  }
+  if (p.keywords?.length) ld.keywords = p.keywords.join(', ')
+  if (p.about?.length) ld.about = p.about.map((name) => ({ '@type': 'Thing', name }))
+  if (p.code) ld.codeRepository = p.code
+  return ld
+}
+
+function faqLd(p) {
+  if (!p.faq?.length) return null
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: p.faq.map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
   }
 }
 
@@ -42,7 +61,7 @@ function bibtex(p) {
   if (p.volume) f.push(`  volume = {${p.volume}}`)
   if (p.issue) f.push(`  number = {${p.issue}}`)
   if (p.article) f.push(`  pages = {${p.article}}`)
-  f.push(`  year = {${p.year}}`, `  doi = {${p.doi}}`)
+  f.push(`  year = {${p.year}}`, `  doi = {${p.doi}}`, `  url = {https://doi.org/${p.doi}}`)
   return `@article{${key},\n${f.join(',\n')}\n}`
 }
 
@@ -58,19 +77,39 @@ function citationMeta(p) {
   return m.map(([k, v]) => `<meta name="${k}" content="${esc(v)}">`).join('\n    ')
 }
 
-const css = `body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:820px;margin:0 auto;padding:24px 20px 64px;line-height:1.6;color:#1d1d1f;background:#fafafa}a{color:#0b5cad}h1{font-size:1.6rem;line-height:1.3}h2{font-size:1.15rem;margin-top:2rem}img{max-width:100%;height:auto;border-radius:12px}pre{background:#f0f0f3;padding:12px;border-radius:8px;overflow:auto;font-size:.85rem}.meta{color:#555}nav a{margin-right:14px}dt{font-weight:600;margin-top:.8rem}`
+const css = `body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:820px;margin:0 auto;padding:24px 20px 64px;line-height:1.6;color:#1d1d1f;background:#fafafa}a{color:#0b5cad}h1{font-size:1.6rem;line-height:1.3}h2{font-size:1.15rem;margin-top:2rem}img{max-width:100%;height:auto;border-radius:12px}pre{background:#f0f0f3;padding:12px;border-radius:8px;overflow:auto;font-size:.85rem}.meta{color:#555}nav a{margin-right:14px}dt{font-weight:600;margin-top:.8rem}.positioning{background:#f0f4f8;border-left:4px solid #0b5cad;padding:14px 16px;border-radius:8px}.usecase dt,.related dt{font-weight:600;margin-top:1rem}`
 
 function paperPage(p) {
   const canonical = `${SITE}/papers/${p.slug}/`
-  const desc = `${p.tldr} ${venueLine(p)}. First author: Yonghao Zhao.`
-  const links = [[p.isPreprint ? 'Paper (bioRxiv)' : 'Paper', p.url], ['DOI', `https://doi.org/${p.doi}`], ['Code', p.code], ...(p.docs ? [['Docs', p.docs]] : []), ...(p.pmid ? [['PubMed', `https://pubmed.ncbi.nlm.nih.gov/${p.pmid}/`]] : [])]
+  const desc = p.metaDescription || `${p.tldr} ${venueLine(p)}. First author: Yonghao Zhao.`
+  const links = [
+    [p.isPreprint ? 'Paper (bioRxiv)' : 'Paper', p.url],
+    ['DOI', `https://doi.org/${p.doi}`],
+    ['Code', p.code],
+    ...(p.archive ? [['Archive', p.archive]] : []),
+    ...(p.docs ? [['Docs', p.docs]] : []),
+    ...(p.pmid ? [['PubMed', `https://pubmed.ncbi.nlm.nih.gov/${p.pmid}/`]] : []),
+  ]
+  const keywordMeta = p.keywords?.length
+    ? `\n    <meta name="keywords" content="${esc(p.keywords.join(', '))}">`
+    : ''
+  const faqBlock = faqLd(p)
+  const positioning = p.positioning
+    ? `\n      <h2>What DeSCENT is for</h2>\n      <p class="positioning">${esc(p.positioning)}</p>`
+    : ''
+  const useCases = p.useCases?.length
+    ? `\n      <h2>Use cases / questions this answers</h2>\n      <dl class="usecase">${p.useCases.map(([q, a]) => `<dt>${esc(q)}</dt><dd>${esc(a)}</dd>`).join('')}</dl>`
+    : ''
+  const related = p.relatedMethods?.length
+    ? `\n      <h2>Related methods</h2>\n      <p class="meta">Fair comparison for literature search and AI overviews — complementary tools, not ranked benchmarks.</p>\n      <dl class="related">${p.relatedMethods.map(([n, a]) => `<dt>${esc(n)}</dt><dd>${esc(a)}</dd>`).join('')}</dl>`
+    : ''
   return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${esc(p.short)}: ${esc(p.title.replace(/^[^:]+:\s*/, ''))} | Yonghao Zhao</title>
-    <meta name="description" content="${esc(desc)}">
+    <meta name="description" content="${esc(desc)}">${keywordMeta}
     <link rel="canonical" href="${canonical}">
     <link rel="icon" type="image/png" href="/avatar.png">
     <meta property="og:type" content="article">
@@ -81,6 +120,7 @@ function paperPage(p) {
     <meta name="twitter:card" content="summary_large_image">
     ${citationMeta(p)}
     ${jsonLd(articleLd(p))}
+    ${faqBlock ? jsonLd(faqBlock) : ''}
     <style>${css}</style>
   </head>
   <body>
@@ -91,11 +131,11 @@ function paperPage(p) {
       <p>${links.map(([l, h]) => `<a href="${h}">${esc(l)}</a>`).join(' · ')}</p>
       <img src="${p.image}" alt="${esc(p.short)} overview figure">
       <h2>TL;DR</h2>
-      <p>${esc(p.tldr)}</p>
+      <p>${esc(p.tldr)}</p>${positioning}${useCases}
       <h2>Key results</h2>
       <ul>${p.keyResults.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
       <h2>Abstract</h2>
-      ${p.abstract.map(([h, t]) => `<p>${h ? `<strong>${esc(h)}.</strong> ` : ''}${esc(t)}</p>`).join('\n      ')}
+      ${p.abstract.map(([h, t]) => `<p>${h ? `<strong>${esc(h)}.</strong> ` : ''}${esc(t)}</p>`).join('\n      ')}${related}
       <h2>Cite</h2>
       <pre>${esc(bibtex(p))}</pre>
       <h2>FAQ</h2>
