@@ -1020,7 +1020,7 @@ function App() {
 
               <section id="service">
                 <h2>Academic Service</h2>
-                <p className="misc-item">Reviewer: ICLR'27</p>
+                <p className="misc-item">Reviewer: ICLR'27, ACM WWW'27</p>
               </section>
 
               <footer className="site-footer">© 2026 Yonghao Zhao.</footer>
