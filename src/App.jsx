@@ -120,6 +120,7 @@ const publicationItems = [
     venue: 'Bioinformatics',
     year: '2026',
     image: '/descent-source-16x9.svg',
+    imageBorder: '#cbdfe8',
     imageAlt: 'DeSCENT framework: scRNA-seq deconvolution, alignment and inference',
     links: [
       {
@@ -142,6 +143,7 @@ const publicationItems = [
     year: '2026',
     featured: 'ASCB News featured',
     image: '/yeast-mascot-banner.svg',
+    imageBorder: '#cfeae8',
     imageAlt: 'YeastSAM budding-yeast segmentation',
     links: [
       {
@@ -180,6 +182,7 @@ const publicationItems = [
     venue: 'Artificial Intelligence in Medicine',
     year: '2026',
     image: '/aim-source-16x9.svg',
+    imageBorder: '#d3e4ce',
     imageAlt: 'Source forest training and transfer to target forest fine-tuning',
     links: [
       {
@@ -202,6 +205,7 @@ const projectItems = [
     titleUrl: 'https://clawbio.ai/',
     role: 'Core Contributor',
     image: '/clawbio.png',
+    imageBorder: '#deded8',
     imageAlt: 'ClawBio',
     description:
       'An open, reproducible collection of domain-expert genomics pipelines packaged as agent skills, built by a global community of contributors.',
@@ -228,6 +232,7 @@ const projectItems = [
     titleUrl: 'https://toolome.bio/',
     role: 'Maintainer',
     image: '/toolome.png',
+    imageBorder: '#e5cbbb',
     imageAlt: 'Toolome',
     description:
       'A curated, verified directory of AI tools for biology — single-cell, spatial omics, protein design, genomics, drug discovery, and more.',
@@ -823,6 +828,7 @@ function PublicationItem({ item }) {
           target="_blank"
           rel="noreferrer"
           className="pub-figure"
+          style={{ '--figure-border': item.imageBorder }}
         >
           <img src={item.image} alt={item.imageAlt ?? item.title} />
         </a>
@@ -884,7 +890,13 @@ function ProjectItem({ item }) {
       className={`pub-item project-item${item.image ? ' pub-item--with-figure' : ''}`}
     >
       {item.image ? (
-        <a href={item.titleUrl} target="_blank" rel="noreferrer" className="pub-figure">
+        <a
+          href={item.titleUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="pub-figure"
+          style={{ '--figure-border': item.imageBorder }}
+        >
           <img
             src={item.image}
             alt={item.imageAlt ?? item.title}

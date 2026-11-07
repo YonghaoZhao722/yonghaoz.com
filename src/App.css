@@ -795,6 +795,9 @@ p {
   justify-self: start;
   aspect-ratio: 16 / 9;
   align-self: center;
+  border: 1px solid var(--figure-border, var(--border-color));
+  border-radius: 2.5% / 4.444%;
+  overflow: hidden;
 }
 
 .pub-figure img {
