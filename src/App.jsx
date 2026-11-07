@@ -120,7 +120,6 @@ const publicationItems = [
     venue: 'Bioinformatics',
     year: '2026',
     image: '/descent-source-16x9.svg',
-    imageBorder: '#cbdfe8',
     imageAlt: 'DeSCENT framework: scRNA-seq deconvolution, alignment and inference',
     links: [
       {
