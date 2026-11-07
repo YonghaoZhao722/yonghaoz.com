@@ -30,3 +30,11 @@ Avoid flashy portfolio conventions, excessive cards, gradients, decorative anima
 ## Accessibility & Inclusion
 
 Maintain readable contrast, responsive layouts, semantic structure, keyboard-accessible links, and legible typography without imposing an additional formal WCAG target.
+
+## Publication and Project Images
+
+- Use the YeastSAM figure as the reference: a rounded rectangle with a subtle border in each image's theme color.
+- Apply this to publication and project display images only; preserve avatars, institution logos, and small icons.
+- Keep the existing 16:9 presentation and show the complete image without cropping its content.
+- If the source image already has a border, adapt that border instead of adding a second visible frame.
+- Round only the four outside corners of the complete figure. Preserve internal panel borders, straight corners, and connections. For DeSCENT, keep the blue and pink panel boundaries unchanged at their central join.
