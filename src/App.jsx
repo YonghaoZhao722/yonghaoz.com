@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { flushSync } from 'react-dom'
 import LiquidGlass from 'liquid-glass-react'
 import './App.css'
@@ -122,6 +122,7 @@ const publicationItems = [
     image: '/descent-source-16x9.svg',
     imageAlt: 'DeSCENT framework: scRNA-seq deconvolution, alignment and inference',
     links: [
+      { type: 'doc', label: 'Summary', href: '/papers/descent/' },
       {
         type: 'paper',
         label: 'Paper',
@@ -145,6 +146,7 @@ const publicationItems = [
     imageBorder: '#cfeae8',
     imageAlt: 'YeastSAM budding-yeast segmentation',
     links: [
+      { type: 'doc', label: 'Summary', href: '/papers/yeastsam/' },
       {
         type: 'paper',
         label: 'Paper',
@@ -184,6 +186,7 @@ const publicationItems = [
     imageBorder: '#d3e4ce',
     imageAlt: 'Source forest training and transfer to target forest fine-tuning',
     links: [
+      { type: 'doc', label: 'Summary', href: '/papers/tsf/' },
       {
         type: 'paper',
         label: 'Paper',
@@ -293,6 +296,7 @@ const socialItems = [
 ]
 
 function getPageFromHash() {
+  if (typeof window === 'undefined') return 'home'
   if (window.location.hash === postPath) return 'post'
   if (window.location.hash === '#/blog') return 'blog'
   if (window.location.hash === '#/misc') return 'misc'
@@ -309,7 +313,25 @@ function updateGlassReflection(event) {
   event.currentTarget.style.setProperty('--glass-y', `${((event.clientY - rect.top) / rect.height) * 100}%`)
 }
 
+const subscribeToClient = () => () => {}
+const clientSnapshot = () => true
+const serverSnapshot = () => false
+
+function NavigationGlass({ children }) {
+  const isClient = useSyncExternalStore(subscribeToClient, clientSnapshot, serverSnapshot)
+  // The glass library reads browser APIs while rendering; keep the static nav usable.
+  if (!isClient) return <div className="top-nav__glass" style={{ padding: '6px' }}>{children}</div>
+  return (
+    <LiquidGlass displacementScale={24} blurAmount={0.12} saturation={110}
+      aberrationIntensity={0.3} elasticity={0} cornerRadius={999} padding="6px"
+      overLight className="top-nav__glass">
+      {children}
+    </LiquidGlass>
+  )
+}
+
 function TopNavigation({ currentPage }) {
+  const isClient = useSyncExternalStore(subscribeToClient, clientSnapshot, serverSnapshot)
   const listRef = useRef(null)
   const pillRef = useRef(null)
   const gestureRef = useRef(null)
@@ -344,7 +366,7 @@ function TopNavigation({ currentPage }) {
       disposed = true
       observer.disconnect()
     }
-  }, [currentPage, alignSelected])
+  }, [currentPage, alignSelected, isClient])
 
   function navigate(item) {
     window.location.assign(item.page === 'home' ? '#' : item.href)
@@ -420,17 +442,7 @@ function TopNavigation({ currentPage }) {
       onPointerEnter={updateGlassReflection}
       onPointerMove={updateGlassReflection}
     >
-      <LiquidGlass
-        displacementScale={24}
-        blurAmount={0.12}
-        saturation={110}
-        aberrationIntensity={0.3}
-        elasticity={0}
-        cornerRadius={999}
-        padding="6px"
-        overLight
-        className="top-nav__glass"
-      >
+      <NavigationGlass>
         <ul
           ref={listRef}
           className={`top-nav__items top-nav__items--${mode}`}
@@ -484,7 +496,7 @@ function TopNavigation({ currentPage }) {
             </li>
           ))}
         </ul>
-      </LiquidGlass>
+      </NavigationGlass>
     </nav>
   )
 }

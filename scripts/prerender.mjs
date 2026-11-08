@@ -1,9 +1,12 @@
 // Post-build step: writes crawler-readable static HTML (no JS needed) into dist/.
-// - injects a static summary into dist/index.html #root (React replaces it on load)
+// - renders the actual React home page into dist/index.html #root
 // - generates dist/papers/<slug>/index.html with citation_* tags + ScholarlyArticle JSON-LD
 // - generates dist/sitemap.xml
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { SITE, person, papers, profile } from './site-data.mjs'
+import { createServer } from 'vite'
+import { createElement } from 'react'
+import { renderToString } from 'react-dom/server'
 
 const dist = new URL('../dist/', import.meta.url)
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -231,19 +234,20 @@ function profilePage() {
 }
 
 
-function homeStatic() {
-  return `<main class="prerender-static" style="max-width:820px;margin:0 auto;padding:24px 20px;font-family:system-ui,sans-serif;line-height:1.6">
-      <h1>Yonghao Zhao</h1>
-      <p>${esc(person.description)}</p>
-      <h2>Publications</h2>
-      <ul>${papers.map((p) => `<li><a href="/papers/${p.slug}/">${esc(p.title)}</a>. ${esc(p.authors.join(', '))}. <em>${esc(venueLine(p))}</em>. ${esc(p.tldr)}</li>`).join('')}</ul>
-      <p>Profiles: ${person.sameAs.map((u) => `<a href="${u}">${esc(u.replace(/^https:\/\/(www\.)?/, ''))}</a>`).join(' · ')} · <a href="mailto:${person.email}">${person.email}</a></p>
-    </main>`
+async function homeStatic() {
+  const server = await createServer({ server: { middlewareMode: true }, appType: 'custom' })
+  try {
+    const { default: App } = await server.ssrLoadModule('/src/App.jsx')
+    return renderToString(createElement(App))
+  } finally {
+    await server.close()
+  }
 }
 
 let index = await readFile(new URL('index.html', dist), 'utf8')
 if (!index.includes('<div id="root"></div>')) throw new Error('root div not found')
-index = index.replace('<div id="root"></div>', `<div id="root">${homeStatic()}</div>`)
+const homeHtml = await homeStatic()
+index = index.replace('<div id="root"></div>', () => `<div id="root">${homeHtml}</div>`)
 index = index.replace('</head>', `  ${jsonLd(personLd)}\n  </head>`)
 await writeFile(new URL('index.html', dist), index)
 
