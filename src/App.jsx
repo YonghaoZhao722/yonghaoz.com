@@ -651,7 +651,7 @@ function NewsItem({ item }) {
             <>
               My paper{' '}
               <a
-                href="https://www.biorxiv.org/content/10.64898/2026.03.15.711877v1.abstract"
+                href="https://doi.org/10.1093/bioinformatics/btag810"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-link"
