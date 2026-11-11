@@ -122,7 +122,6 @@ const publicationItems = [
     image: '/descent-source-16x9.svg',
     imageAlt: 'DeSCENT framework: scRNA-seq deconvolution, alignment and inference',
     links: [
-      { type: 'doc', label: 'Summary', href: '/papers/descent/' },
       {
         type: 'paper',
         label: 'Paper',
@@ -146,7 +145,6 @@ const publicationItems = [
     imageBorder: '#cfeae8',
     imageAlt: 'YeastSAM budding-yeast segmentation',
     links: [
-      { type: 'doc', label: 'Summary', href: '/papers/yeastsam/' },
       {
         type: 'paper',
         label: 'Paper',
@@ -186,7 +184,6 @@ const publicationItems = [
     imageBorder: '#d3e4ce',
     imageAlt: 'Source forest training and transfer to target forest fine-tuning',
     links: [
-      { type: 'doc', label: 'Summary', href: '/papers/tsf/' },
       {
         type: 'paper',
         label: 'Paper',
