@@ -234,7 +234,7 @@ const projectItems = [
     imageBorder: '#e5cbbb',
     imageAlt: 'Toolome',
     description:
-      'A curated, verified directory of AI tools for biology — single-cell, spatial omics, protein design, genomics, drug discovery, and more.',
+      'A curated, verified directory of AI tools for biology: single-cell, spatial omics, protein design, genomics, drug discovery, and more.',
     links: [
       {
         type: 'site',
