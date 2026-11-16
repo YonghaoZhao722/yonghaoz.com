@@ -20,7 +20,7 @@ const educationItems = [
   {
     period: 'Aug 2026 – Present',
     institution: 'University of Colorado Anschutz Medical Campus',
-    program: 'Ph.D. in Computational Bioscience',
+    program: 'Ph.D. in Biomedical Informatics, Modeling, and AI',
     logo: '/cuanschutz.png',
     logoAlt: 'CU Anschutz logo',
   },
@@ -1122,7 +1122,7 @@ function App() {
                 <section id="about">
                   <h2>About</h2>
                   <p>
-                    I am a Ph.D. student in Computational Bioscience at{' '}
+                    I am a Ph.D. student in Biomedical Informatics, Modeling, and AI at{' '}
                     <a
                       href="https://www.cuanschutz.edu/about"
                       target="_blank"
