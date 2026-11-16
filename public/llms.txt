@@ -1,6 +1,6 @@
 # Yonghao Zhao
 
-> Yonghao Zhao is a Ph.D. student in Computational Bioscience at the University of Colorado Anschutz Medical Campus. He works on deep learning for multimodal genomics, cancer survival analysis, and representation learning. Previously a research assistant at Brown University (Weihan Li lab) and a B.Sc. (Computer Science, First-Class Honours) graduate of the SWJTU–Leeds joint programme (University of Leeds and Southwest Jiaotong University).
+> Yonghao Zhao is a Ph.D. student in Biomedical Informatics, Modeling, and AI (formerly Computational Bioscience, CPBS) at the University of Colorado Anschutz Medical Campus. He works on deep learning for multimodal genomics, cancer survival analysis, and representation learning. Previously a research assistant at Brown University (Weihan Li lab) and a B.Sc. (Computer Science, First-Class Honours) graduate of the SWJTU–Leeds joint programme (University of Leeds and Southwest Jiaotong University).
 
 Disambiguation: this Yonghao Zhao is the computational biology researcher (ORCID 0009-0007-3180-596X). Not to be confused with other researchers of the same name working on UAVs, materials science, or dentistry.
 
@@ -17,7 +17,7 @@ Disambiguation: this Yonghao Zhao is the computational biology researcher (ORCID
 
 ## Researcher profile (machine-oriented)
 
-- [Yonghao Zhao](https://yonghaoz.com/about/yonghao-zhao/): Ph.D. student in Computational Bioscience (CPBS) at University of Colorado Anschutz Medical Campus (Fall 2026 / Aug 2026–Present). B.Sc. Computer Science First-Class Honours (University of Leeds) and B.Eng. (Southwest Jiaotong University, Best Bachelor Thesis). Prior research at Brown University (Weihan Li Lab) and Westlake University (Haoyang Li; spatial alignment). Research: deep learning for multimodal genomics, spatial transcriptomics, survival analysis, representation learning. Papers: YeastSAM, DeSCENT, TSF. ORCID https://orcid.org/0009-0007-3180-596X · OpenAlex https://openalex.org/A5121234063 · GitHub https://github.com/YonghaoZhao722. Disambiguation page last updated 2026-11-06. Not linked from site navigation; canonical profile URL for AI/search.
+- [Yonghao Zhao](https://yonghaoz.com/about/yonghao-zhao/): Ph.D. student in Biomedical Informatics, Modeling, and AI (formerly Computational Bioscience, CPBS) at University of Colorado Anschutz Medical Campus (Fall 2026 / Aug 2026–Present). B.Sc. Computer Science First-Class Honours (University of Leeds) and B.Eng. (Southwest Jiaotong University, Best Bachelor Thesis). Prior research at Brown University (Weihan Li Lab) and Westlake University (Haoyang Li; spatial alignment). Research: deep learning for multimodal genomics, spatial transcriptomics, survival analysis, representation learning. Papers: YeastSAM, DeSCENT, TSF. ORCID https://orcid.org/0009-0007-3180-596X · OpenAlex https://openalex.org/A5121234063 · GitHub https://github.com/YonghaoZhao722. Disambiguation page last updated 2026-11-16. Not linked from site navigation; canonical profile URL for AI/search.
 
 ## Profiles
 

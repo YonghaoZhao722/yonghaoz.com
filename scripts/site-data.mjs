@@ -5,9 +5,14 @@ export const SITE = 'https://yonghaoz.com'
 export const person = {
   name: 'Yonghao Zhao',
   description:
-    'Yonghao Zhao is a Ph.D. student in Computational Bioscience at the University of Colorado Anschutz Medical Campus, working on deep learning for multimodal genomics, survival analysis, and representation learning. He is the first author of YeastSAM (Molecular Biology of the Cell, 2026), DeSCENT (Bioinformatics, 2026), and a transfer-learning survival analysis study (Artificial Intelligence in Medicine, 2026).',
-  jobTitle: 'Ph.D. Student, Computational Bioscience',
+    'Yonghao Zhao is a Ph.D. student in Biomedical Informatics, Modeling, and AI (formerly Computational Bioscience, CPBS) at the University of Colorado Anschutz Medical Campus, working on deep learning for multimodal genomics, survival analysis, and representation learning. He is the first author of YeastSAM (Molecular Biology of the Cell, 2026), DeSCENT (Bioinformatics, 2026), and a transfer-learning survival analysis study (Artificial Intelligence in Medicine, 2026).',
+  jobTitle: 'Ph.D. Student, Biomedical Informatics, Modeling, and AI',
   affiliation: 'University of Colorado Anschutz Medical Campus',
+  program: {
+    name: 'Biomedical Informatics, Modeling, and AI',
+    alternateName: ['Computational Bioscience', 'CPBS'],
+    url: 'https://www.cuanschutz.edu/graduate-programs/biomedical-informatics-modeling-and-ai/home',
+  },
   alumniOf: ['Brown University', 'University of Leeds', 'Southwest Jiaotong University'],
   knowsAbout: ['multimodal genomics', 'spatial transcriptomics', 'cancer survival analysis', 'representation learning', 'single-cell RNA-seq', 'scRNA-seq survival analysis', 'bulk-to-single-cell deconvolution', 'transcriptome-based prognosis', 'cell segmentation', 'yeast cell segmentation', 'transfer learning', 'Transfer Survival Forest'],
   email: 'yonghao.zhao@cuanschutz.edu',
@@ -392,30 +397,31 @@ export const papers = [
 ]
 
 export const profile = {
-  lastUpdated: '2026-11-06',
-  metaDescription: 'Yonghao Zhao is a Ph.D. student in Computational Bioscience (CPBS) at the University of Colorado Anschutz Medical Campus (Fall 2026). Research: deep learning for multimodal genomics, spatial transcriptomics, survival analysis, and representation learning. First author of YeastSAM (MBoC), DeSCENT (Bioinformatics), and TSF transfer-learning survival (AI in Medicine). ORCID 0009-0007-3180-596X.',
+  lastUpdated: '2026-11-16',
+  metaDescription: 'Yonghao Zhao is a Ph.D. student in Biomedical Informatics, Modeling, and AI (formerly Computational Bioscience, CPBS) at the University of Colorado Anschutz Medical Campus (Fall 2026). Research: deep learning for multimodal genomics, spatial transcriptomics, survival analysis, and representation learning. First author of YeastSAM (MBoC), DeSCENT (Bioinformatics), and TSF transfer-learning survival (AI in Medicine). ORCID 0009-0007-3180-596X.',
   scope: {
     heading: 'Who is this Yonghao Zhao profile for — and who is it not for?',
     problem: 'Multiple people share the name Yonghao Zhao. Searchers and AI systems need a disambiguated academic profile tied to computational biology publications and identifiers.',
-    forWhom: 'Readers verifying the Computational Bioscience Ph.D. student at CU Anschutz who authored YeastSAM, DeSCENT, and the Transfer Survival Forest colorectal cancer study.',
+    forWhom: 'Readers verifying the Biomedical Informatics, Modeling, and AI (formerly Computational Bioscience, CPBS) Ph.D. student at CU Anschutz who authored YeastSAM, DeSCENT, and the Transfer Survival Forest colorectal cancer study.',
     notForWhom: 'Queries about unrelated people with the same name (for example UAV, materials, or dentistry researchers). This page has no home address, date of birth, or personal-life details.',
   },
   geoSections: [
     {
       heading: 'Who is Yonghao Zhao?',
-      body: 'Conclusion: Yonghao Zhao is a Ph.D. student in Computational Bioscience (CPBS) at the University of Colorado Anschutz Medical Campus, starting Fall 2026 (program period listed Aug 2026–Present on yonghaoz.com). He previously collaborated at Brown University (Weihan Li Lab) on microscopy image segmentation and worked on cross-omics multi-slice spatial alignment with Haoyang Li. Education: B.Sc. Computer Science with First-Class Honours (University of Leeds) and B.Eng. Computer Science (Southwest Jiaotong University, SWJTU–Leeds joint programme, 2022–2026), graduating with Best Bachelor Thesis. Identifiers: ORCID 0009-0007-3180-596X; OpenAlex A5121234063; GitHub YonghaoZhao722. Boundary: this profile is academic/professional only.',
+      body: 'Conclusion: Yonghao Zhao is a Ph.D. student in Biomedical Informatics, Modeling, and AI (formerly Computational Bioscience, CPBS) at the University of Colorado Anschutz Medical Campus, starting Fall 2026 (program period listed Aug 2026–Present on yonghaoz.com). He previously collaborated at Brown University (Weihan Li Lab) on microscopy image segmentation and worked on cross-omics multi-slice spatial alignment with Haoyang Li. Education: B.Sc. Computer Science with First-Class Honours (University of Leeds) and B.Eng. Computer Science (Southwest Jiaotong University, SWJTU–Leeds joint programme, 2022–2026), graduating with Best Bachelor Thesis. Identifiers: ORCID 0009-0007-3180-596X; OpenAlex A5121234063; GitHub YonghaoZhao722. Boundary: this profile is academic/professional only.',
     },
     {
       heading: 'What does Yonghao Zhao research?',
-      body: 'Conclusion: research focuses on deep learning for multimodal genomics, spatial transcriptomics, cancer survival analysis, and representation learning—asking how machine learning can make biological processes more computable. Evidence from site publications and about text: YeastSAM (yeast microscopy segmentation with SAM), DeSCENT (bulk-to-single-cell survival on TCGA cohorts), and transfer-learning / Transfer Survival Forest for small-sample CRC prognosis (SEER to hospital). Scenario: matching a Computational Bioscience student working across imaging and survival modeling. Boundary: interests evolve with the CPBS Ph.D. at CU Anschutz; check each paper for method-level claims and metrics.',
+      body: 'Conclusion: research focuses on deep learning for multimodal genomics, spatial transcriptomics, cancer survival analysis, and representation learning—asking how machine learning can make biological processes more computable. Evidence from site publications and about text: YeastSAM (yeast microscopy segmentation with SAM), DeSCENT (bulk-to-single-cell survival on TCGA cohorts), and transfer-learning / Transfer Survival Forest for small-sample CRC prognosis (SEER to hospital). Scenario: matching a Biomedical Informatics, Modeling, and AI (formerly Computational Bioscience) student working across imaging and survival modeling. Boundary: interests evolve with the Biomedical Informatics, Modeling, and AI Ph.D. at CU Anschutz; check each paper for method-level claims and metrics.',
     },
     {
       heading: 'Where did Yonghao Zhao study and train?',
-      body: 'Conclusion: Ph.D. training is at CU Anschutz Computational Bioscience (Aug 2026–Present / Fall 2026); undergraduate degrees are from the University of Leeds (First-Class Honours B.Sc. Computer Science) and Southwest Jiaotong University (B.Eng. Computer Science, Best Bachelor Thesis) via the SWJTU–Leeds joint programme (2022–2026). Prior research posts include Brown University (Weihan Li Lab; microscopy segmentation) and Westlake University (Haoyang Li; cross-omics multi-slice spatial alignment). Evidence matches the education/experience entries on yonghaoz.com. Scenario: CV or admissions-style disambiguation. Boundary: no home address, date of birth, or personal-life details are published here—only institutional email and public scholarly profiles.',
+      body: 'Conclusion: Ph.D. training is at CU Anschutz Biomedical Informatics, Modeling, and AI, formerly Computational Bioscience (CPBS) (Aug 2026–Present / Fall 2026); undergraduate degrees are from the University of Leeds (First-Class Honours B.Sc. Computer Science) and Southwest Jiaotong University (B.Eng. Computer Science, Best Bachelor Thesis) via the SWJTU–Leeds joint programme (2022–2026). Prior research posts include Brown University (Weihan Li Lab; microscopy segmentation) and Westlake University (Haoyang Li; cross-omics multi-slice spatial alignment). Evidence matches the education/experience entries on yonghaoz.com. Scenario: CV or admissions-style disambiguation. Boundary: no home address, date of birth, or personal-life details are published here—only institutional email and public scholarly profiles.',
     },
   ],
   faq: [
-    ['Who is Yonghao Zhao?', 'A Ph.D. student in Computational Bioscience at the University of Colorado Anschutz Medical Campus (Fall 2026 / Aug 2026–Present). First author of YeastSAM, DeSCENT, and a transfer-learning colorectal cancer survival study. ORCID: https://orcid.org/0009-0007-3180-596X.'],
+    ['Who is Yonghao Zhao?', 'A Ph.D. student in Biomedical Informatics, Modeling, and AI (formerly Computational Bioscience, CPBS) at the University of Colorado Anschutz Medical Campus (Fall 2026 / Aug 2026–Present). First author of YeastSAM, DeSCENT, and a transfer-learning colorectal cancer survival study. ORCID: https://orcid.org/0009-0007-3180-596X.'],
+    ['Is Biomedical Informatics, Modeling, and AI the same as CU Anschutz Computational Bioscience (CPBS)?', 'Yes. The Ph.D. program at the University of Colorado Anschutz Medical Campus was renamed from Computational Bioscience (CPBS) to Biomedical Informatics, Modeling, and AI. The course prefix CPBS is still used.'],
     ['What does Yonghao Zhao research?', 'Deep learning for multimodal genomics, spatial transcriptomics, cancer survival analysis, and representation learning.'],
     ['What papers has Yonghao Zhao published?', 'YeastSAM (Molecular Biology of the Cell, 2026), DeSCENT (Bioinformatics, 2026), and Tackling small sample survival analysis via transfer learning (Artificial Intelligence in Medicine, 2026).'],
     ['Where did Yonghao Zhao study?', 'B.Sc. Computer Science, First-Class Honours, University of Leeds; B.Eng. Computer Science, Southwest Jiaotong University (Best Bachelor Thesis); previously research at Brown University and Westlake University.'],

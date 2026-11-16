@@ -18,6 +18,13 @@ const personLd = {
   name: person.name, url: `${SITE}/about/yonghao-zhao/`, image: `${SITE}/avatar.png`,
   description: person.description, jobTitle: person.jobTitle, email: `mailto:${person.email}`,
   affiliation: { '@type': 'CollegeOrUniversity', name: person.affiliation },
+  memberOf: {
+    '@type': 'Organization',
+    name: person.program.name,
+    alternateName: person.program.alternateName,
+    url: person.program.url,
+    parentOrganization: { '@type': 'CollegeOrUniversity', name: person.affiliation },
+  },
   alumniOf: person.alumniOf.map((name) => ({ '@type': 'CollegeOrUniversity', name })),
   knowsAbout: person.knowsAbout,
   sameAs: [...new Set([...(person.sameAs || []), `${SITE}/`, `${SITE}/about/yonghao-zhao/`])],
@@ -176,7 +183,7 @@ function paperPage(p) {
       <dl>${p.faq.map(([q, a]) => `<dt>${esc(q)}</dt><dd>${esc(a)}</dd>`).join('')}</dl>
       ${updatedLine}
     </article>
-    <footer><p class="meta">Yonghao Zhao · Ph.D. student, Computational Bioscience, University of Colorado Anschutz · <a href="/">yonghaoz.com</a></p></footer>
+    <footer><p class="meta">Yonghao Zhao · Ph.D. student, Biomedical Informatics, Modeling, and AI, University of Colorado Anschutz · <a href="/">yonghaoz.com</a></p></footer>
   </body>
 </html>
 `
@@ -204,7 +211,7 @@ function profilePage() {
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yonghao Zhao — Computational Bioscience Ph.D. student | CU Anschutz</title>
+    <title>Yonghao Zhao | PhD Student in Biomedical Informatics &amp; AI, CU Anschutz</title>
     <meta name="description" content="${esc(profile.metaDescription || person.description)}">
     <link rel="canonical" href="${canonical}">
     <link rel="icon" type="image/png" href="/avatar.png">
@@ -227,7 +234,7 @@ function profilePage() {
       <dl>${faq.map(([q, a]) => `<dt>${esc(q)}</dt><dd>${esc(a)}</dd>`).join('')}</dl>
       ${updatedLine}
     </article>
-    <footer><p class="meta">Yonghao Zhao · Ph.D. student, Computational Bioscience, University of Colorado Anschutz · ${SITE}</p></footer>
+    <footer><p class="meta">Yonghao Zhao · Ph.D. student, Biomedical Informatics, Modeling, and AI, University of Colorado Anschutz · ${SITE}</p></footer>
   </body>
 </html>
 `
