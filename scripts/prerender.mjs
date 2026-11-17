@@ -10,6 +10,7 @@ import { renderToString } from 'react-dom/server'
 
 const dist = new URL('../dist/', import.meta.url)
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+const goatcounter = '<script data-goatcounter="https://yonghaoz.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
 const jsonLd = (o) => `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, '\\u003c')}</script>`
 const venueLine = (p) => `${p.venue}, ${p.year}`
 
@@ -184,6 +185,7 @@ function paperPage(p) {
       ${updatedLine}
     </article>
     <footer><p class="meta">Yonghao Zhao · Ph.D. student, Biomedical Informatics, Modeling, and AI, University of Colorado Anschutz · <a href="/">yonghaoz.com</a></p></footer>
+    ${goatcounter}
   </body>
 </html>
 `
@@ -235,6 +237,7 @@ function profilePage() {
       ${updatedLine}
     </article>
     <footer><p class="meta">Yonghao Zhao · Ph.D. student, Biomedical Informatics, Modeling, and AI, University of Colorado Anschutz · ${SITE}</p></footer>
+    ${goatcounter}
   </body>
 </html>
 `

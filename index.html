@@ -23,5 +23,20 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Include the hash so /#/blog is not collapsed to the canonical "/".
+      // count.js already records the initial load; only count later hash changes.
+      window.goatcounter = {
+        path: function () {
+          return location.pathname + location.search + location.hash
+        },
+      }
+      window.addEventListener('hashchange', function () {
+        if (window.goatcounter && window.goatcounter.count) {
+          window.goatcounter.count()
+        }
+      })
+    </script>
+    <script data-goatcounter="https://yonghaoz.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </body>
 </html>
