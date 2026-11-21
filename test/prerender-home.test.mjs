@@ -15,7 +15,9 @@ test('build serves the styled home content without JavaScript and retains discov
   assert.match(html, /application\/ld\+json/)
   assert.match(html, /rel="canonical"/)
   for (const slug of ['descent', 'yeastsam', 'tsf']) {
-    assert.ok(html.includes(`href="/papers/${slug}/"`), `Missing ${slug} discovery link`)
+    const page = await readFile(new URL(`../dist/papers/${slug}/index.html`, import.meta.url), 'utf8')
+    assert.match(page, /name="citation_title"/, `Missing ${slug} discovery page`)
+    assert.doesNotMatch(page, /rel="canonical"[^>]*ref=llms/)
   }
   const paper = await readFile(new URL('../dist/papers/descent/index.html', import.meta.url), 'utf8')
   assert.match(paper, /name="citation_title"/)
@@ -28,4 +30,31 @@ test('build serves the styled home content without JavaScript and retains discov
   assert.match(llms, /https:\/\/yonghaoz\.com\/papers\/yeastsam\/\?ref=llms/)
   assert.match(llms, /https:\/\/yonghaoz\.com\/papers\/tsf\/\?ref=llms/)
   assert.match(llms, /https:\/\/yonghaoz\.com\/about\/yonghao-zhao\/\?ref=llms/)
+  assert.match(llms, /Is transfer learning effective for small-sample biomedical \/ survival data\?/)
+  assert.match(llms, /gains observed down to n = 50/)
+  assert.doesNotMatch(llms, /赵永浩/)
+
+  const tsf = await readFile(new URL('../dist/papers/tsf/index.html', import.meta.url), 'utf8')
+  assert.match(tsf, /<h2>Citable claim<\/h2>/)
+  assert.match(tsf, /Transfer learning from a related large cohort can improve survival models when the target clinical sample is small \(gains observed down to n = 50 in a SEER-to-hospital colorectal cancer study\)\./)
+  assert.match(tsf, /Transfer Survival Forest \(TSF\)/)
+  assert.match(tsf, /https:\/\/github\.com\/YonghaoZhao722\/TSF/)
+  assert.match(tsf, /@article\{zhao2026tsf/)
+  assert.match(tsf, /10\.1016\/j\.artmed\.2026\.103426/)
+  assert.doesNotMatch(tsf, /rel="canonical"[^>]*ref=llms/)
+  assert.doesNotMatch(tsf, /赵永浩/)
+
+  const ldBlocks = [...tsf.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]))
+  const article = ldBlocks.find((b) => b['@type'] === 'ScholarlyArticle')
+  assert.ok(article, 'Missing ScholarlyArticle JSON-LD on TSF page')
+  assert.equal(article.url, 'https://yonghaoz.com/papers/tsf/')
+  assert.doesNotMatch(article.url, /ref=llms/)
+  assert.doesNotMatch(JSON.stringify(article), /ref=llms/)
+  assert.ok(
+    article.description.startsWith('Transfer learning from a related large cohort can improve survival models when the target clinical sample is small'),
+    'JSON-LD description should lead with the small-sample transfer-learning claim',
+  )
+  assert.match(article.description, /Transfer Survival Forest \(TSF\)/)
+  assert.doesNotMatch(sitemap, /ref=llms/)
+  assert.doesNotMatch(sitemap, /赵永浩/)
 })

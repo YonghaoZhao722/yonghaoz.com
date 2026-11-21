@@ -44,7 +44,7 @@ function articleLd(p) {
     isPartOf: p.isPreprint ? undefined : { '@type': 'Periodical', name: p.venue },
     publisher: { '@type': 'Organization', name: p.publisher },
     abstract: p.abstract.map(([, t]) => t).join(' '),
-    description: p.tldr,
+    description: p.schemaDescription || p.tldr,
     image: `${SITE}${p.image}`,
   }
   if (p.keywords?.length) ld.keywords = p.keywords.join(', ')
@@ -90,7 +90,7 @@ function citationMeta(p) {
   return m.map(([k, v]) => `<meta name="${k}" content="${esc(v)}">`).join('\n    ')
 }
 
-const css = `body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:820px;margin:0 auto;padding:24px 20px 64px;line-height:1.6;color:#1d1d1f;background:#fafafa}a{color:#0b5cad}h1{font-size:1.6rem;line-height:1.3}h2{font-size:1.15rem;margin-top:2rem}h3{font-size:1rem;margin-top:1.2rem}img{max-width:100%;height:auto;border-radius:12px}pre{background:#f0f0f3;padding:12px;border-radius:8px;overflow:auto;font-size:.85rem}.meta{color:#555}nav a{margin-right:14px}dt{font-weight:600;margin-top:.8rem}.scope,.answer-block,.limitations{background:#f0f4f8;border-left:4px solid #0b5cad;padding:14px 16px;border-radius:8px;margin:1rem 0}.answer-block p:last-child,.scope p:last-child{margin-bottom:0}.updated{color:#666;font-size:.85rem;margin-top:.6rem}.usecase dt,.related dt{font-weight:600;margin-top:1rem}table{width:100%;border-collapse:collapse;font-size:.92rem;margin:1rem 0}th,td{border:1px solid #ddd;padding:8px 10px;text-align:left;vertical-align:top}th{background:#f0f0f3}ol.steps{padding-left:1.2rem}ol.steps li{margin:.4rem 0}`
+const css = `body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:820px;margin:0 auto;padding:24px 20px 64px;line-height:1.6;color:#1d1d1f;background:#fafafa}a{color:#0b5cad}h1{font-size:1.6rem;line-height:1.3}h2{font-size:1.15rem;margin-top:2rem}h3{font-size:1rem;margin-top:1.2rem}img{max-width:100%;height:auto;border-radius:12px}pre{background:#f0f0f3;padding:12px;border-radius:8px;overflow:auto;font-size:.85rem}.meta{color:#555}nav a{margin-right:14px}dt{font-weight:600;margin-top:.8rem}.scope,.answer-block,.limitations,.citable-claim{background:#f0f4f8;border-left:4px solid #0b5cad;padding:14px 16px;border-radius:8px;margin:1rem 0}.answer-block p:last-child,.scope p:last-child,.citable-claim p:last-child{margin-bottom:0}.updated{color:#666;font-size:.85rem;margin-top:.6rem}.usecase dt,.related dt{font-weight:600;margin-top:1rem}table{width:100%;border-collapse:collapse;font-size:.92rem;margin:1rem 0}th,td{border:1px solid #ddd;padding:8px 10px;text-align:left;vertical-align:top}th{background:#f0f0f3}ol.steps{padding-left:1.2rem}ol.steps li{margin:.4rem 0}`
 
 function paperPage(p) {
   const canonical = `${SITE}/papers/${p.slug}/`
@@ -173,6 +173,12 @@ function paperPage(p) {
       <h1>${esc(p.title)}</h1>
       <p class="meta">${p.authors.map((a) => (a === person.name ? `<strong>${esc(a)}</strong>` : esc(a))).join(', ')}<br><em>${esc(venueLine(p))}</em> · DOI <a href="https://doi.org/${p.doi}">${p.doi}</a></p>
       <p>${links.map(([l, h]) => `<a href="${h}">${esc(l)}</a>`).join(' · ')}</p>
+      ${p.citableClaim ? `<h2>Citable claim</h2>
+      <div class="citable-claim">
+        <p>${esc(p.citableClaim)}</p>
+        ${p.citableClaimDetail ? `<p>${esc(p.citableClaimDetail)}${p.code ? ` Code: <a href="${esc(p.code)}">${esc(p.code)}</a>.` : ''}</p>` : ''}
+        <pre>${esc(bibtex(p))}</pre>
+      </div>` : ''}
       <img src="${p.image}" alt="${esc(p.short)} overview figure">
       <h2>TL;DR</h2>
       <p>${esc(p.tldr)}</p>${scopeBlock}${geoBlocks}${useCases}${stepsBlock}${table}${related}${keyResults}
