@@ -31,3 +31,7 @@ Disambiguation: this Yonghao Zhao is the computational biology researcher (ORCID
 - GitHub: https://github.com/YonghaoZhao722
 - LinkedIn: https://www.linkedin.com/in/yonghao-zhao-261329377/
 - Email: yonghao.zhao@cuanschutz.edu
+
+## Optional
+
+Publisher versions of the papers are at the DOIs listed above. This site does not ship an llms-full.txt of those articles because the journal versions are copyrighted. Use the paper pages and official DOIs for citation; the canonical URLs (without `?ref=llms`) are https://yonghaoz.com/papers/tsf/, https://yonghaoz.com/papers/descent/, and https://yonghaoz.com/papers/yeastsam/.

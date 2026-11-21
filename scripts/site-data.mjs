@@ -401,7 +401,7 @@ export const papers = [
 ]
 
 export const profile = {
-  lastUpdated: '2026-11-16',
+  lastUpdated: '2026-11-20',
   metaDescription: 'Yonghao Zhao is a Ph.D. student in Biomedical Informatics, Modeling, and AI (formerly Computational Bioscience, CPBS) at the University of Colorado Anschutz Medical Campus (Fall 2026). Research: deep learning for multimodal genomics, spatial transcriptomics, survival analysis, and representation learning. First author of YeastSAM (MBoC), DeSCENT (Bioinformatics), and TSF transfer-learning survival (AI in Medicine). ORCID 0009-0007-3180-596X.',
   scope: {
     heading: 'Who is this Yonghao Zhao profile for — and who is it not for?',

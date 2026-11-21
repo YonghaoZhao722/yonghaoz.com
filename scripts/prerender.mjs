@@ -31,6 +31,18 @@ const personLd = {
   sameAs: [...new Set([...(person.sameAs || []), `${SITE}/`, `${SITE}/about/yonghao-zhao/`])],
 }
 
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE}/#website`,
+  name: 'Yonghao Zhao',
+  url: `${SITE}/`,
+  description: 'Personal academic site of Yonghao Zhao, a Ph.D. student in Biomedical Informatics, Modeling, and AI at the University of Colorado Anschutz Medical Campus.',
+  inLanguage: 'en',
+  author: { '@id': `${SITE}/#person` },
+  publisher: { '@id': `${SITE}/#person` },
+}
+
 function articleLd(p) {
   const sameAs = [...new Set([`https://doi.org/${p.doi}`, p.url, p.code, p.archive].filter(Boolean))]
   const ld = {
@@ -42,6 +54,7 @@ function articleLd(p) {
     identifier: { '@type': 'PropertyValue', propertyID: 'DOI', value: p.doi },
     sameAs,
     isPartOf: p.isPreprint ? undefined : { '@type': 'Periodical', name: p.venue },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE}/papers/${p.slug}/`, url: `${SITE}/papers/${p.slug}/`, isPartOf: { '@id': `${SITE}/#website` } },
     publisher: { '@type': 'Organization', name: p.publisher },
     abstract: p.abstract.map(([, t]) => t).join(' '),
     description: p.schemaDescription || p.tldr,
@@ -162,13 +175,15 @@ function paperPage(p) {
     <meta property="og:url" content="${canonical}">
     <meta property="og:image" content="${SITE}${p.image}">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="author" content="Yonghao Zhao">
     ${citationMeta(p)}
+    ${jsonLd(websiteLd)}
     ${jsonLd(articleLd(p))}
     ${faqBlock ? jsonLd(faqBlock) : ''}
     <style>${css}</style>
   </head>
   <body>
-    <nav><a href="/">← Yonghao Zhao</a>${papers.filter((x) => x !== p).map((x) => `<a href="/papers/${x.slug}/">${esc(x.short)}</a>`).join('')}</nav>
+    <nav><a href="/">← Yonghao Zhao</a><a href="/about/yonghao-zhao/">About</a>${papers.filter((x) => x !== p).map((x) => `<a href="/papers/${x.slug}/">${esc(x.short)}</a>`).join('')}</nav>
     <article>
       <h1>${esc(p.title)}</h1>
       <p class="meta">${p.authors.map((a) => (a === person.name ? `<strong>${esc(a)}</strong>` : esc(a))).join(', ')}<br><em>${esc(venueLine(p))}</em> · DOI <a href="https://doi.org/${p.doi}">${p.doi}</a></p>
@@ -208,6 +223,17 @@ function profilePage() {
     url: canonical,
     mainEntityOfPage: canonical,
   }
+  const profilePageLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': canonical,
+    url: canonical,
+    name: 'Yonghao Zhao',
+    dateModified: updated,
+    author: { '@id': `${SITE}/#person` },
+    mainEntity: { '@id': `${SITE}/#person` },
+    isPartOf: { '@id': `${SITE}/#website` },
+  }
   const geoBlocks = (profile.geoSections || []).map((s) => `\n      <h2>${esc(s.heading)}</h2>\n      <div class="answer-block">\n        <p>${esc(s.body)}</p>\n        ${updatedLine}\n      </div>`).join('')
   const scope = profile.scope
     ? `\n      <h2>${esc(profile.scope.heading || 'Who is this profile for — and who is it not for?')}</h2>\n      <div class="scope">\n        <h3>Problem</h3>\n        <p>${esc(profile.scope.problem)}</p>\n        <h3>For</h3>\n        <p>${esc(profile.scope.forWhom)}</p>\n        <h3>Not for</h3>\n        <p>${esc(profile.scope.notForWhom)}</p>\n        ${updatedLine}\n      </div>`
@@ -221,6 +247,7 @@ function profilePage() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yonghao Zhao | PhD Student in Biomedical Informatics &amp; AI, CU Anschutz</title>
     <meta name="description" content="${esc(profile.metaDescription || person.description)}">
+    <meta name="author" content="Yonghao Zhao">
     <link rel="canonical" href="${canonical}">
     <link rel="icon" type="image/png" href="/avatar.png">
     <meta property="og:type" content="profile">
@@ -228,15 +255,19 @@ function profilePage() {
     <meta property="og:description" content="${esc(person.description)}">
     <meta property="og:url" content="${canonical}">
     <meta property="og:image" content="${SITE}/avatar.png">
+    <meta property="article:modified_time" content="${esc(updated)}">
     <meta name="twitter:card" content="summary">
+    ${jsonLd(websiteLd)}
     ${jsonLd(personPageLd)}
+    ${jsonLd(profilePageLd)}
     ${faqBlock ? jsonLd(faqBlock) : ''}
     <style>${css}</style>
   </head>
   <body>
+    <nav><a href="/">← Yonghao Zhao</a></nav>
     <article>
       <h1>Yonghao Zhao</h1>
-      <p class="meta">${esc(person.jobTitle)} · ${esc(person.affiliation)}</p>
+      <p class="meta">${esc(person.jobTitle)} · ${esc(person.affiliation)}<br>Written and maintained by Yonghao Zhao.</p>
       <p>${esc(person.description)}</p>${scope}${geoBlocks}${papersList}${links}
       <h2>FAQ</h2>
       <dl>${faq.map(([q, a]) => `<dt>${esc(q)}</dt><dd>${esc(a)}</dd>`).join('')}</dl>
@@ -264,7 +295,7 @@ let index = await readFile(new URL('index.html', dist), 'utf8')
 if (!index.includes('<div id="root"></div>')) throw new Error('root div not found')
 const homeHtml = await homeStatic()
 index = index.replace('<div id="root"></div>', () => `<div id="root">${homeHtml}</div>`)
-index = index.replace('</head>', `  ${jsonLd(personLd)}\n  </head>`)
+index = index.replace('</head>', `  ${jsonLd(websiteLd)}\n  ${jsonLd(personLd)}\n  </head>`)
 await writeFile(new URL('index.html', dist), index)
 
 for (const p of papers) {
